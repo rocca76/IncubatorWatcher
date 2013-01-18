@@ -13,12 +13,6 @@ namespace IncubatorWatch
     {
         public static MainWindow Instance;
 
-        private bool _isQuickModeEnable = true;
-        private double _prevDetailedSizeHeight = 480;
-        private double _prevDetailedSizeWidth = 720;
-        private double _prevWinSizeHeight;
-        private double _prevWinSizeWidth;
-
         public MainWindow()
         {
             Instance = this;
@@ -26,52 +20,9 @@ namespace IncubatorWatch
             ThemeManager.ChangeTheme(this, ThemeManager.DefaultAccents.First(a => a.Name == "Netw"), Theme.Light);
         }
 
-        private void WindowLoaded(object sender, RoutedEventArgs e)
-        {
-            _prevWinSizeWidth = Width;
-            _prevWinSizeHeight = Height;
-        }
-
         private void Button1Click(object sender, RoutedEventArgs e)
         {
-            if (_isQuickModeEnable)
-            {
-                ChangeVisibilityOfEndTaskBtn(Visibility.Visible);
-            }
-            else
-            {
-                //detailedViewModelGadget.KillSelectedTask();
-                MessageBox.Show("Button1Click");
-            }
-        }
-
-        private void ExpanMoreLessInfoExpanded(object sender, RoutedEventArgs e)
-        {
-            expan_MoreLessInfo.Header = "Fewer details";
-            _prevWinSizeWidth = Width;
-            _prevWinSizeHeight = Height;
-
-            Height = _prevDetailedSizeHeight;
-            Width = _prevDetailedSizeWidth;
-
-            detailedViewModelGadget.Visibility = Visibility.Visible;
-            _isQuickModeEnable = false;
-        }
-
-        private void ExpanMoreLessInfoCollapsed(object sender, RoutedEventArgs e)
-        {
-            expan_MoreLessInfo.Header = "More details";
-
-            _prevDetailedSizeWidth = Width;
-            _prevDetailedSizeHeight = Height;
-
-            Width = _prevWinSizeWidth;
-            Height = _prevWinSizeHeight;
-
-            detailedViewModelGadget.Visibility = Visibility.Hidden;
-            _isQuickModeEnable = true;
-
-            btnEndTask.Visibility = Visibility.Visible;
+          MessageBox.Show("Button1Click");
         }
 
         private void WindowClosing(object sender, CancelEventArgs e)
@@ -106,12 +57,10 @@ namespace IncubatorWatch
             if (color == Theme.Dark)
             {
                 ThemeManager.ChangeTheme(this, ThemeManager.DefaultAccents.First(a => a.Name == "Netw"), Theme.Dark);
-                //detailedViewModelGadget.SwitchTheme(color);
             }
             else if (color == Theme.Light)
             {
                 ThemeManager.ChangeTheme(this, ThemeManager.DefaultAccents.First(a => a.Name == "Netw"), Theme.Light);
-                //detailedViewModelGadget.SwitchTheme(color);
             }
         }
 

@@ -27,50 +27,5 @@ namespace IncubatorWatch.Controls
 
             Instance = this;
         }
-
-        private void MenuItemShowPropertiesDialogClick(object sender, RoutedEventArgs e)
-        {
-            if (LstViewData.SelectedIndex != -1)
-            {
-                try
-                {
-                    MessageBox.Show("MenuItemShowPropertiesDialogClick");
-                }
-                catch (Exception exp)
-                {
-                    Trace.WriteLine("Something Went Wrong! :" + exp.Message);
-                }
-            }
-        }
-
-        private void MnuItemSearchOnline(object sender, RoutedEventArgs e)
-        {
-            if (LstViewData.SelectedIndex != -1)
-            {
-                try
-                {
-                    MessageBox.Show("MnuItemSearchOnline");
-                }
-                catch (Exception exp)
-                {
-                    Trace.WriteLine("Something Went Wrong! :" + exp.Message);
-                }
-            }
-        }
-
-        private void MnuItemOpenFileLocation(object sender, RoutedEventArgs e)
-        {
-            if (LstViewData.SelectedIndex != -1)
-            {
-                try
-                {
-                    MessageBox.Show("MnuItemOpenFileLocation");
-                }
-                catch (Exception exp)
-                {
-                    Trace.WriteLine("Something Went Wrong! :" + exp.Message);
-                }
-            }
-        }
     }
 }
