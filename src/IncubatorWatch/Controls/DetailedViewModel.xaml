@@ -9,7 +9,7 @@
              DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Grid>
         <TabControl Name="tabCtrlMother">
-            <TabItem Header="Network Monitor">
+            <TabItem Header="Incubator Monitor">
                 <Grid>
                     <ListView Name="LstViewData" ItemsSource="{Binding GetAllData }" Margin="0,0,2,28">
                         <ListView.Foreground>
@@ -46,7 +46,7 @@
                     </ListView>
                 </Grid>
             </TabItem>
-            <TabItem Header="Network Graph">
+            <TabItem Header="Incubator Graph">
                 <Grid>
                     <Controls1:NetGraphControl x:Name="myGraphControl" />
                 </Grid>
