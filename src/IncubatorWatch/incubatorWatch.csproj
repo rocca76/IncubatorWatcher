@@ -110,6 +110,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="AsynchronousSocketListener.cs" />
     <Compile Include="Controls\DetailedViewModel.xaml.cs">
       <DependentUpon>DetailedViewModel.xaml</DependentUpon>
     </Compile>

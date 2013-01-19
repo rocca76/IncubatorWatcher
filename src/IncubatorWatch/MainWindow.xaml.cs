@@ -38,6 +38,7 @@ namespace IncubatorWatch
 
         private void MnuItemExitClick(object sender, RoutedEventArgs e)
         {
+            detailedViewModelGadget.Shutdown();
             Application.Current.Shutdown(0);
         }
 
@@ -76,11 +77,6 @@ namespace IncubatorWatch
                 SwitchTheme(Theme.Light);
                 BtnSwitchColors.Content = "Dark";
             }
-        }
-
-        public void ChangeVisibilityOfEndTaskBtn(Visibility value)
-        {
-            btnEndTask.Visibility = value;
         }
     }
 }

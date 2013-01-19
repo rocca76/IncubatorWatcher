@@ -18,9 +18,6 @@ namespace IncubatorWatch.Controls
     /// </summary>
     public partial class NetGraphControl
     {
-        public long GlobalReceives = 0;
-        public long GlobalSent = 0;
-
         public NetGraphControl()
         {
             InitializeComponent();
@@ -44,28 +41,6 @@ namespace IncubatorWatch.Controls
             sentGraph.SetYMapping(y => y.ByteSent);
             plotter.AddLineGraph(sentGraph, Colors.Red, 1, "SentBytes");
             recLineSent.Stroke = Brushes.Red;*/
-        }
-
-        public void SwitchTheme(Theme color)
-        {
-            if (color == Theme.Dark)
-            {
-                var brush = new SolidColorBrush(Color.FromRgb(37, 37, 37));
-                Background = brush;
-                plotter.Background = brush;
-                lbl_Download.Foreground = Brushes.White;
-                lbl_MaxMarker.Foreground = Brushes.White;
-                lbl_Upload.Foreground = Brushes.White;
-            }
-            else if (color == Theme.Light)
-            {
-                Background = Brushes.White;
-                plotter.Background = Brushes.White;
-
-                lbl_Download.Foreground = Brushes.Black;
-                lbl_MaxMarker.Foreground = Brushes.Black;
-                lbl_Upload.Foreground = Brushes.Black;
-            }
         }
     }
 }
