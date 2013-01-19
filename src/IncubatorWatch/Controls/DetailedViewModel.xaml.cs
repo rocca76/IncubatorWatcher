@@ -47,7 +47,11 @@ namespace IncubatorWatch.Controls
 
         private void OnMessageReceived(String message)
         {
-             RefreshLables(message);
+            this.Dispatcher.Invoke((Action)(() =>
+            {
+                RefreshLables(message);
+            }));
+             
 
             /*if (this.statusStrip1.InvokeRequired)
             {
@@ -61,18 +65,25 @@ namespace IncubatorWatch.Controls
 
         public void RefreshLables(String message)
         {
-            string value = GetData(message, "temperature");
-
-            if (value.Length > 0)
+            try
             {
-                lbl_TotalRcvd.Content = "Température: " + value + "°C";
+                string value = GetData(message, "temperature");
+
+                if (value.Length > 0)
+                {
+                    lbl_TotalRcvd.Content = value + " °C";
+                }
+
+                value = GetData(message, "relativehumidity");
+
+                if (value.Length > 0)
+                {
+                    lbl_TotalSent.Content = value + " %";
+                }
             }
-
-            value = GetData(message, "relativehumidity");
-
-            if (value.Length > 0)
+            catch (Exception ex)
             {
-                lbl_TotalSent.Content = "Humidité Relative: " + value + "%";
+                MessageBox.Show(ex.ToString());
             }
         }
 

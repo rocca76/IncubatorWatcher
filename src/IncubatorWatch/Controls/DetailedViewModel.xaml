@@ -11,8 +11,8 @@
         <TabControl Name="tabCtrlMother">
             <TabItem Header="Statistics">
                 <Grid>
-                    <Label Content="Total Received Bytes :" Height="28" HorizontalAlignment="Left" Margin="45,42,0,0" Name="label7" VerticalAlignment="Top" />
-                    <Label Content="Total Sent Bytes :" Height="28" HorizontalAlignment="Left" Margin="69,76,0,0" Name="label8" VerticalAlignment="Top" />
+                    <Label Content="Température :" Height="28" HorizontalAlignment="Left" Margin="45,42,0,0" Name="label7" VerticalAlignment="Top" />
+                    <Label Content="Humidité Relative :" Height="28" HorizontalAlignment="Left" Margin="45,76,0,0" Name="label8" VerticalAlignment="Top" Width="134" />
                     <Label Content="0" Height="28" HorizontalAlignment="Left" Margin="175,42,0,0" Name="lbl_TotalRcvd" VerticalAlignment="Top" Width="295" />
                     <Label Content="0" Height="28" HorizontalAlignment="Left" Margin="175,76,0,0" Name="lbl_TotalSent" VerticalAlignment="Top" Width="295" />
                 </Grid>
