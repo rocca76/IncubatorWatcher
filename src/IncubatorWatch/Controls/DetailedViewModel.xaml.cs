@@ -11,6 +11,8 @@ using System.Windows.Documents;
 using System.Windows.Threading;
 using MahApps.Metro;
 using IncubatorWatch.Communication;
+using System.Xml;
+using System.IO;
 
 
 namespace IncubatorWatch.Controls
@@ -24,6 +26,12 @@ namespace IncubatorWatch.Controls
     {
         public static DetailedViewModel _instance;
         private static AsynchronousSocketListener _asyncSocketListener;
+
+
+        public static DetailedViewModel Instance
+        {
+            get { return _instance; }
+        }
 
         public DetailedViewModel()
         {
@@ -39,6 +47,8 @@ namespace IncubatorWatch.Controls
 
         private void OnMessageReceived(String message)
         {
+             RefreshLables(message);
+
             /*if (this.statusStrip1.InvokeRequired)
             {
 
@@ -47,6 +57,50 @@ namespace IncubatorWatch.Controls
             {
 
             }*/
+        }
+
+        public void RefreshLables(String message)
+        {
+            string value = GetData(message, "temperature");
+
+            if (value.Length > 0)
+            {
+                lbl_TotalRcvd.Content = "Température: " + value + "°C";
+            }
+
+            value = GetData(message, "relativehumidity");
+
+            if (value.Length > 0)
+            {
+                lbl_TotalSent.Content = "Humidité Relative: " + value + "%";
+            }
+        }
+
+        private string GetData(String message, String variable)
+        {
+            string value = "";
+
+            try
+            {
+                using (XmlReader xmlReader = XmlReader.Create(new StringReader(message)))
+                {
+                    while (xmlReader.Read())
+                    {
+                        if (xmlReader.IsStartElement(variable))
+                        {
+                            xmlReader.Read();
+                            value = xmlReader.Value;
+                        }
+                    }
+                    xmlReader.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(message);
+            }
+
+            return value;
         }
 
         public void Shutdown()
