@@ -10,7 +10,7 @@ using System.Windows;
 [assembly: AssemblyTitle("IncubatorWatch")]
 [assembly: AssemblyDescription("Incubator Activity Watcher")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("[taesiri]")]
+[assembly: AssemblyCompany("EATech")]
 [assembly: AssemblyProduct("IncubatorWatch")]
 [assembly: AssemblyCopyright("Copyright ©  2013")]
 [assembly: AssemblyTrademark("")]

@@ -47,20 +47,7 @@ namespace IncubatorWatch.Controls
 
         private void OnMessageReceived(String message)
         {
-            this.Dispatcher.Invoke((Action)(() =>
-            {
-                RefreshLables(message);
-            }));
-             
-
-            /*if (this.statusStrip1.InvokeRequired)
-            {
-
-            }
-            else
-            {
-
-            }*/
+            this.Dispatcher.Invoke((Action)(() => { RefreshLables(message); }));
         }
 
         public void RefreshLables(String message)
@@ -108,7 +95,7 @@ namespace IncubatorWatch.Controls
             }
             catch (Exception ex)
             {
-                MessageBox.Show(message);
+                MessageBox.Show(ex.ToString());
             }
 
             return value;
