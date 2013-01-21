@@ -7,12 +7,17 @@
              d:DesignHeight="247" d:DesignWidth="478" Name="NetMeterGadget" Background="DimGray">
     <Grid>
         <d3:ChartPlotter  Name="plotter" Margin="10,10,10,10" Grid.Column="1" Background="DimGray">
-            <d3:ChartPlotter.HorizontalAxis>
+            <d3:ChartPlotter.MainHorizontalAxis>
                 <d3:HorizontalDateTimeAxis Name="timeAxis" Visibility="Visible" />
-            </d3:ChartPlotter.HorizontalAxis>
-            <d3:ChartPlotter.VerticalAxis>
+            </d3:ChartPlotter.MainHorizontalAxis>
+            <d3:ChartPlotter.MainVerticalAxis>
                 <d3:VerticalIntegerAxis Name="countAxis" Visibility="Visible" Width="35" Height="163" />
-            </d3:ChartPlotter.VerticalAxis>
+            </d3:ChartPlotter.MainVerticalAxis>
+
+            <d3:ChartPlotter.FitToViewRestrictions>
+                <d3:DomainRestriction Domain="0,18,4,5"/>
+            </d3:ChartPlotter.FitToViewRestrictions>
+            
             <d3:Header Content="Température" FontSize="13" Foreground="Coral" />
             <d3:VerticalAxisTitle Name="VerticalAxisName"  Content="Degrée Celsius"  FontFamily="Segoe UI" FontSize="12" Foreground="Coral"/>
             <d3:HorizontalAxisTitle  Name="HorizontalAxisName"  Content="" FontSize="8" />
