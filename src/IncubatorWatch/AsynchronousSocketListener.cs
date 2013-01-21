@@ -65,16 +65,13 @@ namespace IncubatorWatch.Communication
             // Data buffer for incoming data.
             byte[] bytes = new Byte[1024];
 
-            // Establish the local endpoint for the socket.
-            IPEndPoint localEndPoint = new IPEndPoint(IPAddress.Parse("192.168.250.100"), 250);
-
             // Create a TCP/IP socket.
             Socket listener = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
             // Bind the socket to the local endpoint and listen for incoming connections.
             try
             {
-                listener.Bind(localEndPoint);
+                listener.Bind(new IPEndPoint(IPAddress.Any, 250));
                 listener.Listen(100);
 
                 while (true)

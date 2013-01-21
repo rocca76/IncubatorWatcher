@@ -4,23 +4,20 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:d3="http://research.microsoft.com/DynamicDataDisplay/1.0" mc:Ignorable="d"
-             d:DesignHeight="247" d:DesignWidth="478" Name="NetMeterGadget" Background="White">
+             d:DesignHeight="247" d:DesignWidth="478" Name="NetMeterGadget" Background="DimGray">
     <Grid>
-        <d3:ChartPlotter  Name="plotter" Margin="12,12,12,22" Background="Gray" BorderBrush="Azure" Foreground="Azure" IsEnabled="False">
+        <d3:ChartPlotter  Name="plotter" Margin="10,10,10,10" Grid.Column="1" Background="DimGray">
             <d3:ChartPlotter.HorizontalAxis>
-                <d3:HorizontalDateTimeAxis Name="timeAxis" Visibility="Hidden" />
+                <d3:HorizontalDateTimeAxis Name="timeAxis" Visibility="Visible" />
             </d3:ChartPlotter.HorizontalAxis>
             <d3:ChartPlotter.VerticalAxis>
-                <d3:VerticalIntegerAxis Name="countAxis" Visibility="Hidden"  Margin="-100" />
+                <d3:VerticalIntegerAxis Name="countAxis" Visibility="Visible" Width="35" Height="163" />
             </d3:ChartPlotter.VerticalAxis>
-            <d3:Header Content="Température" FontSize="13" Foreground="Azure" />
-            <d3:VerticalAxisTitle Name="VerticalAxisName"  Content="Température"  FontFamily="Segoe UI" FontSize="12" />
+            <d3:Header Content="Température" FontSize="13" Foreground="Coral" />
+            <d3:VerticalAxisTitle Name="VerticalAxisName"  Content="Degrée Celsius"  FontFamily="Segoe UI" FontSize="12" Foreground="Coral"/>
             <d3:HorizontalAxisTitle  Name="HorizontalAxisName"  Content="" FontSize="8" />
         </d3:ChartPlotter>
-        <Label Content="Received" Height="28" HorizontalAlignment="Left" Margin="181,0,0,40" Name="label1" VerticalAlignment="Bottom" FontSize="11" Foreground="Gray" Width="123" />
-        <Label Content="Sent" Height="28" HorizontalAlignment="Left" Margin="33,0,0,40" Name="label2" VerticalAlignment="Bottom" FontSize="11" Foreground="Gray" Width="123" />
         <Label Content="0.0" Height="23" Margin="0,7,12,0" Name="lbl_MaxMarker" VerticalAlignment="Top" HorizontalAlignment="Right" Width="83" FontSize="11" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" />
-        <Rectangle Height="46" HorizontalAlignment="Left" Margin="176,0,0,12" Name="recLineTemperature" Stroke="Black" VerticalAlignment="Bottom" Width="2" />
-        <Label Content="60 Minutes" FontSize="11" Height="26" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Margin="0,0,12,53" Name="label3" VerticalAlignment="Bottom" VerticalContentAlignment="Center" Width="98" />
+        <Label Content="60 Secondes" FontSize="11" Height="26" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Margin="0,0,20,82" Name="label3" VerticalAlignment="Bottom" VerticalContentAlignment="Center" Width="98" />
     </Grid>
 </UserControl>

@@ -12,10 +12,10 @@ namespace IncubatorWatch
         public IntPtr CurrPointer = IntPtr.Zero;
         public IntPtr PrevPointer = IntPtr.Zero;
 
-        /*public IncubatorDataCollection()
+        public IncubatorDataCollection()
             : base(TotalData)
         {
-        }*/
+        }
 
         public IncubatorDataCollection(int capacity)
             : base(capacity)
@@ -25,17 +25,17 @@ namespace IncubatorWatch
 
     public class IncubatorData
     {
-        public IncubatorData(DateTime time, Int64 temperature, Int64 relativeHumidity)
+        public IncubatorData(DateTime time, double temperature, double relativeHumidity)
         {
             Time = time;
-            Temperature = temperature;
-            RelativeHumidity = relativeHumidity;
+            this.Temperature = temperature;
+            this.RelativeHumidity = relativeHumidity;
         }
 
         public DateTime Time { get; set; }
 
-        public Int64 Temperature { get; set; }
+        public double Temperature { get; set; }
 
-        public Int64 RelativeHumidity { get; set; }
+        public double RelativeHumidity { get; set; }
     }
 }

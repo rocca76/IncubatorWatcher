@@ -129,6 +129,7 @@
       <DependentUpon>NetGraphControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="IncubatorDataCollection.cs" />
+    <Compile Include="IncubatorManager.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

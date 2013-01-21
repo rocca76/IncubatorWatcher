@@ -17,7 +17,7 @@ namespace IncubatorWatch
         {
             Instance = this;
             InitializeComponent();
-            ThemeManager.ChangeTheme(this, ThemeManager.DefaultAccents.First(a => a.Name == "Netw"), Theme.Light);
+            ThemeManager.ChangeTheme(this, ThemeManager.DefaultAccents.First(a => a.Name == "Netw"), Theme.Dark);
         }
 
         private void Button1Click(object sender, RoutedEventArgs e)
@@ -38,7 +38,6 @@ namespace IncubatorWatch
 
         private void MnuItemExitClick(object sender, RoutedEventArgs e)
         {
-            detailedViewModelGadget.Shutdown();
             Application.Current.Shutdown(0);
         }
 
