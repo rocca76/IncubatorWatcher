@@ -43,6 +43,6 @@
 
         <Button Content="End Task" HorizontalAlignment="Right" Margin="0,0,12,8" Name="btnEndTask" Width="97"
                 Height="23" VerticalAlignment="Bottom" Cursor="Hand" Click="Button1Click" />
-        <my:DetailedViewModel Margin="0,0,0,39" x:Name="detailedViewModelGadget" Visibility="Visible"/>
+        <my:DetailedViewModel x:Name="detailedViewModelGadget" Visibility="Visible"/>
     </Grid>
 </Controls:MetroWindow>

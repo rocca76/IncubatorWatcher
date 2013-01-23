@@ -19,7 +19,7 @@
             </TabItem>
             <TabItem Header="Graphique">
                 <Grid>
-                    <Controls1:NetGraphControl x:Name="myGraphControl" />
+                    <Controls1:NetGraphControl HorizontalAlignment="Left" x:Name="netGraphControl1" VerticalAlignment="Top" />
                 </Grid>
             </TabItem>
             <TabItem Header="About">

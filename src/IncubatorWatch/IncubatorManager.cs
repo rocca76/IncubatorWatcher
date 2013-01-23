@@ -77,9 +77,9 @@ namespace IncubatorWatch.Manager
                     xmlReader.Close();
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex)       
             {
-                MessageBox.Show(ex.ToString());
+                Console.Write(ex.ToString());
             }
 
             return value;
@@ -101,7 +101,7 @@ namespace IncubatorWatch.Manager
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                Console.Write(ex.ToString());
             }
         }
 

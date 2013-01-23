@@ -39,7 +39,7 @@ namespace IncubatorWatch.Controls
             try
             {
                 //Removing the Legend (pen description)
-                plotter.Children.RemoveAll(typeof(Legend));
+                //plotter.Children.RemoveAll(typeof(Legend));
             }
             catch (Exception)
             {
@@ -64,7 +64,7 @@ namespace IncubatorWatch.Controls
             plotter.AddLineGraph(receivedGraph, Color.FromArgb(255, 0, 0, 255), 2, "Température");
 
             ViewportAxesRangeRestriction restr = new ViewportAxesRangeRestriction();
-            restr.YRange = new DisplayRange(15, 25);
+            restr.YRange = new DisplayRange(18.5, 21.5);
             plotter.Viewport.Restrictions.Add(restr);
             
             //var axis = (DateTimeAxis)plotter.VerticalAxis;
