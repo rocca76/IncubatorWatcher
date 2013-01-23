@@ -62,8 +62,7 @@ namespace IncubatorWatch.Controls
             receivedGraph.SetYMapping(y => y.Temperature);
             plotter.AddLineGraph(receivedGraph, Color.FromArgb(255, 0, 0, 255), 2, "Température");
 
-            double height = plotter.VerticalAxisNavigation.ActualHeight;
-
+            
             //var axis = (DateTimeAxis)plotter.VerticalAxis;
             //double yMin = 0;
             //double yMax = 100;
