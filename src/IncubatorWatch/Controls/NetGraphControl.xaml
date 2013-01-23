@@ -4,9 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:d3="http://research.microsoft.com/DynamicDataDisplay/1.0" mc:Ignorable="d"
-             d:DesignHeight="308" d:DesignWidth="495" Name="NetMeterGadget" Background="DimGray">
+             d:DesignHeight="308" d:DesignWidth="495" Name="NetMeterGadget">
     <Grid Height="308">
-        <d3:ChartPlotter  Name="plotter" Margin="10,10,10,10" Background="DimGray">
+        <d3:ChartPlotter  Name="plotter" Margin="10,10,10,10">
             <d3:ChartPlotter.HorizontalAxis>
                 <d3:HorizontalDateTimeAxis Name="timeAxis" Visibility="Hidden" />
             </d3:ChartPlotter.HorizontalAxis>
@@ -14,11 +14,10 @@
                 <d3:VerticalAxis Name="countAxis" Visibility="Visible" />
             </d3:ChartPlotter.VerticalAxis>
             
-            <d3:Header Content="Température" FontSize="13" Foreground="Coral" />
-            <d3:VerticalAxisTitle Name="VerticalAxisName"  Content="Degrée Celsius"  FontFamily="Segoe UI" FontSize="12" Foreground="Coral"/>
+            <d3:VerticalAxisTitle Name="VerticalAxisName"  Content="Degrée Celsius"  FontFamily="Segoe UI" FontSize="12" Foreground="Blue"/>
             <d3:HorizontalAxisTitle  Name="HorizontalAxisName"  Content="" FontSize="8" />
         </d3:ChartPlotter>
         <Label Content="0.0" Height="23" Margin="0,7,12,0" Name="lbl_MaxMarker" VerticalAlignment="Top" HorizontalAlignment="Right" Width="83" FontSize="11" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" />
-        <Label Content="60 Secondes" FontSize="11" Height="26" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Margin="0,0,20,82" Name="label3" VerticalAlignment="Bottom" VerticalContentAlignment="Center" Width="98" />
+        <Label Content="60 Secondes" FontSize="11" Height="26" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Margin="0,0,21,32" Name="label3" VerticalAlignment="Bottom" VerticalContentAlignment="Center" Width="98" />
     </Grid>
 </UserControl>

@@ -35,15 +35,6 @@ namespace IncubatorWatch.Controls
             _incubatorMnager.EventHandlerMessageReceived += new ReceivedEventHandler(OnMessageReceived);
 
             InitializePlotter();
-            
-            try
-            {
-                //Removing the Legend (pen description)
-                plotter.Children.RemoveAll(typeof(Legend));
-            }
-            catch (Exception)
-            {
-            }
         }
 
         private void OnMessageReceived(String message)
