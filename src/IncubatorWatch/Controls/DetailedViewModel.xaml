@@ -5,9 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:Controls1="clr-namespace:IncubatorWatch.Controls"
              mc:Ignorable="d"
-             d:DesignHeight="550" d:DesignWidth="683"
+             d:DesignHeight="498" d:DesignWidth="683"
              DataContext="{Binding RelativeSource={RelativeSource Self}}">
-    <Grid>
+    <Grid Height="490">
         <TabControl Name="tabCtrlMother">
             <TabItem Header="Statistics">
                 <Grid>
@@ -18,9 +18,10 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Graphique">
-                <Grid>
-                    <Controls1:NetGraphControl HorizontalAlignment="Left" x:Name="netGraphControl1" VerticalAlignment="Top" />
-                </Grid>
+                <StackPanel Name="stackPanel1" Height="461">
+                    <Controls1:NetGraphControl x:Name="netGraphControl1" />
+                    <Controls1:NetGraphControl x:Name="netGraphControl2" />
+                </StackPanel>
             </TabItem>
             <TabItem Header="About">
                 <Grid>

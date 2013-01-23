@@ -13,7 +13,6 @@
             <d3:ChartPlotter.VerticalAxis>
                 <d3:VerticalAxis Name="countAxis" Visibility="Visible" />
             </d3:ChartPlotter.VerticalAxis>
-            <d3:Header Content="Température" FontSize="13" Foreground="Blue" />
             <d3:VerticalAxisTitle Name="VerticalAxisName"  Content="Degrée Celsius"  FontFamily="Segoe UI" FontSize="12" Foreground="Blue"/>
             <d3:HorizontalAxisTitle  Name="HorizontalAxisName"  Content="" FontSize="8" />
         </d3:ChartPlotter>
