@@ -13,6 +13,7 @@ using Color = System.Windows.Media.Color;
 using IncubatorWatch.Manager;
 using Microsoft.Research.DynamicDataDisplay.Charts;
 using Microsoft.Research.DynamicDataDisplay.Common;
+using Microsoft.Research.DynamicDataDisplay.ViewportRestrictions;
 
 namespace IncubatorWatch.Controls
 {
@@ -62,6 +63,9 @@ namespace IncubatorWatch.Controls
             receivedGraph.SetYMapping(y => y.Temperature);
             plotter.AddLineGraph(receivedGraph, Color.FromArgb(255, 0, 0, 255), 2, "Température");
 
+            ViewportAxesRangeRestriction restr = new ViewportAxesRangeRestriction();
+            restr.YRange = new DisplayRange(15, 25);
+            plotter.Viewport.Restrictions.Add(restr);
             
             //var axis = (DateTimeAxis)plotter.VerticalAxis;
             //double yMin = 0;
