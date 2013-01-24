@@ -4,29 +4,55 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:Controls1="clr-namespace:IncubatorWatch.Controls"
-             mc:Ignorable="d"
-             d:DesignHeight="498" d:DesignWidth="683"
+             xmlns:d3="http://research.microsoft.com/DynamicDataDisplay/1.0" mc:Ignorable="d"
+             d:DesignHeight="433" d:DesignWidth="693"
              DataContext="{Binding RelativeSource={RelativeSource Self}}">
-    <Grid Height="490">
-        <TabControl Name="tabCtrlMother">
-            <TabItem Header="Statistics">
-                <Grid>
-                    <Label Content="Température :" Height="28" HorizontalAlignment="Left" Margin="45,42,0,0" Name="label7" VerticalAlignment="Top" />
-                    <Label Content="Humidité Relative :" Height="28" HorizontalAlignment="Left" Margin="45,76,0,0" Name="label8" VerticalAlignment="Top" Width="134" />
-                    <Label Content="0" Height="28" HorizontalAlignment="Left" Margin="175,42,0,0" Name="lbl_TotalRcvd" VerticalAlignment="Top" Width="295" />
-                    <Label Content="0" Height="28" HorizontalAlignment="Left" Margin="175,76,0,0" Name="lbl_TotalSent" VerticalAlignment="Top" Width="295" />
-                </Grid>
-            </TabItem>
+    <Grid>
+        <TabControl Name="tabCtrlMother" Margin="0,0,0,22" Grid.RowSpan="2">
             <TabItem Header="Graphique">
-                <StackPanel Name="stackPanel1" Height="461">
-                    <Controls1:NetGraphControl x:Name="netGraphControl1" />
-                    <Controls1:NetGraphControl x:Name="netGraphControl2" />
+                <StackPanel Name="stackPanel1">
+                  <Grid>
+                        <d3:ChartPlotter Name="plotterTemperature" Margin="10,0,10,0">
+                        <d3:ChartPlotter.HorizontalAxis>
+                            <d3:HorizontalDateTimeAxis Name="temperatureTimeAxis" Visibility="Hidden" />
+                        </d3:ChartPlotter.HorizontalAxis>
+                        <d3:ChartPlotter.VerticalAxis>
+                            <d3:VerticalAxis Name="temperatureAxis" Visibility="Visible" />
+                        </d3:ChartPlotter.VerticalAxis>
+                        <d3:HorizontalAxisTitle Content="" FontSize="8" />
+                        <d3:VerticalAxisTitle Content="Degré Celsius ( °C )" FontSize="14"/>
+                    </d3:ChartPlotter>
+                    </Grid>
+                    <Grid>
+                        <Label Content="Température :" Height="28" HorizontalAlignment="Left" Name="label7" VerticalAlignment="Top" />
+                        <Label Content="0" Height="28" HorizontalAlignment="Left" Name="lbl_TotalRcvd" VerticalAlignment="Top" Width="72" Margin="90,0,0,0" />
+                    </Grid>
+                    <Grid>
+                    <d3:ChartPlotter Name="plotterRelativeHumidity" Margin="10,0,10,0">
+                        <d3:ChartPlotter.HorizontalAxis>
+                            <d3:HorizontalDateTimeAxis Name="relativeHumidityTimeAxis" Visibility="Hidden" />
+                        </d3:ChartPlotter.HorizontalAxis>
+                        <d3:ChartPlotter.VerticalAxis>
+                            <d3:VerticalAxis Name="relativeHumidityTAxis" Visibility="Visible" />
+                        </d3:ChartPlotter.VerticalAxis>
+                        <d3:HorizontalAxisTitle Content="" FontSize="8" />
+                        <d3:VerticalAxisTitle Content="Pourcentage ( % )" FontSize="14"/>
+                    </d3:ChartPlotter>
+    </Grid>
+    <Grid>
+                        <Label Content="Humidité Relative :" Height="28" HorizontalAlignment="Left" Name="label8" VerticalAlignment="Top" Width="109" Margin="10,1,0,0" />
+                        <Label Content="0" Height="28" HorizontalAlignment="Left" Margin="125,1,0,0" Name="lbl_TotalSent" VerticalAlignment="Top" Width="65" />
+                    </Grid>
                 </StackPanel>
             </TabItem>
             <TabItem Header="About">
                 <Grid>
-                    <Label Content="Incubator Watcher" Height="36" HorizontalAlignment="Left" Margin="10,10,0,0" Name="label1" VerticalAlignment="Top" FontSize="18" />
-                    <Label Content="BETA" Height="36" HorizontalAlignment="Left" Margin="159,10,0,0" x:Name="label1_Copy" VerticalAlignment="Top" FontSize="12" />
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="106" />
+                        <ColumnDefinition Width="567" />
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Incubator Watcher" Height="36" HorizontalAlignment="Left" Margin="10,10,0,0" Name="label1" VerticalAlignment="Top" FontSize="18" Grid.ColumnSpan="2" />
+                    <Label Content="BETA" Height="36" HorizontalAlignment="Left" Margin="53,10,0,0" x:Name="label1_Copy" VerticalAlignment="Top" FontSize="12" Grid.Column="1" />
                 </Grid>
             </TabItem>
         </TabControl>

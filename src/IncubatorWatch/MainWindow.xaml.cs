@@ -51,31 +51,5 @@ namespace IncubatorWatch
             Show();
             Focus();
         }
-
-        private void SwitchTheme(Theme color)
-        {
-            if (color == Theme.Dark)
-            {
-                ThemeManager.ChangeTheme(this, ThemeManager.DefaultAccents.First(a => a.Name == "Netw"), Theme.Dark);
-            }
-            else if (color == Theme.Light)
-            {
-                ThemeManager.ChangeTheme(this, ThemeManager.DefaultAccents.First(a => a.Name == "Netw"), Theme.Light);
-            }
-        }
-
-        private void BtnSettingsClick(object sender, RoutedEventArgs e)
-        {
-            if (BtnSwitchColors.Content.ToString() == "Dark")
-            {
-                SwitchTheme(Theme.Dark);
-                BtnSwitchColors.Content = "Light";
-            }
-            else
-            {
-                SwitchTheme(Theme.Light);
-                BtnSwitchColors.Content = "Dark";
-            }
-        }
     }
 }

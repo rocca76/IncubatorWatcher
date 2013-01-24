@@ -2,14 +2,8 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:TaskbarNotification="clr-namespace:Hardcodet.Wpf.TaskbarNotification;assembly=Hardcodet.Wpf.TaskbarNotification"
                       xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" xmlns:my="clr-namespace:IncubatorWatch.Controls"
-                      Title="Incubator Watch" Height="600" Width="720" Icon="/IncubatorWatch;component/Images/logo.png" MinHeight="480"
-                      MinWidth="295" DataContext="{Binding RelativeSource={RelativeSource Self}}" Closing="WindowClosing"
-                      ShowIconOnTitleBar="False" ResizeMode="CanResizeWithGrip">
-    <Controls:MetroWindow.WindowCommands>
-        <Controls:WindowCommands>
-            <Button Name="BtnSwitchColors" Content="Dark" Click="BtnSettingsClick" />
-        </Controls:WindowCommands>
-    </Controls:MetroWindow.WindowCommands>
+                      Title="Incubator Watch" Height="600" Width="800" Icon="/IncubatorWatch;component/Images/logo.png" DataContext="{Binding RelativeSource={RelativeSource Self}}" Closing="WindowClosing"
+                      ShowIconOnTitleBar="False" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Window.TaskbarItemInfo>
         <TaskbarItemInfo Description="IncubatorWatch" />
     </Window.TaskbarItemInfo>
@@ -41,8 +35,8 @@
             </TaskbarNotification:TaskbarIcon.ContextMenu>
         </TaskbarNotification:TaskbarIcon>
 
-        <Button Content="End Task" HorizontalAlignment="Right" Margin="0,0,12,8" Name="btnEndTask" Width="97"
+        <Button Content="Reset" HorizontalAlignment="Right" Margin="0,0,12,9" Name="btnEndTask" Width="97"
                 Height="23" VerticalAlignment="Bottom" Cursor="Hand" Click="Button1Click" />
-        <my:DetailedViewModel x:Name="detailedViewModelGadget" Visibility="Visible"/>
+        <my:DetailedViewModel x:Name="detailedViewModelGadget" Visibility="Visible" VerticalContentAlignment="Top" />
     </Grid>
 </Controls:MetroWindow>
