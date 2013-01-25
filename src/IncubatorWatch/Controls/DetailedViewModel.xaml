@@ -5,54 +5,31 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:Controls1="clr-namespace:IncubatorWatch.Controls"
              xmlns:d3="http://research.microsoft.com/DynamicDataDisplay/1.0" mc:Ignorable="d"
-             d:DesignHeight="433" d:DesignWidth="693"
+             d:DesignHeight="510" d:DesignWidth="580"
              DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Grid>
-        <TabControl Name="tabCtrlMother" Margin="0,0,0,22" Grid.RowSpan="2">
+        <TabControl Name="tabCtrlMother">
             <TabItem Header="Graphique">
-                <StackPanel Name="stackPanel1">
-                  <Grid>
-                        <d3:ChartPlotter Name="plotterTemperature" Margin="10,0,10,0">
-                        <d3:ChartPlotter.HorizontalAxis>
-                            <d3:HorizontalDateTimeAxis Name="temperatureTimeAxis" Visibility="Hidden" />
-                        </d3:ChartPlotter.HorizontalAxis>
-                        <d3:ChartPlotter.VerticalAxis>
-                            <d3:VerticalAxis Name="temperatureAxis" Visibility="Visible" />
-                        </d3:ChartPlotter.VerticalAxis>
-                        <d3:HorizontalAxisTitle Content="" FontSize="8" />
-                        <d3:VerticalAxisTitle Content="Degré Celsius ( °C )" FontSize="14"/>
-                    </d3:ChartPlotter>
-                    </Grid>
-                    <Grid>
-                        <Label Content="Température :" Height="28" HorizontalAlignment="Left" Name="label7" VerticalAlignment="Top" />
-                        <Label Content="0" Height="28" HorizontalAlignment="Left" Name="lbl_TotalRcvd" VerticalAlignment="Top" Width="72" Margin="90,0,0,0" />
-                    </Grid>
-                    <Grid>
-                    <d3:ChartPlotter Name="plotterRelativeHumidity" Margin="10,0,10,0">
-                        <d3:ChartPlotter.HorizontalAxis>
-                            <d3:HorizontalDateTimeAxis Name="relativeHumidityTimeAxis" Visibility="Hidden" />
-                        </d3:ChartPlotter.HorizontalAxis>
-                        <d3:ChartPlotter.VerticalAxis>
-                            <d3:VerticalAxis Name="relativeHumidityTAxis" Visibility="Visible" />
-                        </d3:ChartPlotter.VerticalAxis>
-                        <d3:HorizontalAxisTitle Content="" FontSize="8" />
-                        <d3:VerticalAxisTitle Content="Pourcentage ( % )" FontSize="14"/>
-                    </d3:ChartPlotter>
-    </Grid>
-    <Grid>
-                        <Label Content="Humidité Relative :" Height="28" HorizontalAlignment="Left" Name="label8" VerticalAlignment="Top" Width="109" Margin="10,1,0,0" />
-                        <Label Content="0" Height="28" HorizontalAlignment="Left" Margin="125,1,0,0" Name="lbl_TotalSent" VerticalAlignment="Top" Width="65" />
-                    </Grid>
-                </StackPanel>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="450" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="490" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Button Content="Button" Height="23" Name="button1" Width="76" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Row="1" />
+                </Grid>
             </TabItem>
             <TabItem Header="About">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="106" />
-                        <ColumnDefinition Width="567" />
+                        <ColumnDefinition Width="178" />
+                        <ColumnDefinition Width="495" />
                     </Grid.ColumnDefinitions>
                     <Label Content="Incubator Watcher" Height="36" HorizontalAlignment="Left" Margin="10,10,0,0" Name="label1" VerticalAlignment="Top" FontSize="18" Grid.ColumnSpan="2" />
-                    <Label Content="BETA" Height="36" HorizontalAlignment="Left" Margin="53,10,0,0" x:Name="label1_Copy" VerticalAlignment="Top" FontSize="12" Grid.Column="1" />
+                    <Label Content="BETA" Height="36" HorizontalAlignment="Left" Margin="10,10,0,0" x:Name="label1_Copy" VerticalAlignment="Top" FontSize="12" Grid.Column="1" />
                 </Grid>
             </TabItem>
         </TabControl>

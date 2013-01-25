@@ -49,7 +49,7 @@ namespace IncubatorWatch.Controls
             {
             }
 
-            EnumerableDataSource<IncubatorData> receivedGraph = new EnumerableDataSource<IncubatorData>(_incubatorMnager.IncubatorData);
+            /*EnumerableDataSource<IncubatorData> receivedGraph = new EnumerableDataSource<IncubatorData>(_incubatorMnager.IncubatorData);
             receivedGraph.SetXMapping(x => temperatureTimeAxis.ConvertToDouble(x.Time));
             receivedGraph.SetYMapping(y => y.Temperature);
             plotterTemperature.AddLineGraph(receivedGraph, Color.FromArgb(255, 0, 0, 255), 2, "Température");
@@ -67,15 +67,15 @@ namespace IncubatorWatch.Controls
 
             ViewportAxesRangeRestriction restrRH = new ViewportAxesRangeRestriction();
             restrRH.YRange = new DisplayRange(29, 61);
-            plotterRelativeHumidity.Viewport.Restrictions.Add(restrRH);
+            plotterRelativeHumidity.Viewport.Restrictions.Add(restrRH);*/
         }
 
         public void OnUpdateData(double temperature, double relativeHumidity)
         {
             try
             {
-                lbl_TotalRcvd.Content = temperature.ToString("F2") + " °C";
-                lbl_TotalSent.Content = relativeHumidity.ToString("F2") + " %";
+                /*lbl_TotalRcvd.Content = temperature.ToString("F2") + " °C";
+                lbl_TotalSent.Content = relativeHumidity.ToString("F2") + " %";*/
             }
             catch (Exception ex)
             {
