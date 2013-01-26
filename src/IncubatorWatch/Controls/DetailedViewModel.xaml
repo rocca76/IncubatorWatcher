@@ -5,21 +5,18 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:Controls1="clr-namespace:IncubatorWatch.Controls"
              xmlns:d3="http://research.microsoft.com/DynamicDataDisplay/1.0" mc:Ignorable="d"
-             d:DesignHeight="510" d:DesignWidth="580"
+             d:DesignHeight="535" d:DesignWidth="600"
              DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Grid>
         <TabControl Name="tabCtrlMother">
             <TabItem Header="Graphique">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="450" />
-                        <RowDefinition Height="*" />
+                        <RowDefinition Height="250" />
+                        <RowDefinition Height="250" />
                     </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="490" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Button Content="Button" Height="23" Name="button1" Width="76" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Row="1" />
+                    <Button Content="Button" Name="button1" Height="23" Width="76" Grid.Column="0" Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
+                    <Button Content="Button" Name="button2" Height="23" Width="75" Grid.Column="0" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" />
                 </Grid>
             </TabItem>
             <TabItem Header="About">

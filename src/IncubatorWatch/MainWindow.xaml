@@ -2,8 +2,8 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:TaskbarNotification="clr-namespace:Hardcodet.Wpf.TaskbarNotification;assembly=Hardcodet.Wpf.TaskbarNotification"
                       xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" xmlns:my="clr-namespace:IncubatorWatch.Controls"
-                      Title="Incubator Watch" Height="600" Width="600" Icon="/IncubatorWatch;component/Images/logo.png" DataContext="{Binding RelativeSource={RelativeSource Self}}" Closing="WindowClosing"
-                      ShowIconOnTitleBar="False" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+                      Title="Incubator Watch" Height="605" Width="600" Icon="/IncubatorWatch;component/Images/logo.png" DataContext="{Binding RelativeSource={RelativeSource Self}}" Closing="WindowClosing"
+                      ShowIconOnTitleBar="False" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" HorizontalAlignment="Stretch">
     <Window.TaskbarItemInfo>
         <TaskbarItemInfo Description="IncubatorWatch" />
     </Window.TaskbarItemInfo>
@@ -22,15 +22,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <Grid Margin="0,0,0,0">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
+    <Grid>
         <TaskbarNotification:TaskbarIcon Name="taskbarIcon" IconSource="/IncubatorWatch;component/logo.ico"
                                          TrayMouseDoubleClick="TaskbarIconTrayMouseDoubleClick" Grid.RowSpan="2">
             <TaskbarNotification:TaskbarIcon.ContextMenu>
@@ -43,8 +35,6 @@
         </TaskbarNotification:TaskbarIcon>
 
 
-        <my:DetailedViewModel x:Name="detailedViewModelGadget" Grid.Column="0" Grid.Row="0"/>
-        <Button Content="Reset" HorizontalAlignment="Right" Name="btnEndTask" Width="97"
-                Height="23" VerticalAlignment="Bottom" Cursor="Hand" Click="Button1Click" Grid.Row="1" />
+        <my:DetailedViewModel x:Name="detailedViewModelGadget" Grid.Column="0" Grid.Row="0" Margin="10,10,10,0" />
     </Grid>
 </Controls:MetroWindow>
