@@ -5,18 +5,40 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:Controls1="clr-namespace:IncubatorWatch.Controls"
              xmlns:d3="http://research.microsoft.com/DynamicDataDisplay/1.0" mc:Ignorable="d"
-             d:DesignHeight="535" d:DesignWidth="600"
+             d:DesignHeight="500" d:DesignWidth="600"
              DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Grid>
         <TabControl Name="tabCtrlMother">
             <TabItem Header="Graphique">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="250" />
-                        <RowDefinition Height="250" />
+                        <RowDefinition Height="200" />
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="200" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <Button Content="Button" Name="button1" Height="23" Width="76" Grid.Column="0" Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
-                    <Button Content="Button" Name="button2" Height="23" Width="75" Grid.Column="0" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" />
+                    <d3:ChartPlotter Name="plotterTemperature" Margin="10">
+                        <d3:ChartPlotter.HorizontalAxis>
+                            <d3:HorizontalDateTimeAxis Name="temperatureTimeAxis" />
+                        </d3:ChartPlotter.HorizontalAxis>
+                        <d3:ChartPlotter.VerticalAxis>
+                            <d3:VerticalAxis Name="temperatureAxis"/>
+                        </d3:ChartPlotter.VerticalAxis>
+                        <d3:VerticalAxisTitle Content="Degré Celsius ( °C )" FontSize="14"/>
+                    </d3:ChartPlotter>
+                    <d3:ChartPlotter Name="plotterRelativeHumidity" Margin="10
+                                     " Grid.Row="2">
+                        <d3:ChartPlotter.HorizontalAxis>
+                            <d3:HorizontalDateTimeAxis Name="relativeHumidityTimeAxis" />
+                        </d3:ChartPlotter.HorizontalAxis>
+                        <d3:ChartPlotter.VerticalAxis>
+                            <d3:VerticalAxis Name="relativeHumidityAxis"/>
+                        </d3:ChartPlotter.VerticalAxis>
+                        <d3:VerticalAxisTitle Content="Pourcentage ( % )" FontSize="14"/>
+                    </d3:ChartPlotter>
+
+                    <Button Content="Button" Name="button1" Height="25" Width="76" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Row="1" Margin="58,0,0,0" />
+                    <Button Content="Button" Name="button2" Height="25" Width="75" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="58,0,0,0" />
                 </Grid>
             </TabItem>
             <TabItem Header="About">

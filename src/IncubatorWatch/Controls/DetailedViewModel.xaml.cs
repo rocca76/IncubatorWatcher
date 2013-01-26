@@ -49,7 +49,7 @@ namespace IncubatorWatch.Controls
             {
             }
 
-            /*EnumerableDataSource<IncubatorData> receivedGraph = new EnumerableDataSource<IncubatorData>(_incubatorMnager.IncubatorData);
+            EnumerableDataSource<IncubatorData> receivedGraph = new EnumerableDataSource<IncubatorData>(_incubatorMnager.IncubatorData);
             receivedGraph.SetXMapping(x => temperatureTimeAxis.ConvertToDouble(x.Time));
             receivedGraph.SetYMapping(y => y.Temperature);
             plotterTemperature.AddLineGraph(receivedGraph, Color.FromArgb(255, 0, 0, 255), 2, "Température");
@@ -57,6 +57,7 @@ namespace IncubatorWatch.Controls
             ViewportAxesRangeRestriction restr = new ViewportAxesRangeRestriction();
             restr.YRange = new DisplayRange(18.5, 21.5);
             plotterTemperature.Viewport.Restrictions.Add(restr);
+            plotterTemperature.HorizontalAxis.Remove();
 
             ///////////////////////////
 
@@ -67,7 +68,8 @@ namespace IncubatorWatch.Controls
 
             ViewportAxesRangeRestriction restrRH = new ViewportAxesRangeRestriction();
             restrRH.YRange = new DisplayRange(29, 61);
-            plotterRelativeHumidity.Viewport.Restrictions.Add(restrRH);*/
+            plotterRelativeHumidity.Viewport.Restrictions.Add(restrRH);
+            plotterRelativeHumidity.HorizontalAxis.Remove();
         }
 
         public void OnUpdateData(double temperature, double relativeHumidity)

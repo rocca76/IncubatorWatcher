@@ -2,7 +2,7 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:TaskbarNotification="clr-namespace:Hardcodet.Wpf.TaskbarNotification;assembly=Hardcodet.Wpf.TaskbarNotification"
                       xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" xmlns:my="clr-namespace:IncubatorWatch.Controls"
-                      Title="Incubator Watch" Height="605" Width="600" Icon="/IncubatorWatch;component/Images/logo.png" DataContext="{Binding RelativeSource={RelativeSource Self}}" Closing="WindowClosing"
+                      Title="Incubator Watch" Height="555" Width="600" Icon="/IncubatorWatch;component/Images/logo.png" DataContext="{Binding RelativeSource={RelativeSource Self}}" Closing="WindowClosing"
                       ShowIconOnTitleBar="False" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" HorizontalAlignment="Stretch">
     <Window.TaskbarItemInfo>
         <TaskbarItemInfo Description="IncubatorWatch" />
