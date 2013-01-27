@@ -2,8 +2,8 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:TaskbarNotification="clr-namespace:Hardcodet.Wpf.TaskbarNotification;assembly=Hardcodet.Wpf.TaskbarNotification"
                       xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" xmlns:my="clr-namespace:IncubatorWatch.Controls"
-                      Title="Incubator Watch" Height="555" Width="800" Icon="/IncubatorWatch;component/Images/logo.png" DataContext="{Binding RelativeSource={RelativeSource Self}}" Closing="WindowClosing"
-                      ShowIconOnTitleBar="False" WindowStartupLocation="CenterScreen" HorizontalAlignment="Stretch">
+                      Title="Incubator Watch" Height="600" Width="895" Icon="/IncubatorWatch;component/Images/logo.png" DataContext="{Binding RelativeSource={RelativeSource Self}}" Closing="WindowClosing"
+                      ShowIconOnTitleBar="False" WindowStartupLocation="CenterScreen" HorizontalAlignment="Stretch" Background="Black">
     <Window.TaskbarItemInfo>
         <TaskbarItemInfo Description="IncubatorWatch" />
     </Window.TaskbarItemInfo>
@@ -22,9 +22,9 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <Grid>
+    <Grid Background="Black">
         <TaskbarNotification:TaskbarIcon Name="taskbarIcon" IconSource="/IncubatorWatch;component/logo.ico"
-                                         TrayMouseDoubleClick="TaskbarIconTrayMouseDoubleClick" Grid.RowSpan="2">
+                                         TrayMouseDoubleClick="TaskbarIconTrayMouseDoubleClick" Grid.RowSpan="2" OpacityMask="#FF6F6F6F">
             <TaskbarNotification:TaskbarIcon.ContextMenu>
                 <ContextMenu AllowDrop="False">
                     <MenuItem Header="Show Incubator Watcher" Click="MnuItemShowIncubatorWatcherClick" />

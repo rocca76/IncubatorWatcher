@@ -42,34 +42,35 @@ namespace IncubatorWatch.Controls
         {
             try
             {
-                //Removing the Legend (pen description)
-                //plotter.Children.RemoveAll(typeof(Legend));
+                EnumerableDataSource<IncubatorData> receivedGraph = new EnumerableDataSource<IncubatorData>(_incubatorMnager.IncubatorData);
+                receivedGraph.SetXMapping(x => temperatureTimeAxis.ConvertToDouble(x.Time));
+                receivedGraph.SetYMapping(y => y.Temperature);
+                plotterTemperature.AddLineGraph(receivedGraph, (Color)ColorConverter.ConvertFromString("#FFCB3500"), 2, "Température");
+
+                ViewportAxesRangeRestriction restr = new ViewportAxesRangeRestriction();
+                restr.YRange = new DisplayRange(18.5, 21.5);
+                plotterTemperature.Viewport.Restrictions.Add(restr);
+                plotterTemperature.HorizontalAxis.Remove();
+
+                plotterTemperature.Children.RemoveAll(typeof(Legend));
+
+                ///////////////////////////
+
+                EnumerableDataSource<IncubatorData> receivedGraphRH = new EnumerableDataSource<IncubatorData>(_incubatorMnager.IncubatorData);
+                receivedGraphRH.SetXMapping(x => temperatureTimeAxis.ConvertToDouble(x.Time));
+                receivedGraphRH.SetYMapping(y => y.RelativeHumidity);
+                plotterRelativeHumidity.AddLineGraph(receivedGraphRH, (Color)ColorConverter.ConvertFromString("#FFCB3500"), 2, "Humitidé Relative");
+                
+                ViewportAxesRangeRestriction restrRH = new ViewportAxesRangeRestriction();
+                restrRH.YRange = new DisplayRange(29, 61);
+                plotterRelativeHumidity.Viewport.Restrictions.Add(restrRH);
+                plotterRelativeHumidity.HorizontalAxis.Remove();
+
+                plotterRelativeHumidity.Children.RemoveAll(typeof(Legend));
             }
             catch (Exception)
             {
             }
-
-            EnumerableDataSource<IncubatorData> receivedGraph = new EnumerableDataSource<IncubatorData>(_incubatorMnager.IncubatorData);
-            receivedGraph.SetXMapping(x => temperatureTimeAxis.ConvertToDouble(x.Time));
-            receivedGraph.SetYMapping(y => y.Temperature);
-            plotterTemperature.AddLineGraph(receivedGraph, Color.FromArgb(255, 0, 0, 255), 2, "Température");
-
-            ViewportAxesRangeRestriction restr = new ViewportAxesRangeRestriction();
-            restr.YRange = new DisplayRange(18.5, 21.5);
-            plotterTemperature.Viewport.Restrictions.Add(restr);
-            plotterTemperature.HorizontalAxis.Remove();
-
-            ///////////////////////////
-
-            EnumerableDataSource<IncubatorData> receivedGraphRH = new EnumerableDataSource<IncubatorData>(_incubatorMnager.IncubatorData);
-            receivedGraphRH.SetXMapping(x => temperatureTimeAxis.ConvertToDouble(x.Time));
-            receivedGraphRH.SetYMapping(y => y.RelativeHumidity);
-            plotterRelativeHumidity.AddLineGraph(receivedGraphRH, Color.FromArgb(255, 0, 0, 255), 2, "Humitidé Relative");
-
-            ViewportAxesRangeRestriction restrRH = new ViewportAxesRangeRestriction();
-            restrRH.YRange = new DisplayRange(29, 61);
-            plotterRelativeHumidity.Viewport.Restrictions.Add(restrRH);
-            plotterRelativeHumidity.HorizontalAxis.Remove();
         }
 
         public void OnUpdateData(double temperature, double relativeHumidity)
