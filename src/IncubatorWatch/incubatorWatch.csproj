@@ -109,10 +109,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\NetGraphControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -124,9 +120,6 @@
     <Compile Include="AsynchronousSocketListener.cs" />
     <Compile Include="Controls\DetailedViewModel.xaml.cs">
       <DependentUpon>DetailedViewModel.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\NetGraphControl.xaml.cs">
-      <DependentUpon>NetGraphControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="IncubatorDataCollection.cs" />
     <Compile Include="IncubatorManager.cs" />

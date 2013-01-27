@@ -76,8 +76,8 @@ namespace IncubatorWatch.Controls
         {
             try
             {
-                /*lbl_TotalRcvd.Content = temperature.ToString("F2") + " °C";
-                lbl_TotalSent.Content = relativeHumidity.ToString("F2") + " %";*/
+                labelTemprature.Content = temperature.ToString("F2") + " °C";
+                labelRelativeHumidity.Content = relativeHumidity.ToString("F2") + " %";
             }
             catch (Exception ex)
             {
