@@ -5,12 +5,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:Controls1="clr-namespace:IncubatorWatch.Controls"
              xmlns:d3="http://research.microsoft.com/DynamicDataDisplay/1.0" mc:Ignorable="d"
-             d:DesignHeight="500" d:DesignWidth="600"
-             DataContext="{Binding RelativeSource={RelativeSource Self}}">
+             d:DesignHeight="500" d:DesignWidth="750"
+             DataContext="{Binding RelativeSource={RelativeSource Self}}" Background="Black">
     <Grid>
-        <TabControl Name="tabCtrlMother">
-            <TabItem Header="Graphique">
-                <Grid>
+        <TabControl Name="tabCtrlMother" Background="#FF454545">
+            <TabItem Header="Graphique" Background="{x:Null}">
+                <Grid Background="#FF6F6F6F">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="730" />
+                        <ColumnDefinition Width="10" />
+                    </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="200" />
                         <RowDefinition Height="25" />
@@ -18,7 +22,7 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="18*" />
                     </Grid.RowDefinitions>
-                    <d3:ChartPlotter Name="plotterTemperature" Margin="10">
+                    <d3:ChartPlotter Name="plotterTemperature" Margin="10,10,0,10" Background="#FF6F6F6F">
                         <d3:ChartPlotter.HorizontalAxis>
                             <d3:HorizontalDateTimeAxis Name="temperatureTimeAxis" />
                         </d3:ChartPlotter.HorizontalAxis>
@@ -27,8 +31,7 @@
                         </d3:ChartPlotter.VerticalAxis>
                         <d3:VerticalAxisTitle Content="Degré Celsius ( °C )" FontSize="14"/>
                     </d3:ChartPlotter>
-                    <d3:ChartPlotter Name="plotterRelativeHumidity" Margin="10
-                                     " Grid.Row="2">
+                    <d3:ChartPlotter Name="plotterRelativeHumidity" Margin="10,10,0,10" Grid.Row="2" Background="#FF6F6F6F">
                         <d3:ChartPlotter.HorizontalAxis>
                             <d3:HorizontalDateTimeAxis Name="relativeHumidityTimeAxis" />
                         </d3:ChartPlotter.HorizontalAxis>
@@ -38,14 +41,14 @@
                         <d3:VerticalAxisTitle Content="Pourcentage ( % )" FontSize="14"/>
                     </d3:ChartPlotter>
 
-                    <Button Content="Button" Name="button1" Height="25" Width="76" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Row="1" Margin="504,1,0,0" Grid.RowSpan="2" />
-                    <Button Content="Button" Name="button2" Height="25" Width="75" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="505,0,0,0" />
+                    <Button Content="Button" Name="button1" Height="25" Width="76" VerticalAlignment="Top" HorizontalAlignment="Right" Grid.Row="1" />
+                    <Button Content="Button" Name="button2" Height="25" Width="75" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Right" />
                     <Label Content="Température : ??" Grid.RowSpan="3" Height="28" HorizontalAlignment="Left" Margin="33,198,0,0" Name="labelTemprature" VerticalAlignment="Top" Width="156" FontStretch="Normal" FontWeight="Bold" FontSize="15" />
                     <Label Content="Humidité Relative : ??" FontSize="15" FontStretch="Normal" FontWeight="Bold" Height="28" HorizontalAlignment="Left" Margin="33,197,0,0" Name="labelRelativeHumidity" VerticalAlignment="Top" Width="173" Grid.Row="2" Grid.RowSpan="2" />
                 </Grid>
             </TabItem>
-            <TabItem Header="About">
-                <Grid>
+            <TabItem Header="About" Background="{x:Null}">
+                <Grid Background="#FF6F6F6F">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="178" />
                         <ColumnDefinition Width="495" />
