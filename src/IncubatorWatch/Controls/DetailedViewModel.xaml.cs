@@ -47,9 +47,9 @@ namespace IncubatorWatch.Controls
                 receivedGraph.SetYMapping(y => y.Temperature);
                 plotterTemperature.AddLineGraph(receivedGraph, (Color)ColorConverter.ConvertFromString("#FFCB3500"), 2, "Température");
 
-                ViewportAxesRangeRestriction restr = new ViewportAxesRangeRestriction();
-                restr.YRange = new DisplayRange(18.5, 21.5);
-                plotterTemperature.Viewport.Restrictions.Add(restr);
+                ViewportAxesRangeRestriction resT = new ViewportAxesRangeRestriction();
+                resT.YRange = new DisplayRange(18.5, 21.5);
+                plotterTemperature.Viewport.Restrictions.Add(resT);
                 plotterTemperature.HorizontalAxis.Remove();
 
                 plotterTemperature.Children.RemoveAll(typeof(Legend));
@@ -57,7 +57,7 @@ namespace IncubatorWatch.Controls
                 ///////////////////////////
 
                 EnumerableDataSource<IncubatorData> receivedGraphRH = new EnumerableDataSource<IncubatorData>(_incubatorMnager.IncubatorData);
-                receivedGraphRH.SetXMapping(x => temperatureTimeAxis.ConvertToDouble(x.Time));
+                receivedGraphRH.SetXMapping(x => relativeHumidityTimeAxis.ConvertToDouble(x.Time));
                 receivedGraphRH.SetYMapping(y => y.RelativeHumidity);
                 plotterRelativeHumidity.AddLineGraph(receivedGraphRH, (Color)ColorConverter.ConvertFromString("#FFCB3500"), 2, "Humitidé Relative");
                 
@@ -67,6 +67,20 @@ namespace IncubatorWatch.Controls
                 plotterRelativeHumidity.HorizontalAxis.Remove();
 
                 plotterRelativeHumidity.Children.RemoveAll(typeof(Legend));
+
+                ///////////////////////////
+
+                EnumerableDataSource<IncubatorData> receivedGraphCO2 = new EnumerableDataSource<IncubatorData>(_incubatorMnager.IncubatorData);
+                receivedGraphCO2.SetXMapping(x => CO2TimeAxis.ConvertToDouble(x.Time));
+                receivedGraphCO2.SetYMapping(y => y.CO2);
+                plotterCO2.AddLineGraph(receivedGraphCO2, (Color)ColorConverter.ConvertFromString("#FFCB3500"), 2, "CO2");
+                
+                ViewportAxesRangeRestriction restrCO2 = new ViewportAxesRangeRestriction();
+                restrCO2.YRange = new DisplayRange(400, 1400);
+                plotterCO2.Viewport.Restrictions.Add(restrCO2);
+                plotterCO2.HorizontalAxis.Remove();
+
+                plotterCO2.Children.RemoveAll(typeof(Legend));
             }
             catch (Exception)
             {
