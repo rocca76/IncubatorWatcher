@@ -25,11 +25,12 @@ namespace IncubatorWatch
 
     public class IncubatorData
     {
-        public IncubatorData(DateTime time, double temperature, double relativeHumidity)
+        public IncubatorData(DateTime time, double temperature, double relativeHumidity, int co2)
         {
             Time = time;
             this.Temperature = temperature;
             this.RelativeHumidity = relativeHumidity;
+            this.CO2 = co2;
         }
 
         public DateTime Time { get; set; }
@@ -37,5 +38,7 @@ namespace IncubatorWatch
         public double Temperature { get; set; }
 
         public double RelativeHumidity { get; set; }
+
+        public int CO2 { get; set; }
     }
 }

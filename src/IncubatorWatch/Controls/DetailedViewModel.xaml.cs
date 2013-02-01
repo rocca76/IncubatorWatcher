@@ -73,24 +73,13 @@ namespace IncubatorWatch.Controls
             }
         }
 
-        public void OnUpdateData(double temperature, double relativeHumidity, double co2)
+        public void OnUpdateData(double temperature, double relativeHumidity, int co2)
         {
             try
             {
-                if (temperature != double.MaxValue)
-                {
-                    labelTemprature.Content = temperature.ToString("F2") + " °C";
-                }
-
-                if (relativeHumidity != double.MaxValue)
-                {
-                    labelRelativeHumidity.Content = relativeHumidity.ToString("F2") + " %";
-                }
-
-                if (co2 != double.MaxValue)
-                {
-                    labelCO2.Content = ((int)co2).ToString() + " ppm";
-                }
+                labelTemprature.Content = "Température: " + temperature.ToString("F2") + " °C";
+                labelRelativeHumidity.Content = "Humidité Relative: " + relativeHumidity.ToString("F2") + " %";
+                labelCO2.Content = "CO2: " + co2.ToString() + " ppm"; 
             }
             catch (Exception ex)
             {
