@@ -94,10 +94,14 @@ namespace IncubatorWatch.Manager
             {
                 double temperature = GetData(message, "temperature");
                 double relativeHumidity = GetData(message, "relativehumidity");
+                double co2 = GetData(message, "co2");
 
-                DetailedViewModel.Instance.OnUpdateData(temperature, relativeHumidity);
+                DetailedViewModel.Instance.OnUpdateData(temperature, relativeHumidity, co2);
 
-                this.IncubatorData.Add(new IncubatorData(DateTime.Now, temperature, relativeHumidity));
+                if (co2 == double.MaxValue)
+                {
+                    this.IncubatorData.Add(new IncubatorData(DateTime.Now, temperature, relativeHumidity));   
+                }
             }
             catch (Exception ex)
             {

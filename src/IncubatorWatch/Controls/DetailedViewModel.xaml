@@ -46,6 +46,7 @@
                     <Button Content="Button" Name="button2" Height="25" Width="75" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Right" Grid.Column="1" Visibility="Hidden" />
                     <Label Content="Température : ??" Height="28" HorizontalAlignment="Left" Name="labelTemprature" VerticalAlignment="Top" Width="156" FontStretch="Normal" FontWeight="Bold" FontSize="15" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="1" Foreground="#FFCB3500" />
                     <Label Content="Humidité Relative : ??" FontSize="15" FontStretch="Normal" FontWeight="Bold" Height="28" HorizontalAlignment="Left" Name="labelRelativeHumidity" VerticalAlignment="Top" Width="173" Grid.Row="3" Grid.ColumnSpan="2" Grid.Column="1" Foreground="#FFCB3500" />
+                    <Label Content="CO2 : ??" FontSize="15" FontStretch="Normal" FontWeight="Bold" Height="28" HorizontalAlignment="Right" Name="labelCO2" VerticalAlignment="Top" Width="173" Grid.Row="3" Grid.ColumnSpan="2" Grid.Column="1" Foreground="#FFCB3500" />
                 </Grid>
             </TabItem>
             <TabItem Header="About" Background="{x:Null}" BorderBrush="{x:Null}">
