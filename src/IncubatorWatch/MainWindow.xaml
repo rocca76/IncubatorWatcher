@@ -3,7 +3,7 @@
                       xmlns:TaskbarNotification="clr-namespace:Hardcodet.Wpf.TaskbarNotification;assembly=Hardcodet.Wpf.TaskbarNotification"
                       xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" xmlns:my="clr-namespace:IncubatorWatch.Controls"
                       Title="Incubator Watch" Height="600" Width="895" Icon="/IncubatorWatch;component/Images/logo.png" DataContext="{Binding RelativeSource={RelativeSource Self}}" Closing="WindowClosing"
-                      ShowIconOnTitleBar="False" WindowStartupLocation="CenterScreen" HorizontalAlignment="Stretch" Background="Black">
+                      ShowIconOnTitleBar="False" WindowStartupLocation="CenterScreen" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
     <Window.TaskbarItemInfo>
         <TaskbarItemInfo Description="IncubatorWatch" />
     </Window.TaskbarItemInfo>
@@ -22,7 +22,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <Grid Background="Black">
+    <Grid>
         <TaskbarNotification:TaskbarIcon Name="taskbarIcon" IconSource="/IncubatorWatch;component/logo.ico"
                                          TrayMouseDoubleClick="TaskbarIconTrayMouseDoubleClick" Grid.RowSpan="2" OpacityMask="#FF6F6F6F">
             <TaskbarNotification:TaskbarIcon.ContextMenu>
@@ -34,7 +34,7 @@
             </TaskbarNotification:TaskbarIcon.ContextMenu>
         </TaskbarNotification:TaskbarIcon>
 
-
-        <my:DetailedViewModel x:Name="detailedViewModelGadget" Grid.Column="0" Grid.Row="0" Margin="10,10,10,0" />
+        <my:DetailedViewModel x:Name="detailedViewModelGadget" Grid.Column="0" Grid.Row="0" Margin="10,10,10,10"/>
+        
     </Grid>
 </Controls:MetroWindow>

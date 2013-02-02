@@ -5,6 +5,7 @@ using System.Windows.Media;
 using Microsoft.Research.DynamicDataDisplay.ViewportRestrictions;
 using Microsoft.Research.DynamicDataDisplay;
 using IncubatorWatch.Manager;
+using System.ComponentModel;
 
 
 namespace IncubatorWatch.Controls
@@ -14,14 +15,40 @@ namespace IncubatorWatch.Controls
     /// <summary>
     /// Interaction logic for DetailedViewModel.xaml
     /// </summary>
-    public partial class DetailedViewModel
+    public partial class DetailedViewModel : INotifyPropertyChanged
     {
         #region Private Variables
         private IncubatorManager _incubatorMnager = new IncubatorManager();
         #endregion
 
         public static DetailedViewModel _instance;
-       
+
+
+        private double _maxLevel1;
+        public double MaxLevel1
+        {
+            get { return _maxLevel1; }
+            set { _maxLevel1 = value; this.OnPropertyChanged("MaxLevel1"); }
+        }
+
+        private double _minLevel1;
+        public double MinLevel1
+        {
+            get { return _minLevel1; }
+            set { _minLevel1 = value; this.OnPropertyChanged("MinLevel1"); }
+        }
+
+        #region INotifyPropertyChanged members
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+                this.PropertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+        }
+
+        #endregion
+
         public static DetailedViewModel Instance
         {
             get { return _instance; }
@@ -45,7 +72,7 @@ namespace IncubatorWatch.Controls
                 EnumerableDataSource<IncubatorData> receivedGraph = new EnumerableDataSource<IncubatorData>(_incubatorMnager.IncubatorData);
                 receivedGraph.SetXMapping(x => temperatureTimeAxis.ConvertToDouble(x.Time));
                 receivedGraph.SetYMapping(y => y.Temperature);
-                plotterTemperature.AddLineGraph(receivedGraph, (Color)ColorConverter.ConvertFromString("#FFCB3500"), 2, "Température");
+                plotterTemperature.AddLineGraph(receivedGraph, Colors.Blue, 2, "Température");
 
                 ViewportAxesRangeRestriction resT = new ViewportAxesRangeRestriction();
                 resT.YRange = new DisplayRange(18.5, 21.5);
@@ -56,13 +83,13 @@ namespace IncubatorWatch.Controls
 
                 ///////////////////////////
 
-                EnumerableDataSource<IncubatorData> receivedGraphRH = new EnumerableDataSource<IncubatorData>(_incubatorMnager.IncubatorData);
-                receivedGraphRH.SetXMapping(x => relativeHumidityTimeAxis.ConvertToDouble(x.Time));
-                receivedGraphRH.SetYMapping(y => y.RelativeHumidity);
-                plotterRelativeHumidity.AddLineGraph(receivedGraphRH, (Color)ColorConverter.ConvertFromString("#FFCB3500"), 2, "Humitidé Relative");
+                receivedGraph = new EnumerableDataSource<IncubatorData>(_incubatorMnager.IncubatorData);
+                receivedGraph.SetXMapping(x => relativeHumidityTimeAxis.ConvertToDouble(x.Time));
+                receivedGraph.SetYMapping(y => y.RelativeHumidity);
+                plotterRelativeHumidity.AddLineGraph(receivedGraph, Colors.Blue, 2, "Humitidé Relative");
                 
                 ViewportAxesRangeRestriction restrRH = new ViewportAxesRangeRestriction();
-                restrRH.YRange = new DisplayRange(29, 61);
+                restrRH.YRange = new DisplayRange(25, 65);
                 plotterRelativeHumidity.Viewport.Restrictions.Add(restrRH);
                 plotterRelativeHumidity.HorizontalAxis.Remove();
 
@@ -70,13 +97,13 @@ namespace IncubatorWatch.Controls
 
                 ///////////////////////////
 
-                EnumerableDataSource<IncubatorData> receivedGraphCO2 = new EnumerableDataSource<IncubatorData>(_incubatorMnager.IncubatorData);
-                receivedGraphCO2.SetXMapping(x => CO2TimeAxis.ConvertToDouble(x.Time));
-                receivedGraphCO2.SetYMapping(y => y.CO2);
-                plotterCO2.AddLineGraph(receivedGraphCO2, (Color)ColorConverter.ConvertFromString("#FFCB3500"), 2, "CO2");
+                receivedGraph = new EnumerableDataSource<IncubatorData>(_incubatorMnager.IncubatorData);
+                receivedGraph.SetXMapping(x => CO2TimeAxis.ConvertToDouble(x.Time));
+                receivedGraph.SetYMapping(y => y.CO2);
+                plotterCO2.AddLineGraph(receivedGraph, Colors.Blue, 2, "CO2");
                 
                 ViewportAxesRangeRestriction restrCO2 = new ViewportAxesRangeRestriction();
-                restrCO2.YRange = new DisplayRange(400, 1400);
+                restrCO2.YRange = new DisplayRange(350, 1250);
                 plotterCO2.Viewport.Restrictions.Add(restrCO2);
                 plotterCO2.HorizontalAxis.Remove();
 
@@ -91,6 +118,9 @@ namespace IncubatorWatch.Controls
         {
             try
             {
+                MaxLevel1 = 21;
+                MinLevel1 = 19.5;
+
                 labelTemprature.Content = "Température: " + temperature.ToString("F2") + " °C";
                 labelRelativeHumidity.Content = "Humidité Relative: " + relativeHumidity.ToString("F2") + " %";
                 labelCO2.Content = "CO2: " + co2.ToString() + " ppm"; 
@@ -109,6 +139,11 @@ namespace IncubatorWatch.Controls
         private void Dispatcher_ShutdownStarted(object sender, EventArgs e)
         {
             _incubatorMnager.Shutdown();
+        }
+
+        private void buttonApply_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
