@@ -7,11 +7,11 @@
              xmlns:d3="http://research.microsoft.com/DynamicDataDisplay/1.0" mc:Ignorable="d"
              xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" xmlns:my="clr-namespace:IncubatorWatch.Controls"
              d:DesignHeight="400" d:DesignWidth="600"
-             DataContext="{Binding RelativeSource={RelativeSource Self}}">
-    <Grid>
+             DataContext="{Binding RelativeSource={RelativeSource Self}}" Background="Black">
+    <Grid Background="Black">
         <TabControl Name="tabCtrlMother">
             <TabItem Header="Graphique">
-                <Grid>
+                <Grid Background="#FFA0A0A0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="200*" />
                         <RowDefinition Height="Auto" />
@@ -20,17 +20,17 @@
                         <RowDefinition Height="200*" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <d3:ChartPlotter Name="plotterTemperature" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="1" Margin="0,5">
+                    <d3:ChartPlotter Name="plotterTemperature" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="1" Margin="5,10,10,5" Background="#FFA0A0A0">
                         <d3:ChartPlotter.HorizontalAxis>
                             <d3:HorizontalDateTimeAxis Name="temperatureTimeAxis" />
                         </d3:ChartPlotter.HorizontalAxis>
                         <d3:ChartPlotter.VerticalAxis>
-                            <d3:VerticalAxis Name="temperatureAxis"/>
+                            <d3:VerticalAxis Name="temperatureAxis" Background="#FFA0A0A0" BorderBrush="#FFA0A0A0" />
                         </d3:ChartPlotter.VerticalAxis>
                         <d3:HorizontalLine Value="{Binding MaxLevel1}" Stroke="Red" StrokeThickness="1"/>
                         <d3:HorizontalLine Value="{Binding MinLevel1}" Stroke="Red" StrokeThickness="1"/>
                     </d3:ChartPlotter>
-                    <d3:ChartPlotter Name="plotterRelativeHumidity" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="1" Margin="0,5">
+                    <d3:ChartPlotter Name="plotterRelativeHumidity" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="1" Margin="5,5,10,5" Background="#FFA0A0A0">
                         <d3:ChartPlotter.HorizontalAxis>
                             <d3:HorizontalDateTimeAxis Name="relativeHumidityTimeAxis" />
                         </d3:ChartPlotter.HorizontalAxis>
@@ -38,7 +38,7 @@
                             <d3:VerticalAxis Name="relativeHumidityAxis" />
                         </d3:ChartPlotter.VerticalAxis>
                     </d3:ChartPlotter>
-                    <d3:ChartPlotter Name="plotterCO2" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="1" Margin="0,5">
+                    <d3:ChartPlotter Name="plotterCO2" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="1" Margin="5,5,10,5" Background="#FFA0A0A0">
                         <d3:ChartPlotter.HorizontalAxis>
                             <d3:HorizontalDateTimeAxis Name="CO2TimeAxis" />
                         </d3:ChartPlotter.HorizontalAxis>
@@ -49,13 +49,13 @@
 
                     <Button Content="Button" Name="button1" Height="25" Width="76" VerticalAlignment="Top" HorizontalAlignment="Right" Grid.Row="1" Grid.Column="1" Visibility="Hidden" />
                     <Button Content="Button" Name="button2" Height="25" Width="75" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Right" Grid.Column="1" Visibility="Hidden" />
-                    <Label Content="Température : ??" Name="labelTemprature" FontStretch="Normal" FontWeight="Bold" FontSize="15" Grid.ColumnSpan="1" Grid.Column="1" Grid.Row="1" Foreground="#FFCB3500" HorizontalContentAlignment="Right" />
-                    <Label Content="Humidité Relative : ??" FontSize="15" FontStretch="Normal" FontWeight="Bold" HorizontalAlignment="Right" Name="labelRelativeHumidity" Grid.Row="3" Grid.ColumnSpan="1" Grid.Column="1" Foreground="#FFCB3500" />
-                    <Label Content="CO2 : ??" FontSize="15" FontStretch="Normal" FontWeight="Bold" HorizontalAlignment="Right" Name="labelCO2" VerticalAlignment="Top" Grid.Row="5" Grid.ColumnSpan="1" Grid.Column="1" Foreground="#FFCB3500" />
+                    <Label Content="Température : ??" Name="labelTemprature" FontStretch="Normal" FontWeight="Bold" FontSize="15" Grid.ColumnSpan="1" Grid.Column="1" Grid.Row="1" Foreground="#FFCB3500" HorizontalContentAlignment="Right" Margin="0,0,10,0" />
+                    <Label Content="Humidité Relative : ??" FontSize="15" FontStretch="Normal" FontWeight="Bold" HorizontalAlignment="Right" Name="labelRelativeHumidity" Grid.Row="3" Grid.ColumnSpan="1" Grid.Column="1" Foreground="#FFCB3500" Margin="0,0,10,0" />
+                    <Label Content="CO2 : ??" FontSize="15" FontStretch="Normal" FontWeight="Bold" HorizontalAlignment="Right" Name="labelCO2" VerticalAlignment="Top" Grid.Row="5" Grid.ColumnSpan="1" Grid.Column="1" Foreground="#FFCB3500" Margin="0,0,10,0" />
                 </Grid>
             </TabItem>
             <TabItem Header="Configuration">
-                <Grid>
+                <Grid Background="#FFA0A0A0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="10" />
                         <ColumnDefinition Width="100*" />
@@ -70,7 +70,7 @@
                     <Label Content="Label" Grid.Column="1" Grid.Row="1" Height="28" HorizontalAlignment="Left" Margin="10,32,0,0" Name="label1" VerticalAlignment="Top" />
                     <TextBox Grid.Column="1" Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="54,34,0,0" Name="textBox1" VerticalAlignment="Top" Width="51" />
                     <Label Content="Label" Grid.Column="1" Grid.Row="1" Height="28" HorizontalAlignment="Left" Name="label2" VerticalAlignment="Top" Margin="111,32,0,0" />
-                    <Border BorderBrush="Silver" BorderThickness="1" Grid.Column="1" Grid.Row="1" Height="183" HorizontalAlignment="Left" Name="border1" VerticalAlignment="Top" Width="280" />
+                    <Border BorderBrush="Black" BorderThickness="1" Grid.Column="1" Grid.Row="1" Height="183" HorizontalAlignment="Left" Name="border1" VerticalAlignment="Top" Width="280" />
                 </Grid>
             </TabItem>
         </TabControl>

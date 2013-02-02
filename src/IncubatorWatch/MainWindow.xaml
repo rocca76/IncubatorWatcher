@@ -22,7 +22,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <Grid>
+    <Grid Background="Black">
         <TaskbarNotification:TaskbarIcon Name="taskbarIcon" IconSource="/IncubatorWatch;component/logo.ico"
                                          TrayMouseDoubleClick="TaskbarIconTrayMouseDoubleClick" Grid.RowSpan="2" OpacityMask="#FF6F6F6F">
             <TaskbarNotification:TaskbarIcon.ContextMenu>
