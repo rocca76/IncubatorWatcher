@@ -24,7 +24,6 @@
                         <d3:ChartPlotter.VerticalAxis>
                             <d3:VerticalAxis Name="temperatureAxis" />
                         </d3:ChartPlotter.VerticalAxis>
-                        <d3:HorizontalLine Value="{Binding MaxLevel1}" Stroke="Red" StrokeThickness="1"/>
                         <d3:HorizontalLine Value="{Binding MinLevel1}" Stroke="Red" StrokeThickness="1"/>
                     </d3:ChartPlotter>
                     <d3:ChartPlotter Name="plotterRelativeHumidity" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="1" Margin="5,5,10,5" BorderBrush="#FFCB3500">

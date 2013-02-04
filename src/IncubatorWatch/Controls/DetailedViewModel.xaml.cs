@@ -118,12 +118,12 @@ namespace IncubatorWatch.Controls
         {
             try
             {
-                MaxLevel1 = 21;
-                MinLevel1 = 19.5;
+                MaxLevel1 = 0;
+                MinLevel1 = 20;
 
-                labelTemprature.Content = "Température: " + temperature.ToString("F2") + " °C";
-                labelRelativeHumidity.Content = "Humidité Relative: " + relativeHumidity.ToString("F2") + " %";
-                labelCO2.Content = "CO2: " + co2.ToString() + " ppm"; 
+                labelTemprature.Content = temperature.ToString("F2") + " °C";
+                labelRelativeHumidity.Content = relativeHumidity.ToString("F2") + " %";
+                labelCO2.Content = co2.ToString() + " ppm"; 
             }
             catch (Exception ex)
             {
