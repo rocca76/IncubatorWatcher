@@ -23,19 +23,11 @@ namespace IncubatorWatch.Controls
 
         public static DetailedViewModel _instance;
 
-
-        private double _maxLevel1;
-        public double MaxLevel1
+        private double _targetTemperature;
+        public double TargetTemperature
         {
-            get { return _maxLevel1; }
-            set { _maxLevel1 = value; this.OnPropertyChanged("MaxLevel1"); }
-        }
-
-        private double _minLevel1;
-        public double MinLevel1
-        {
-            get { return _minLevel1; }
-            set { _minLevel1 = value; this.OnPropertyChanged("MinLevel1"); }
+          get { return _targetTemperature; }
+          set { _targetTemperature = value; this.OnPropertyChanged("TargetTemperature"); }
         }
 
         #region INotifyPropertyChanged members
@@ -109,8 +101,9 @@ namespace IncubatorWatch.Controls
 
                 plotterCO2.Children.RemoveAll(typeof(Legend));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+              Console.Write(ex.ToString());
             }
         }
 
@@ -118,8 +111,7 @@ namespace IncubatorWatch.Controls
         {
             try
             {
-                MaxLevel1 = 0;
-                MinLevel1 = 20;
+                TargetTemperature = 20;
 
                 labelTemprature.Content = temperature.ToString("F2") + " °C";
                 labelRelativeHumidity.Content = relativeHumidity.ToString("F2") + " %";
@@ -143,7 +135,18 @@ namespace IncubatorWatch.Controls
 
         private void buttonApply_Click(object sender, RoutedEventArgs e)
         {
+          try
+          {
+            double target = Convert.ToDouble(temperatureTarget.Text);
 
+            //Valide target
+
+            _incubatorMnager.SetTemperatureTarget(target);
+          }
+          catch (Exception ex)
+          {
+            Console.Write(ex.ToString());
+          }
         }
     }
 }

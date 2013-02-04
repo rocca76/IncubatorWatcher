@@ -46,20 +46,6 @@ namespace IncubatorWatch.Communication
             _server.Abort();
         }
 
-
-        public void SetTimeOnNetdino()
-        {
-            string presentTime = string.Format("TIME {0} {1} {2} {3} {4} {5} {6}",
-                                                DateTime.Now.Year,
-                                                DateTime.Now.Month,
-                                                DateTime.Now.Day,
-                                                DateTime.Now.Hour,
-                                                DateTime.Now.Minute,
-                                                DateTime.Now.Second,
-                                                DateTime.Now.Millisecond);
-            SendToNetduino(presentTime);
-        }
-
         public void StartListening()
         {
             // Data buffer for incoming data.
@@ -187,7 +173,7 @@ namespace IncubatorWatch.Communication
             }
         }
 
-        public void SendToNetduino(String content)
+        public void SendMessage(String content)
         {
             // Data buffer for incoming data.
             byte[] bytes = new byte[1024];

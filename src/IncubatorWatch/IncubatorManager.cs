@@ -25,19 +25,9 @@ namespace IncubatorWatch.Manager
         #region Constructors
         public IncubatorManager()
         {
-            /*for (int i = 0; i < 60; i++)
-            {
-                DateTime dateNow = DateTime.Now;
-                dateNow = dateNow.Subtract(TimeSpan.FromSeconds(60 - i));
-                _incubatorDataCollection.Add(new IncubatorData(dateNow, 0, 0));
-            }*/
-
-            //this.IncubatorData.Add(new IncubatorData(DateTime.Now, 15, 20));
-            //this.IncubatorData.Add(new IncubatorData(DateTime.Now, 30, 80));
-
             AsynchronousSocketListener.EventHandlerMessageReceived += new MessageEventHandler(OnMessageReceived);
 
-            _asyncSocketListener.SetTimeOnNetdino();
+            Init();
         }
         #endregion
 
@@ -77,12 +67,26 @@ namespace IncubatorWatch.Manager
                     xmlReader.Close();
                 }
             }
-            catch (Exception ex)       
+            catch (Exception ex)
             {
-                Console.Write(ex.ToString());
+              Console.Write(ex.ToString());
             }
 
             return value;
+        }
+
+        private void Init()
+        {
+          string presentTime = string.Format("TIME {0} {1} {2} {3} {4} {5} {6}",
+                                    DateTime.Now.Year,
+                                    DateTime.Now.Month,
+                                    DateTime.Now.Day,
+                                    DateTime.Now.Hour,
+                                    DateTime.Now.Minute,
+                                    DateTime.Now.Second,
+                                    DateTime.Now.Millisecond);
+
+          _asyncSocketListener.SendMessage(presentTime);
         }
         #endregion
 
@@ -90,25 +94,32 @@ namespace IncubatorWatch.Manager
         #region Public Methods
         public void OnNewData(String message)
         {
-            try
-            {
-                double temperature = GetData(message, "temperature");
-                double relativeHumidity = GetData(message, "relativehumidity");
-                int co2 = (int)GetData(message, "co2");
+          try
+          {
+            double temperature = GetData(message, "temperature");
+            double relativeHumidity = GetData(message, "relativehumidity");
+            int co2 = (int)GetData(message, "co2");
 
-                DetailedViewModel.Instance.OnUpdateData(temperature, relativeHumidity, co2);
-                this.IncubatorData.Add(new IncubatorData(DateTime.Now, temperature, relativeHumidity, co2));   
-            }
-            catch (Exception ex)
-            {
-                Console.Write(ex.ToString());
-            }
+            DetailedViewModel.Instance.OnUpdateData(temperature, relativeHumidity, co2);
+            this.IncubatorData.Add(new IncubatorData(DateTime.Now, temperature, relativeHumidity, co2));
+          }
+          catch (Exception ex)
+          {
+            Console.Write(ex.ToString());
+          }
         }
 
         public void Shutdown()
         {
-            _asyncSocketListener.SendToNetduino("EXIT");
-            _asyncSocketListener.StopListening();
+          _asyncSocketListener.SendMessage("EXIT");
+          _asyncSocketListener.StopListening();
+        }
+
+        public void SetTemperatureTarget(double temperatureTarget)
+        {
+          string temperatureTargetTxt = string.Format("TEMPERATURE_TARGET {0}", temperatureTarget);
+
+          _asyncSocketListener.SendMessage(temperatureTargetTxt);
         }
         #endregion
     }
