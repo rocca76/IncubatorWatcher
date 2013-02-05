@@ -139,14 +139,31 @@ namespace IncubatorWatch.Controls
           {
             double target = Convert.ToDouble(temperatureTarget.Text);
 
-            //Valide target
-
-            _incubatorMnager.SetTemperatureTarget(target);
+            if (ValideTemperatureTarget(target))
+            {
+                _incubatorMnager.SetTemperatureTarget(target);
+            }
+            else
+            {
+                MessageBox.Show("Valeur invalide");
+            }
           }
           catch (Exception ex)
           {
-            Console.Write(ex.ToString());
+              MessageBox.Show(ex.ToString());
           }
+        }
+
+        private bool ValideTemperatureTarget(double target )
+        {
+            bool result = false;
+
+            if (target > 0 && target < 50)
+            {
+                result = true;
+            }
+
+            return result;
         }
     }
 }
