@@ -43,14 +43,15 @@
                         </d3:ChartPlotter.VerticalAxis>
                     </d3:ChartPlotter>
 
+                    <Label Content="???? watts" Name="labelWatts" FontStretch="Normal" FontWeight="Bold" FontSize="20" Grid.ColumnSpan="1" Grid.Column="1" Grid.Row="0" Foreground="#FFCB3500" HorizontalContentAlignment="Left" HorizontalAlignment="Right" VerticalAlignment="Bottom" VerticalContentAlignment="Top" Panel.ZIndex="1" Margin="0,20,5,45" />
+                    <TextBox HorizontalAlignment="Right" Name="targetTemperatureEdit" VerticalAlignment="Bottom" Text="??.??" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Foreground="#FFCB3500" FontWeight="Bold" Margin="0,0,240,10" Width="50" />
                     <Label Content="Température" Grid.Row="0" HorizontalAlignment="Center" Name="label3" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FFCB3500" Margin="0,10,0,0" />
                     <Label Content="??.?? °C" FontSize="20" FontStretch="Normal" FontWeight="Bold" Foreground="#FFCB3500" HorizontalAlignment="Right" HorizontalContentAlignment="Left" Margin="0,10,5,0" Name="labelTemprature" Panel.ZIndex="1" VerticalAlignment="Top" VerticalContentAlignment="Top" />
-                    <Label Content="Chauffage: ???? watts" Name="labelWatts" FontStretch="Normal" FontWeight="Bold" FontSize="20" Grid.Row="0" Foreground="#FFCB3500" HorizontalContentAlignment="Left" HorizontalAlignment="Right" VerticalAlignment="Bottom" VerticalContentAlignment="Top" Panel.ZIndex="1" Margin="0,20,5,45" />
 
                     <Label Content="Cible :" FontWeight="Bold" Foreground="#FFCB3500" HorizontalAlignment="Right" Name="label5" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" Margin="0,0,280,10" Grid.Row="0"/>
                     <TextBox HorizontalAlignment="Right" Name="temperatureTarget" VerticalAlignment="Bottom" Text="99.99" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Foreground="#FFCB3500" FontWeight="Bold" Margin="0,0,240,10" Width="40" Grid.Row="0"/>
                     <Label Content="°C" HorizontalAlignment="Right" Name="label4" VerticalAlignment="Bottom" Foreground="#FFCB3500" FontWeight="Bold" Margin="0,0,220,10" Grid.Row="0"/>
-                    <Button Content="Appliquer" HorizontalAlignment="Right" Name="button3" VerticalAlignment="Bottom" Width="80" Margin="0,0,130,11" Foreground="#FFCB3500" Grid.Row="0"/>
+                    <Button Content="Appliquer" Grid.Row="0" HorizontalAlignment="Right" Name="button3" VerticalAlignment="Bottom" Width="80" Margin="0,0,130,11" Foreground="#FFCB3500" Click="buttonApply_Click" />
                     <Slider HorizontalAlignment="Right" Name="slider1" VerticalAlignment="Bottom" Width="100" Panel.ZIndex="1" VerticalContentAlignment="Bottom" Foreground="#FFCB3500" Maximum="1500" SmallChange="250" SelectionEnd="0" LargeChange="250" Margin="0,0,15,14" BorderBrush="#FFCB3500" />
 
                     <Label Content="Humidité relative" FontWeight="Bold" Foreground="#FFCB3500" HorizontalAlignment="Center" Margin="0,10,0,0" Name="label1" VerticalAlignment="Top" Grid.Row="1"/>

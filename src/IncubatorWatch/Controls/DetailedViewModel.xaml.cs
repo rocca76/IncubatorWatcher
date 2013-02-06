@@ -107,13 +107,30 @@ namespace IncubatorWatch.Controls
             }
         }
 
-        public void OnUpdateData(double temperature, double relativeHumidity, int co2)
+        public void OnUpdateTemperatureData(double temperature, double  targetTemperature, int heatPower)
         {
             try
             {
-                TargetTemperature = 20;
-
                 labelTemprature.Content = temperature.ToString("F2") + " °C";
+                TargetTemperature = targetTemperature;
+
+                if (targetTemperatureEdit.Text == "??.??")
+                {
+                    targetTemperatureEdit.Text = targetTemperature.ToString("F2");
+                }
+
+                labelWatts.Content = heatPower.ToString() + " watts";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        public void OnUpdateData(double relativeHumidity, int co2)
+        {
+            try
+            {
                 labelRelativeHumidity.Content = relativeHumidity.ToString("F2") + " %";
                 labelCO2Value.Content = co2.ToString() + " ppm"; 
             }
@@ -137,16 +154,33 @@ namespace IncubatorWatch.Controls
         {
           try
           {
-            double target = Convert.ToDouble(temperatureTarget.Text);
+              double target = Convert.ToDouble(targetTemperatureEdit.Text);
 
-            //Valide target
-
-            _incubatorMnager.SetTemperatureTarget(target);
+            if (ValideTargetTemperature(target))
+            {
+                _incubatorMnager.SetTargetTemperature(target);
+            }
+            else
+            {
+                MessageBox.Show("Valeur invalide");
+            }
           }
           catch (Exception ex)
           {
-            Console.Write(ex.ToString());
+              MessageBox.Show(ex.ToString());
           }
+        }
+
+        private bool ValideTargetTemperature(double target )
+        {
+            bool result = false;
+
+            if (target > 0 && target < 50)
+            {
+                result = true;
+            }
+
+            return result;
         }
     }
 }
