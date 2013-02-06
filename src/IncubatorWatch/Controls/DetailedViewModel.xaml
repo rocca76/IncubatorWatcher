@@ -26,7 +26,7 @@
                         </d3:ChartPlotter.VerticalAxis>
                         <d3:HorizontalLine Value="{Binding TargetTemperature}" Stroke="Red" StrokeThickness="1"/>
                     </d3:ChartPlotter>
-                    <d3:ChartPlotter Name="plotterRelativeHumidity" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="1" Margin="5,5,10,5" BorderBrush="#FFCB3500">
+                    <d3:ChartPlotter Name="plotterRelativeHumidity" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1" Margin="5,5,10,5" BorderBrush="#FFCB3500">
                         <d3:ChartPlotter.HorizontalAxis>
                             <d3:HorizontalDateTimeAxis Name="relativeHumidityTimeAxis" />
                         </d3:ChartPlotter.HorizontalAxis>
@@ -34,7 +34,7 @@
                             <d3:VerticalAxis Name="relativeHumidityAxis" />
                         </d3:ChartPlotter.VerticalAxis>
                     </d3:ChartPlotter>
-                    <d3:ChartPlotter Name="plotterCO2" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1" Margin="5,5,10,5" BorderBrush="#FFCB3500">
+                    <d3:ChartPlotter Name="plotterCO2" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="1" Margin="5,5,10,5" BorderBrush="#FFCB3500">
                         <d3:ChartPlotter.HorizontalAxis>
                             <d3:HorizontalDateTimeAxis Name="CO2TimeAxis" />
                         </d3:ChartPlotter.HorizontalAxis>
@@ -51,7 +51,7 @@
                     <Slider HorizontalAlignment="Right" Name="slider1" VerticalAlignment="Bottom" Width="100" Panel.ZIndex="1" VerticalContentAlignment="Bottom" Foreground="#FFCB3500" Maximum="1500" SmallChange="250" SelectionEnd="0" LargeChange="250" Margin="0,0,15,14" BorderBrush="#FFCB3500" />
                     <Rectangle Grid.Row="0" Margin="5,10,5,5" Name="rectangle1" Stroke="#FFCB3500" />
                     <Button Content="Appliquer" Grid.Row="0" HorizontalAlignment="Right" Name="button3" VerticalAlignment="Bottom" Width="80" Margin="0,0,130,11" Foreground="#FFCB3500" Click="buttonApply_Click" />
-                    <TextBox HorizontalAlignment="Right" Name="temperatureTarget" VerticalAlignment="Bottom" Text="??.??" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Foreground="#FFCB3500" FontWeight="Bold" Margin="0,0,240,10" Width="40" />
+                    <TextBox HorizontalAlignment="Right" Name="targetTemperature" VerticalAlignment="Bottom" Text="??.??" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Foreground="#FFCB3500" FontWeight="Bold" Margin="0,0,240,10" Width="40" />
                     <Label Content="Température" Grid.Row="0" HorizontalAlignment="Center" Name="label3" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FFCB3500" Margin="0,10,0,0" />
                     <Label Content="°C" HorizontalAlignment="Right" Name="label4" VerticalAlignment="Bottom" Foreground="#FFCB3500" FontWeight="Bold" Margin="0,0,220,10" />
                     <Label Content="Cible :" FontWeight="Bold" Foreground="#FFCB3500" HorizontalAlignment="Right" Name="label5" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" Margin="0,0,280,10" />

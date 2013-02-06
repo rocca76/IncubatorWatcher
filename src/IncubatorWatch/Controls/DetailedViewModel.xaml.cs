@@ -107,15 +107,26 @@ namespace IncubatorWatch.Controls
             }
         }
 
-        public void OnUpdateData(double temperature, double relativeHumidity, int co2)
+        public void OnUpdateTemperatureData(double temperature, double  targetTemperature, int heatPower)
         {
             try
             {
-                TargetTemperature = 20;
-
                 labelTemprature.Content = temperature.ToString("F2") + " °C";
+                TargetTemperature = targetTemperature;
+                labelWatts.Content = heatPower.ToString() + " watts";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        public void OnUpdateData(double relativeHumidity, int co2)
+        {
+            try
+            {
                 labelRelativeHumidity.Content = relativeHumidity.ToString("F2") + " %";
-                labelCO2.Content = co2.ToString() + " ppm"; 
+                labelCO2.Content = co2.ToString() + " ppm";
             }
             catch (Exception ex)
             {
@@ -137,11 +148,11 @@ namespace IncubatorWatch.Controls
         {
           try
           {
-            double target = Convert.ToDouble(temperatureTarget.Text);
+            double target = Convert.ToDouble(targetTemperature.Text);
 
-            if (ValideTemperatureTarget(target))
+            if (ValideTargetTemperature(target))
             {
-                _incubatorMnager.SetTemperatureTarget(target);
+                _incubatorMnager.SetTargetTemperature(target);
             }
             else
             {
@@ -154,7 +165,7 @@ namespace IncubatorWatch.Controls
           }
         }
 
-        private bool ValideTemperatureTarget(double target )
+        private bool ValideTargetTemperature(double target )
         {
             bool result = false;
 

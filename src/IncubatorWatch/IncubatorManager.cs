@@ -97,11 +97,16 @@ namespace IncubatorWatch.Manager
           try
           {
             double temperature = GetData(message, "temperature");
+            double targetTemperature = GetData(message, "targettemperature");
+            int heatPower = (int)GetData(message, "heatpower");
             double relativeHumidity = GetData(message, "relativehumidity");
             int co2 = (int)GetData(message, "co2");
 
-            DetailedViewModel.Instance.OnUpdateData(temperature, relativeHumidity, co2);
             this.IncubatorData.Add(new IncubatorData(DateTime.Now, temperature, relativeHumidity, co2));
+
+            DetailedViewModel.Instance.OnUpdateTemperatureData(temperature, targetTemperature, heatPower);
+
+            DetailedViewModel.Instance.OnUpdateData(relativeHumidity, co2);
           }
           catch (Exception ex)
           {
@@ -115,11 +120,11 @@ namespace IncubatorWatch.Manager
           _asyncSocketListener.StopListening();
         }
 
-        public void SetTemperatureTarget(double temperatureTarget)
+        public void SetTargetTemperature(double targetTemperature)
         {
-          string temperatureTargetTxt = string.Format("TEMPERATURE_TARGET {0}", temperatureTarget);
+            string targetTemperatureTxt = string.Format("TARGET_TEMPERATURE {0}", targetTemperature);
 
-          _asyncSocketListener.SendMessage(temperatureTargetTxt);
+          _asyncSocketListener.SendMessage(targetTemperatureTxt);
         }
         #endregion
     }
