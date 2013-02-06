@@ -113,6 +113,12 @@ namespace IncubatorWatch.Controls
             {
                 labelTemprature.Content = temperature.ToString("F2") + " °C";
                 TargetTemperature = targetTemperature;
+
+                if (targetTemperatureEdit.Text == "??.??")
+                {
+                    targetTemperatureEdit.Text = targetTemperature.ToString("F2");
+                }
+
                 labelWatts.Content = heatPower.ToString() + " watts";
             }
             catch (Exception ex)
@@ -148,7 +154,7 @@ namespace IncubatorWatch.Controls
         {
           try
           {
-            double target = Convert.ToDouble(targetTemperature.Text);
+              double target = Convert.ToDouble(targetTemperatureEdit.Text);
 
             if (ValideTargetTemperature(target))
             {
