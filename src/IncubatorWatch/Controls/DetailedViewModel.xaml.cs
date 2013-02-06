@@ -115,7 +115,7 @@ namespace IncubatorWatch.Controls
 
                 labelTemprature.Content = temperature.ToString("F2") + " °C";
                 labelRelativeHumidity.Content = relativeHumidity.ToString("F2") + " %";
-                labelCO2.Content = co2.ToString() + " ppm"; 
+                labelCO2Value.Content = co2.ToString() + " ppm"; 
             }
             catch (Exception ex)
             {
