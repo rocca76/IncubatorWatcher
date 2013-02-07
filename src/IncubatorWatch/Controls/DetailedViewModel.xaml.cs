@@ -120,6 +120,7 @@ namespace IncubatorWatch.Controls
                 }
 
                 labelWatts.Content = heatPower.ToString() + " watts";
+                //labelMinMaxTemperature.Content = "";
             }
             catch (Exception ex)
             {
@@ -132,7 +133,7 @@ namespace IncubatorWatch.Controls
             try
             {
                 labelRelativeHumidity.Content = relativeHumidity.ToString("F2") + " %";
-                labelCO2Value.Content = co2.ToString() + " ppm"; 
+                labelCO2Value.Content = co2.ToString() + " ppm";
             }
             catch (Exception ex)
             {

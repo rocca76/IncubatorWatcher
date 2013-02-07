@@ -8,7 +8,7 @@ namespace IncubatorWatch
 {
     public class IncubatorDataCollection : RingArray<IncubatorData>
     {
-        private const int TotalData = 300;
+        private const int TotalData = 3600;
         public IntPtr CurrPointer = IntPtr.Zero;
         public IntPtr PrevPointer = IntPtr.Zero;
 

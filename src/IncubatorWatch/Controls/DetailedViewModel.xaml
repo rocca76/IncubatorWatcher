@@ -48,6 +48,8 @@
                     <Label Content="??.?? °C" FontSize="20" FontStretch="Normal" FontWeight="Bold" Foreground="#FFCB3500" HorizontalAlignment="Right" HorizontalContentAlignment="Left" Margin="0,10,5,0" Name="labelTemprature" Panel.ZIndex="1" VerticalAlignment="Top" VerticalContentAlignment="Top" />
 
                     <Label Content="10 minutes" FontWeight="Bold" Foreground="#FFCB3500" HorizontalAlignment="Left" Name="labelTemperatureTime" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" Margin="50,0,0,20" Grid.Row="0"/>
+                    <Label Content="Min ??.?? / Max ??.??" FontWeight="Bold" Foreground="#FFCB3500" HorizontalAlignment="Right" Name="labelMinMaxTemperature" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" Margin="0,0,250,10" Grid.Row="0"/>
+                    <Button Content="Reset" Grid.Row="0" HorizontalAlignment="Right" Name="buttonResetT" VerticalAlignment="Bottom" Width="80" Margin="0,0,380,11" Foreground="#FFCB3500" />
                     <Label Content="Cible :" FontWeight="Bold" Foreground="#FFCB3500" HorizontalAlignment="Right" Name="label5" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" Margin="0,0,170,10" Grid.Row="0"/>
                     <TextBox HorizontalAlignment="Right" Name="targetTemperatureEdit" VerticalAlignment="Bottom" Text="??.??" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Foreground="#FFCB3500" FontWeight="Bold" Margin="0,0,120,10" Width="50" />
                     <Label Content="°C" HorizontalAlignment="Right" Name="label4" VerticalAlignment="Bottom" Foreground="#FFCB3500" FontWeight="Bold" Margin="0,0,85,10" Grid.Row="0" Width="35" />
