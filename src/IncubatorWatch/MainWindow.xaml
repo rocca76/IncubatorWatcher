@@ -23,18 +23,6 @@
         </ResourceDictionary>
     </Window.Resources>
     <Grid>
-        <TaskbarNotification:TaskbarIcon Name="taskbarIcon" IconSource="/IncubatorWatch;component/logo.ico"
-                                         TrayMouseDoubleClick="TaskbarIconTrayMouseDoubleClick" Grid.RowSpan="2" OpacityMask="#FF6F6F6F">
-            <TaskbarNotification:TaskbarIcon.ContextMenu>
-                <ContextMenu AllowDrop="False">
-                    <MenuItem Header="Show Incubator Watcher" Click="MnuItemShowIncubatorWatcherClick" />
-                    <Separator />
-                    <MenuItem Header="Exit" Click="MnuItemExitClick" />
-                </ContextMenu>
-            </TaskbarNotification:TaskbarIcon.ContextMenu>
-        </TaskbarNotification:TaskbarIcon>
-
-        <my:DetailedViewModel x:Name="detailedViewModelGadget" Grid.Column="0" Grid.Row="0" Margin="10,10,10,10"/>
         
     </Grid>
 </Controls:MetroWindow>
