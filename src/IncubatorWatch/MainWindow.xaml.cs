@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows;
 using MahApps.Metro;
+using System.Collections.Generic;
 
 
 namespace IncubatorWatch
@@ -18,6 +19,12 @@ namespace IncubatorWatch
             Instance = this;
             InitializeComponent();
             ThemeManager.ChangeTheme(this, ThemeManager.DefaultAccents.First(a => a.Name == "Netw"), Theme.Light);
+        }
+
+        public bool ProcessCommandLineArgs(IList<string> args)
+        {
+            ShowHideApplication();
+            return true;
         }
 
         private void Button1Click(object sender, RoutedEventArgs e)
