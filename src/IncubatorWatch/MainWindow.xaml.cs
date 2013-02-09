@@ -2,12 +2,6 @@
 using System.Linq;
 using System.Windows;
 using MahApps.Metro;
-using Hardcodet.Wpf.TaskbarNotification;
-using System.Drawing;
-using System.Windows.Media;
-using System;
-using System.Windows.Media.Imaging;
-using System.IO;
 
 
 namespace IncubatorWatch
@@ -17,15 +11,9 @@ namespace IncubatorWatch
     /// </summary>
     public partial class MainWindow
     {
-        public static MainWindow Instance { get; private set; }
-        private TaskbarIcon _taskbarIcon = null;
+        public static MainWindow Instance;
 
-        static MainWindow()
-        {
-          Instance = new MainWindow();
-        }
-
-        private MainWindow()
+        public MainWindow()
         {
             Instance = this;
             InitializeComponent();
