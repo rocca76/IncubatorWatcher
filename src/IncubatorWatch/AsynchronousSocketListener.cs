@@ -181,46 +181,53 @@ namespace IncubatorWatch.Communication
             // Connect to a remote device.
             try
             {
-                // Establish the remote endpoint for the socket.
-                // This example uses port 251 on the local computer.
-                IPEndPoint remoteEP = new IPEndPoint(IPAddress.Parse("192.168.250.102"), 250);
+                var ipinfo = IPInfo.GetIPInfo("5C-86-4A-00-18-1E");
 
-                // Create a TCP/IP  socket.
-                Socket sender = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-
-                // Connect the socket to the remote endpoint. Catch any errors.
-                try
+                if (ipinfo != null)
                 {
-                    sender.Connect(remoteEP);
+                    //var hostname = ipinfo.HostName;
 
-                    Debug.Print("Socket connected to " + sender.RemoteEndPoint.ToString());
+                    // Establish the remote endpoint for the socket.
+                    // This example uses port 251 on the local computer.
+                    IPEndPoint remoteEP = new IPEndPoint(IPAddress.Parse(ipinfo.IPAddress), 250);
 
-                    // Encode the data string into a byte array.
-                    byte[] msg = Encoding.ASCII.GetBytes(content);
+                    // Create a TCP/IP  socket.
+                    Socket sender = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-                    // Send the data through the socket.
-                    int bytesSent = sender.Send(msg);
+                    // Connect the socket to the remote endpoint. Catch any errors.
+                    try
+                    {
+                        sender.Connect(remoteEP);
 
-                    // Receive the response from the remote device.
-                    //int bytesRec = sender.Receive(bytes);
-                    //Debug.Print("Echoed test = " + Encoding.ASCII.GetString(bytes, 0, bytesRec));
+                        Debug.Print("Socket connected to " + sender.RemoteEndPoint.ToString());
 
-                    // Release the socket.
-                    sender.Shutdown(SocketShutdown.Both);
-                    sender.Close();
+                        // Encode the data string into a byte array.
+                        byte[] msg = Encoding.ASCII.GetBytes(content);
 
-                }
-                catch (ArgumentNullException ane)
-                {
-                    Debug.Print("ArgumentNullException : " + ane.ToString());
-                }
-                catch (SocketException se)
-                {
-                    Debug.Print("SocketException : " + se.ToString());
-                }
-                catch (Exception e)
-                {
-                    Debug.Print("Unexpected exception : " + e.ToString());
+                        // Send the data through the socket.
+                        int bytesSent = sender.Send(msg);
+
+                        // Receive the response from the remote device.
+                        //int bytesRec = sender.Receive(bytes);
+                        //Debug.Print("Echoed test = " + Encoding.ASCII.GetString(bytes, 0, bytesRec));
+
+                        // Release the socket.
+                        sender.Shutdown(SocketShutdown.Both);
+                        sender.Close();
+
+                    }
+                    catch (ArgumentNullException ane)
+                    {
+                        Debug.Print("ArgumentNullException : " + ane.ToString());
+                    }
+                    catch (SocketException se)
+                    {
+                        Debug.Print("SocketException : " + se.ToString());
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.Print("Unexpected exception : " + e.ToString());
+                    }
                 }
             }
             catch (Exception e)
