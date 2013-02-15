@@ -182,7 +182,6 @@ namespace IncubatorWatch.Controls
             }
 
             return result;
-            return result;
         }
     }
 }

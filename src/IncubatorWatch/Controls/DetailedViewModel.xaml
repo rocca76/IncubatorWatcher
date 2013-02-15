@@ -47,7 +47,7 @@
                     <Label Content="Température" Grid.Row="0" HorizontalAlignment="Center" Name="label3" VerticalAlignment="Top" FontWeight="Bold" Foreground="Black" Margin="0,10,0,0" />
                     <Label Content="??.?? °C" FontSize="20" FontStretch="Normal" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Right" HorizontalContentAlignment="Left" Margin="0,10,5,0" Name="labelTemprature" Panel.ZIndex="1" VerticalAlignment="Top" VerticalContentAlignment="Top" />
 
-                    <Label Content="60 minutes" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Left" Name="labelTemperatureTime" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" Margin="50,0,0,20" Grid.Row="0"/>
+                    <Label Content="15 minutes" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Left" Name="labelTemperatureTime" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" Margin="50,0,0,20" Grid.Row="0"/>
                     <Label Content="Cible :" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Right" Name="label5" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" Margin="0,0,170,10" Grid.Row="0"/>
                     <TextBox HorizontalAlignment="Right" Name="targetTemperatureEdit" VerticalAlignment="Bottom" Text="??.??" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Foreground="Black" FontWeight="Bold" Margin="0,0,120,10" Width="50" />
                     <Label Content="°C" HorizontalAlignment="Right" Name="label4" VerticalAlignment="Bottom" Foreground="Black" FontWeight="Bold" Margin="0,0,85,10" Grid.Row="0" Width="35" />
@@ -56,7 +56,7 @@
                     <Label Content="??? %" FontSize="20" FontStretch="Normal" FontWeight="Bold" HorizontalAlignment="Right" Name="labelRelativeHumidity" Grid.Row="1" Grid.ColumnSpan="1" Grid.Column="1" Foreground="Black" Margin="0,10,5,0" VerticalAlignment="Top" />
                     <Label Content="Pompe: OFF" Name="humidification" FontStretch="Normal" FontWeight="Bold" FontSize="20" Grid.Row="1" Foreground="Black" HorizontalContentAlignment="Left" HorizontalAlignment="Right" VerticalAlignment="Bottom" VerticalContentAlignment="Top" Panel.ZIndex="1" Margin="0,20,5,45" />
 
-                    <Label Content="60 minutes" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Left" Name="labelRHTime" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" Margin="50,0,0,20" Grid.Row="1"/>
+                    <Label Content="15 minutes" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Left" Name="labelRHTime" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" Margin="50,0,0,20" Grid.Row="1"/>
                     <Label Content="Cible :" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Right" Name="HumidityReliveTarget" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" Margin="0,0,170,10" Grid.Row="1"/>
                     <TextBox HorizontalAlignment="Right" Name="HumidityRelativeTargetValue" VerticalAlignment="Bottom" Text="???.??" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Foreground="Black" FontWeight="Bold" Margin="0,0,120,10" Width="50" Grid.Row="1"/>
                     <Label Content="%" HorizontalAlignment="Right" Name="HumidityRelativeUnit" VerticalAlignment="Bottom" Foreground="Black" FontWeight="Bold" Margin="0,0,85,10" Grid.Row="1" Width="35" />
@@ -66,7 +66,7 @@
                     <Label Content="???? ppm" FontSize="20" FontStretch="Normal" FontWeight="Bold" HorizontalAlignment="Right" Name="labelCO2Value" VerticalAlignment="Top" Grid.Row="2" Grid.ColumnSpan="1" Grid.Column="1" Foreground="Black" Margin="0,10,5,0" />
                     <Label Content="Ventillation: OFF" FontSize="20" FontStretch="Normal" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Right" HorizontalContentAlignment="Left" Margin="0,20,5,45" Name="label2" Panel.ZIndex="1" VerticalAlignment="Bottom" VerticalContentAlignment="Top" Grid.Row="2" />
 
-                    <Label Content="60 minutes" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Left" Name="labelCO2Time" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" Margin="50,0,0,20" Grid.Row="2"/>
+                    <Label Content="15 minutes" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Left" Name="labelCO2Time" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" Margin="50,0,0,20" Grid.Row="2"/>
                     <Label Content="Cible :" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Right" Name="CO2Target" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" Margin="0,0,170,10" Grid.Row="2"/>
                     <TextBox HorizontalAlignment="Right" Name="CO2TargetValue" VerticalAlignment="Bottom" Text="????" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Foreground="Black" FontWeight="Bold" Margin="0,0,120,10" Width="50" Grid.Row="2"/>
                     <Label Content="ppm" HorizontalAlignment="Right" Name="CO2Unit" VerticalAlignment="Bottom" Foreground="Black" FontWeight="Bold" Margin="0,0,85,10" Grid.Row="2" Width="35" />
