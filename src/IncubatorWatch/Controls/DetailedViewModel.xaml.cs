@@ -64,10 +64,10 @@ namespace IncubatorWatch.Controls
                 EnumerableDataSource<IncubatorData> receivedGraph = new EnumerableDataSource<IncubatorData>(_incubatorMnager.IncubatorData);
                 receivedGraph.SetXMapping(x => temperatureTimeAxis.ConvertToDouble(x.Time));
                 receivedGraph.SetYMapping(y => y.Temperature);
-                plotterTemperature.AddLineGraph(receivedGraph, Colors.Blue, 2, "Température");
+                plotterTemperature.AddLineGraph(receivedGraph, (Color)ColorConverter.ConvertFromString("#FF40B0E0"), 2, "Température");
 
                 ViewportAxesRangeRestriction resT = new ViewportAxesRangeRestriction();
-                resT.YRange = new DisplayRange(18.5, 21.5);
+                resT.YRange = new DisplayRange(13, 27);
                 plotterTemperature.Viewport.Restrictions.Add(resT);
                 plotterTemperature.HorizontalAxis.Remove();
 
@@ -78,10 +78,10 @@ namespace IncubatorWatch.Controls
                 receivedGraph = new EnumerableDataSource<IncubatorData>(_incubatorMnager.IncubatorData);
                 receivedGraph.SetXMapping(x => relativeHumidityTimeAxis.ConvertToDouble(x.Time));
                 receivedGraph.SetYMapping(y => y.RelativeHumidity);
-                plotterRelativeHumidity.AddLineGraph(receivedGraph, Colors.Blue, 2, "Humitidé Relative");
+                plotterRelativeHumidity.AddLineGraph(receivedGraph, (Color)ColorConverter.ConvertFromString("#FF40B0E0"), 2, "Humitidé Relative");
                 
                 ViewportAxesRangeRestriction restrRH = new ViewportAxesRangeRestriction();
-                restrRH.YRange = new DisplayRange(25, 65);
+                restrRH.YRange = new DisplayRange(-5, 105);
                 plotterRelativeHumidity.Viewport.Restrictions.Add(restrRH);
                 plotterRelativeHumidity.HorizontalAxis.Remove();
 
@@ -92,10 +92,10 @@ namespace IncubatorWatch.Controls
                 receivedGraph = new EnumerableDataSource<IncubatorData>(_incubatorMnager.IncubatorData);
                 receivedGraph.SetXMapping(x => CO2TimeAxis.ConvertToDouble(x.Time));
                 receivedGraph.SetYMapping(y => y.CO2);
-                plotterCO2.AddLineGraph(receivedGraph, Colors.Blue, 2, "CO2");
+                plotterCO2.AddLineGraph(receivedGraph, (Color)ColorConverter.ConvertFromString("#FF40B0E0"), 2, "CO2");
                 
                 ViewportAxesRangeRestriction restrCO2 = new ViewportAxesRangeRestriction();
-                restrCO2.YRange = new DisplayRange(350, 1250);
+                restrCO2.YRange = new DisplayRange(300, 2200);
                 plotterCO2.Viewport.Restrictions.Add(restrCO2);
                 plotterCO2.HorizontalAxis.Remove();
 

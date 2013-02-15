@@ -18,7 +18,7 @@ namespace IncubatorWatch
         {
             Instance = this;
             InitializeComponent();
-            ThemeManager.ChangeTheme(this, ThemeManager.DefaultAccents.First(a => a.Name == "Netw"), Theme.Light);
+            //ThemeManager.ChangeTheme(this, ThemeManager.DefaultAccents.First(a => a.Name == "Netw"), Theme.Light);
         }
 
         public bool ProcessCommandLineArgs(IList<string> args)
