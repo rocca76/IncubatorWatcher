@@ -181,7 +181,7 @@ namespace IncubatorWatch.Communication
             // Connect to a remote device.
             try
             {
-                var ipinfo = IPInfo.GetIPInfo("5C-86-4A-00-18-1E");
+                IPInfo ipinfo = IPInfo.GetIPInfo("5C-86-4A-00-18-1E");
 
                 if (ipinfo != null)
                 {
