@@ -6,6 +6,7 @@ using Microsoft.Research.DynamicDataDisplay.ViewportRestrictions;
 using Microsoft.Research.DynamicDataDisplay;
 using IncubatorWatch.Manager;
 using System.ComponentModel;
+using IncubatorWatch.Info;
 
 
 namespace IncubatorWatch.Controls
@@ -134,6 +135,63 @@ namespace IncubatorWatch.Controls
             {
                 labelRelativeHumidity.Content = relativeHumidity.ToString("F2") + " %";
                 labelCO2Value.Content = co2.ToString() + " ppm";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        public void OnUpdateTiltData(TiltMode mode, TiltState state)
+        {
+            try
+            {
+                FrameworkElement parent = (FrameworkElement)this.Parent;
+
+                while (true)
+                {
+                    if (parent is MainWindow)
+                    {
+                        String actuatorTxt = "Actuateur: ";
+
+                        switch (mode)
+                        {
+                            case TiltMode.Manual:
+                                actuatorTxt += "Manuel";
+                                break;
+                            case TiltMode.Auto:
+                                actuatorTxt += "Automatique";
+                                break;
+                        }
+
+                        actuatorTxt += " - ";
+
+                        switch (state)
+                        {
+                            case TiltState.Open:
+                                actuatorTxt += "Ouvert";
+                                break;
+                            case TiltState.Close:
+                                actuatorTxt += "Fermé";
+                                break;
+                            case TiltState.Opening:
+                                actuatorTxt += "Ouvre...";
+                                break;
+                            case TiltState.Closing:
+                                actuatorTxt += "Ferme...";
+                                break;
+                            case TiltState.Stopped:
+                                actuatorTxt += "Arrêté";
+                                break;
+                        }
+
+
+                        ((MainWindow)parent).Actuator = actuatorTxt;
+                        break;
+                    }
+
+                    parent = (FrameworkElement)parent.Parent;
+                }
             }
             catch (Exception ex)
             {

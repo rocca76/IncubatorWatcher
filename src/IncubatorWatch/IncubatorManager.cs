@@ -4,6 +4,7 @@ using System.Xml;
 using System.IO;
 using System.Windows;
 using IncubatorWatch.Controls;
+using IncubatorWatch.Info;
 
 namespace IncubatorWatch.Manager
 {
@@ -15,7 +16,6 @@ namespace IncubatorWatch.Manager
         private readonly IncubatorDataCollection _incubatorDataCollection = new IncubatorDataCollection();
         private static AsynchronousSocketListener _asyncSocketListener = new AsynchronousSocketListener();
         #endregion
-
 
         #region Events
         public event ReceivedEventHandler EventHandlerMessageReceived;
@@ -102,11 +102,16 @@ namespace IncubatorWatch.Manager
             double relativeHumidity = GetData(message, "relativehumidity");
             int co2 = (int)GetData(message, "co2");
 
+            TiltMode tiltMode = (TiltMode)GetData(message, "tiltmode");
+            TiltState tiltState = (TiltState)GetData(message, "tiltstate");
+
             this.IncubatorData.Add(new IncubatorData(DateTime.Now, temperature, relativeHumidity, co2));
 
             DetailedViewModel.Instance.OnUpdateTemperatureData(temperature, targetTemperature, heatPower);
 
             DetailedViewModel.Instance.OnUpdateData(relativeHumidity, co2);
+
+            DetailedViewModel.Instance.OnUpdateTiltData(tiltMode, tiltState);
           }
           catch (Exception ex)
           {

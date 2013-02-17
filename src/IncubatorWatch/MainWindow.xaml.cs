@@ -3,6 +3,7 @@ using System.Linq;
 using System.Windows;
 using MahApps.Metro;
 using System.Collections.Generic;
+using System;
 
 
 namespace IncubatorWatch
@@ -14,11 +15,11 @@ namespace IncubatorWatch
     {
         public static MainWindow Instance;
 
-        private double _motor;
-        public double Motor
+        private String _actuator;
+        public String Actuator
         {
-            get { return _motor; }
-            set { _motor = value; this.OnPropertyChanged("Motor"); }
+            get { return _actuator; }
+            set { _actuator = value; this.OnPropertyChanged("Actuator"); }
         }
 
         #region INotifyPropertyChanged members
@@ -36,10 +37,6 @@ namespace IncubatorWatch
         {
             Instance = this;
             InitializeComponent();
-            //ThemeManager.ChangeTheme(this, ThemeManager.DefaultAccents.First(a => a.Name == "Netw"), Theme.Light);
-
-            //detailedViewModelGadget.TargetTemperature = 11;
-            Motor = 0.123;
         }
 
         public bool ProcessCommandLineArgs(IList<string> args)

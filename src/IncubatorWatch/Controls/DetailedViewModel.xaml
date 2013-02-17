@@ -87,6 +87,24 @@
                     </Grid.RowDefinitions>
                 </Grid>
             </TabItem>
+            <TabItem Header="Control">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10" />
+                        <ColumnDefinition Width="100*" />
+                        <ColumnDefinition Width="10" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10" />
+                        <RowDefinition Height="100*" />
+                        <RowDefinition Height="10" />
+                    </Grid.RowDefinitions>
+                    <RadioButton Content="RadioButton" Grid.Column="1" Grid.Row="1" Height="16" HorizontalAlignment="Left" Margin="26,19,0,0" Name="radioButton1" VerticalAlignment="Top" />
+                    <RadioButton Content="RadioButton" Grid.Column="1" Grid.Row="1" Height="16" HorizontalAlignment="Left" Margin="26,41,0,0" Name="radioButton2" VerticalAlignment="Top" />
+                    <Button Content="Button" Grid.Column="1" Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="26,72,0,0" Name="button1" VerticalAlignment="Top" Width="75" />
+                    <Button Content="Button" Grid.Column="1" Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="26,101,0,0" Name="button2" VerticalAlignment="Top" Width="75" />
+                </Grid>
+            </TabItem>
         </TabControl>
     </Grid>
 </UserControl>

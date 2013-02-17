@@ -44,7 +44,7 @@
         <StatusBar Grid.Row="1" Background="#FF40B0E0">
             <StatusBarItem Grid.Column="0">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Name="txtStatus" Height="18" Width="77" Text="{Binding Motor}" Foreground="White" FontWeight="Bold" Margin="10,0" />
+                    <TextBlock Name="txtStatus" Height="18" Width="200" Text="{Binding Actuator}" Foreground="White" FontWeight="Bold" Margin="10,0" />
                 </StackPanel>
             </StatusBarItem>
             <Separator Width="1" Grid.ColumnSpan="2" Grid.Column="0" HorizontalAlignment="Center" Background="White" />
