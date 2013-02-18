@@ -102,8 +102,8 @@ namespace IncubatorWatch.Manager
             double relativeHumidity = GetData(message, "relativehumidity");
             int co2 = (int)GetData(message, "co2");
 
-            TiltMode tiltMode = (TiltMode)GetData(message, "tiltmode");
-            TiltState tiltState = (TiltState)GetData(message, "tiltstate");
+            ActuatorMode actuatorMode = (ActuatorMode)GetData(message, "actuatormode");
+            ActuatorState actuatorState = (ActuatorState)GetData(message, "actuatorstate");
 
             this.IncubatorData.Add(new IncubatorData(DateTime.Now, temperature, relativeHumidity, co2));
 
@@ -111,7 +111,7 @@ namespace IncubatorWatch.Manager
 
             DetailedViewModel.Instance.OnUpdateData(relativeHumidity, co2);
 
-            DetailedViewModel.Instance.OnUpdateTiltData(tiltMode, tiltState);
+            DetailedViewModel.Instance.OnUpdateActuatorData(actuatorMode, actuatorState);
           }
           catch (Exception ex)
           {
@@ -131,6 +131,37 @@ namespace IncubatorWatch.Manager
 
           _asyncSocketListener.SendMessage(targetTemperatureTxt);
         }
+
+        public void SendActuatorMode(ActuatorMode mode)
+        {
+            switch (mode)
+            {
+                case ActuatorMode.Manual:
+                    _asyncSocketListener.SendMessage("ACTUATOR_MODE MANUAL");
+                    break;
+                case ActuatorMode.Auto:
+                    _asyncSocketListener.SendMessage("ACTUATOR_MODE AUTO");
+                    break;
+            }            
+        }
+
+        public void SendActuatorCommand(ActuatorCommand command)
+        {
+            switch (command)
+            {
+                case ActuatorCommand.Open:
+                    _asyncSocketListener.SendMessage("OPEN_ACTUATOR");
+                    break;
+                case ActuatorCommand.Close:
+                    _asyncSocketListener.SendMessage("CLOSE_ACTUATOR");
+                    break;
+                case ActuatorCommand.Stop:
+                    _asyncSocketListener.SendMessage("STOP_ACTUATOR");
+                    break;
+            }
+        }
+
+        
         #endregion
     }
 }

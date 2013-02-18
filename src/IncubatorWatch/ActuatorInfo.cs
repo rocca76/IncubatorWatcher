@@ -5,17 +5,24 @@ using System.Text;
 
 namespace IncubatorWatch.Info
 {
-    public enum TiltMode
+    public enum ActuatorMode
     {
         Manual,
         Auto
     }
 
-    public enum TiltState
+    public enum ActuatorCommand
     {
         Open,
         Close,
+        Stop    
+    }
+
+    public enum ActuatorState
+    {
+        Open,
         Opening,
+        Close,
         Closing,
         Stopped
     }

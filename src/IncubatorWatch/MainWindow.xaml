@@ -41,10 +41,10 @@
 
         <my:DetailedViewModel x:Name="detailedViewModelGadget" Grid.Column="0" Grid.Row="0" Margin="10,10,10,10"/>
         
-        <StatusBar Grid.Row="1" Background="#FF40B0E0">
+        <StatusBar Grid.Row="1" Background="#FF40B0E0" Visibility="Collapsed">
             <StatusBarItem Grid.Column="0">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Name="txtStatus" Height="18" Width="200" Text="{Binding Actuator}" Foreground="White" FontWeight="Bold" Margin="10,0" />
+                    <TextBlock Name="txtStatus" Height="18" Text="{Binding Actuator}" Foreground="White" FontWeight="Bold" Margin="10,0" />
                 </StackPanel>
             </StatusBarItem>
             <Separator Width="1" Grid.ColumnSpan="2" Grid.Column="0" HorizontalAlignment="Center" Background="White" />

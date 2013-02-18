@@ -142,7 +142,7 @@ namespace IncubatorWatch.Controls
             }
         }
 
-        public void OnUpdateTiltData(TiltMode mode, TiltState state)
+        public void OnUpdateActuatorData(ActuatorMode mode, ActuatorState state)
         {
             try
             {
@@ -156,10 +156,10 @@ namespace IncubatorWatch.Controls
 
                         switch (mode)
                         {
-                            case TiltMode.Manual:
+                            case ActuatorMode.Manual:
                                 actuatorTxt += "Manuel";
                                 break;
-                            case TiltMode.Auto:
+                            case ActuatorMode.Auto:
                                 actuatorTxt += "Automatique";
                                 break;
                         }
@@ -168,19 +168,19 @@ namespace IncubatorWatch.Controls
 
                         switch (state)
                         {
-                            case TiltState.Open:
+                            case ActuatorState.Open:
                                 actuatorTxt += "Ouvert";
                                 break;
-                            case TiltState.Close:
+                            case ActuatorState.Close:
                                 actuatorTxt += "Fermé";
                                 break;
-                            case TiltState.Opening:
+                            case ActuatorState.Opening:
                                 actuatorTxt += "Ouvre...";
                                 break;
-                            case TiltState.Closing:
+                            case ActuatorState.Closing:
                                 actuatorTxt += "Ferme...";
                                 break;
-                            case TiltState.Stopped:
+                            case ActuatorState.Stopped:
                                 actuatorTxt += "Arrêté";
                                 break;
                         }
@@ -213,7 +213,7 @@ namespace IncubatorWatch.Controls
         {
           try
           {
-              double target = Convert.ToDouble(targetTemperatureEdit.Text);
+            double target = Convert.ToDouble(targetTemperatureEdit.Text);
 
             if (ValideTargetTemperature(target))
             {
@@ -240,6 +240,84 @@ namespace IncubatorWatch.Controls
             }
 
             return result;
+        }
+
+        private void buttonOpenActuator_PreviewMouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            try
+            {
+                _incubatorMnager.SendActuatorCommand(ActuatorCommand.Open);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void buttonOpenActuator_PreviewMouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            try
+            {
+                _incubatorMnager.SendActuatorCommand(ActuatorCommand.Stop);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void buttonCloseActuator_PreviewMouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            try
+            {
+                _incubatorMnager.SendActuatorCommand(ActuatorCommand.Stop);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void buttonCloseActuator_PreviewMouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            try
+            {
+                _incubatorMnager.SendActuatorCommand(ActuatorCommand.Close);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void radioBtnManual_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (MessageBox.Show("Passage au mode manuel ?", "Changement de mode", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                {
+                    _incubatorMnager.SendActuatorMode(ActuatorMode.Manual);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void radioBtnAuto_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (MessageBox.Show("Passage au mode automatique ?", "Changement de mode", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                {
+                    _incubatorMnager.SendActuatorMode(ActuatorMode.Auto);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
     }
 }
