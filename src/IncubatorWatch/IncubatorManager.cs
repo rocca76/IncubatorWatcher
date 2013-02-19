@@ -16,7 +16,9 @@ namespace IncubatorWatch.Manager
         private readonly IncubatorDataCollection _incubatorDataCollection = new IncubatorDataCollection();
         private static AsynchronousSocketListener _asyncSocketListener = new AsynchronousSocketListener();
         ActuatorMode _actuatorMode = ActuatorMode.Manual;
+        ActuatorState _actuatorState = ActuatorState.Unknown;
         #endregion
+
 
         #region Events
         public event ReceivedEventHandler EventHandlerMessageReceived;
@@ -43,6 +45,12 @@ namespace IncubatorWatch.Manager
         {
             get { return _actuatorMode; }
             set { _actuatorMode = value; }
+        }
+
+        public ActuatorState State
+        {
+          get { return _actuatorState; }
+          set { _actuatorState = value; }
         }
         #endregion
 

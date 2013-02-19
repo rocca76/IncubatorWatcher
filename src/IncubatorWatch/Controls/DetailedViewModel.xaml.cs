@@ -7,6 +7,7 @@ using Microsoft.Research.DynamicDataDisplay;
 using IncubatorWatch.Manager;
 using System.ComponentModel;
 using IncubatorWatch.Info;
+using System.Threading;
 
 
 namespace IncubatorWatch.Controls
@@ -20,6 +21,7 @@ namespace IncubatorWatch.Controls
     {
         #region Private Variables
         private IncubatorManager _incubatorMnager = new IncubatorManager();
+        private BackgroundWorker bw = new BackgroundWorker();
         #endregion
 
         public static DetailedViewModel _instance;
@@ -65,6 +67,34 @@ namespace IncubatorWatch.Controls
             _incubatorMnager.EventHandlerMessageReceived += new ReceivedEventHandler(OnMessageReceived);
 
             _instance = this;
+
+            bw.WorkerReportsProgress = true;
+            bw.WorkerSupportsCancellation = true;
+            bw.DoWork += new DoWorkEventHandler(bw_DoWork);
+        }
+
+        private void bw_DoWork(object sender, DoWorkEventArgs e)
+        {
+          BackgroundWorker worker = sender as BackgroundWorker;
+
+          while (_incubatorMnager.State == ActuatorState.Opening || _incubatorMnager.State == ActuatorState.Closing)
+          {
+            if (labelTilt.Visibility == Visibility.Visible)
+            {
+              labelTilt.Visibility = Visibility.Hidden;
+            }
+            else if (labelTilt.Visibility == Visibility.Hidden)
+            {
+              labelTilt.Visibility = Visibility.Visible;
+            }
+            
+            Thread.Sleep(500);
+          }
+
+          if (bw.WorkerSupportsCancellation == true)
+          {
+            bw.CancelAsync();
+          }
         }
 
         private void InitializePlotter()
@@ -156,6 +186,7 @@ namespace IncubatorWatch.Controls
             try
             {
                 _incubatorMnager.Mode = mode;
+                _incubatorMnager.State = state;
 
                 if (mode == ActuatorMode.Manual || mode == ActuatorMode.ManualCentered)
                 {
@@ -177,10 +208,24 @@ namespace IncubatorWatch.Controls
                         labelTilt.Content += "Fermé";
                     break;
                     case ActuatorState.Opening:
-                        labelTilt.Content += "Ouvre...";
+                    {
+                      if (bw.IsBusy != true)
+                      {
+                        bw.RunWorkerAsync();
+                      }
+
+                      labelTilt.Content += "Ouvre...";
+                    }
                     break;
                     case ActuatorState.Closing:
-                        labelTilt.Content += "Ferme...";
+                    {
+                      if (bw.IsBusy != true)
+                      {
+                        bw.RunWorkerAsync();
+                      }
+
+                      labelTilt.Content += "Ferme...";
+                    }
                     break;
                     case ActuatorState.Stopped:
                         labelTilt.Content += "Arrêté";
