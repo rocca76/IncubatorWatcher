@@ -75,26 +75,35 @@ namespace IncubatorWatch.Controls
 
         private void bw_DoWork(object sender, DoWorkEventArgs e)
         {
+          Visibility visibilityState = labelTilt.Visibility;
           BackgroundWorker worker = sender as BackgroundWorker;
 
           while (_incubatorMnager.State == ActuatorState.Opening || _incubatorMnager.State == ActuatorState.Closing)
           {
-            if (labelTilt.Visibility == Visibility.Visible)
+              if (visibilityState == Visibility.Visible)
             {
-              labelTilt.Visibility = Visibility.Hidden;
+                visibilityState = Visibility.Hidden;
             }
-            else if (labelTilt.Visibility == Visibility.Hidden)
+            else if (visibilityState == Visibility.Hidden)
             {
-              labelTilt.Visibility = Visibility.Visible;
+                visibilityState = Visibility.Visible;
             }
-            
+
+            this.Dispatcher.Invoke((Action)(() => { SetLabelVisibility(visibilityState); }));
+
             Thread.Sleep(500);
           }
 
           if (bw.WorkerSupportsCancellation == true)
           {
             bw.CancelAsync();
+            this.Dispatcher.Invoke((Action)(() => { SetLabelVisibility(Visibility.Visible); }));
           }
+        }
+
+        private void SetLabelVisibility(Visibility visibilityState)
+        {
+            labelTilt.Visibility = visibilityState;
         }
 
         private void InitializePlotter()
