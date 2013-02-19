@@ -15,6 +15,7 @@ namespace IncubatorWatch.Manager
         #region Private Variables
         private readonly IncubatorDataCollection _incubatorDataCollection = new IncubatorDataCollection();
         private static AsynchronousSocketListener _asyncSocketListener = new AsynchronousSocketListener();
+        ActuatorMode _actuatorMode = ActuatorMode.Manual;
         #endregion
 
         #region Events
@@ -36,6 +37,12 @@ namespace IncubatorWatch.Manager
         public IncubatorDataCollection IncubatorData
         {
             get { return _incubatorDataCollection; }
+        }
+
+        public ActuatorMode Mode
+        {
+            get { return _actuatorMode; }
+            set { _actuatorMode = value; }
         }
         #endregion
 
@@ -75,6 +82,33 @@ namespace IncubatorWatch.Manager
             return value;
         }
 
+        private String GetStringData(String message, String variable)
+        {
+            String value = "";
+
+            try
+            {
+                using (XmlReader xmlReader = XmlReader.Create(new StringReader(message)))
+                {
+                    while (xmlReader.Read())
+                    {
+                        if (xmlReader.IsStartElement(variable))
+                        {
+                            xmlReader.Read();
+                            value = xmlReader.Value;
+                        }
+                    }
+                    xmlReader.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.ToString());
+            }
+
+            return value;
+        }
+
         private void Init()
         {
           string presentTime = string.Format("TIME {0} {1} {2} {3} {4} {5} {6}",
@@ -104,6 +138,7 @@ namespace IncubatorWatch.Manager
 
             ActuatorMode actuatorMode = (ActuatorMode)GetData(message, "actuatormode");
             ActuatorState actuatorState = (ActuatorState)GetData(message, "actuatorstate");
+            String actuatorDuration = GetStringData(message, "actuatorduration");
 
             this.IncubatorData.Add(new IncubatorData(DateTime.Now, temperature, relativeHumidity, co2));
 
@@ -111,7 +146,7 @@ namespace IncubatorWatch.Manager
 
             DetailedViewModel.Instance.OnUpdateData(relativeHumidity, co2);
 
-            DetailedViewModel.Instance.OnUpdateActuatorData(actuatorMode, actuatorState);
+            DetailedViewModel.Instance.OnUpdateActuatorData(actuatorMode, actuatorState, actuatorDuration);
           }
           catch (Exception ex)
           {
@@ -139,28 +174,14 @@ namespace IncubatorWatch.Manager
                 case ActuatorMode.Manual:
                     _asyncSocketListener.SendMessage("ACTUATOR_MODE MANUAL");
                     break;
+                case ActuatorMode.ManualCentered:
+                    _asyncSocketListener.SendMessage("ACTUATOR_MODE MANUAL_CENTERED");
+                    break;
                 case ActuatorMode.Auto:
                     _asyncSocketListener.SendMessage("ACTUATOR_MODE AUTO");
                     break;
             }            
         }
-
-        public void SendActuatorCommand(ActuatorCommand command)
-        {
-            switch (command)
-            {
-                case ActuatorCommand.Open:
-                    _asyncSocketListener.SendMessage("OPEN_ACTUATOR");
-                    break;
-                case ActuatorCommand.Close:
-                    _asyncSocketListener.SendMessage("CLOSE_ACTUATOR");
-                    break;
-                case ActuatorCommand.Stop:
-                    _asyncSocketListener.SendMessage("STOP_ACTUATOR");
-                    break;
-            }
-        }
-
         
         #endregion
     }

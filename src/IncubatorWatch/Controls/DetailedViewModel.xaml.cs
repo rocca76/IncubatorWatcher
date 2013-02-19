@@ -31,6 +31,15 @@ namespace IncubatorWatch.Controls
           set { _targetTemperature = value; this.OnPropertyChanged("TargetTemperature"); }
         }
 
+        private String _actuatorButtonText;
+        public String ActuatorButtonText
+        {
+            get { return _actuatorButtonText; }
+            set { _actuatorButtonText = value; this.OnPropertyChanged("ActuatorButtonText"); }
+        }
+
+        
+
         #region INotifyPropertyChanged members
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -142,55 +151,43 @@ namespace IncubatorWatch.Controls
             }
         }
 
-        public void OnUpdateActuatorData(ActuatorMode mode, ActuatorState state)
+        public void OnUpdateActuatorData(ActuatorMode mode, ActuatorState state, String actuatorDuration)
         {
             try
             {
-                FrameworkElement parent = (FrameworkElement)this.Parent;
+                _incubatorMnager.Mode = mode;
 
-                while (true)
+                if (mode == ActuatorMode.Manual || mode == ActuatorMode.ManualCentered)
                 {
-                    if (parent is MainWindow)
-                    {
-                        String actuatorTxt = "Actuateur: ";
+                    ActuatorButtonText = "Start inclinaison";
+                }
+                else if (mode == ActuatorMode.Auto)
+                {
+                    ActuatorButtonText = "Stop Inclinaison";
+                }
 
-                        switch (mode)
-                        {
-                            case ActuatorMode.Manual:
-                                actuatorTxt += "Manuel";
-                                break;
-                            case ActuatorMode.Auto:
-                                actuatorTxt += "Automatique";
-                                break;
-                        }
+                labelTilt.Content = "[ " + actuatorDuration + " ]  ";
 
-                        actuatorTxt += " - ";
-
-                        switch (state)
-                        {
-                            case ActuatorState.Open:
-                                actuatorTxt += "Ouvert";
-                                break;
-                            case ActuatorState.Close:
-                                actuatorTxt += "Fermé";
-                                break;
-                            case ActuatorState.Opening:
-                                actuatorTxt += "Ouvre...";
-                                break;
-                            case ActuatorState.Closing:
-                                actuatorTxt += "Ferme...";
-                                break;
-                            case ActuatorState.Stopped:
-                                actuatorTxt += "Arrêté";
-                                break;
-                        }
-
-
-                        ((MainWindow)parent).Actuator = actuatorTxt;
-                        break;
-                    }
-
-                    parent = (FrameworkElement)parent.Parent;
+                switch (state)
+                {
+                    case ActuatorState.Open:
+                        labelTilt.Content += "Ouvert";
+                    break;
+                    case ActuatorState.Close:
+                        labelTilt.Content += "Fermé";
+                    break;
+                    case ActuatorState.Opening:
+                        labelTilt.Content += "Ouvre...";
+                    break;
+                    case ActuatorState.Closing:
+                        labelTilt.Content += "Ferme...";
+                    break;
+                    case ActuatorState.Stopped:
+                        labelTilt.Content += "Arrêté";
+                    break;
+                    case ActuatorState.Unknown:
+                        labelTilt.Content += "Inconnue";
+                    break;
                 }
             }
             catch (Exception ex)
@@ -242,76 +239,31 @@ namespace IncubatorWatch.Controls
             return result;
         }
 
-        private void buttonOpenActuator_PreviewMouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void buttonStartStopTilt_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                _incubatorMnager.SendActuatorCommand(ActuatorCommand.Open);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-        }
-
-        private void buttonOpenActuator_PreviewMouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            try
-            {
-                _incubatorMnager.SendActuatorCommand(ActuatorCommand.Stop);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-        }
-
-        private void buttonCloseActuator_PreviewMouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            try
-            {
-                _incubatorMnager.SendActuatorCommand(ActuatorCommand.Stop);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-        }
-
-        private void buttonCloseActuator_PreviewMouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            try
-            {
-                _incubatorMnager.SendActuatorCommand(ActuatorCommand.Close);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-        }
-
-        private void radioBtnManual_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                if (MessageBox.Show("Passage au mode manuel ?", "Changement de mode", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                if (_incubatorMnager.Mode == ActuatorMode.Auto)
                 {
-                    _incubatorMnager.SendActuatorMode(ActuatorMode.Manual);
+                    MessageBoxResult result = MessageBox.Show("Voulez-vous centrer les plateaux en allant en mode manuel ?", "Inclinaison", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+
+                    if (result  == MessageBoxResult.Yes)
+                    {
+                        _incubatorMnager.SendActuatorMode(ActuatorMode.ManualCentered);
+                    }
+                    else if (result == MessageBoxResult.No)
+                    {
+                        _incubatorMnager.SendActuatorMode(ActuatorMode.Manual);
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-        }
-
-        private void radioBtnAuto_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                if (MessageBox.Show("Passage au mode automatique ?", "Changement de mode", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                else if (_incubatorMnager.Mode == ActuatorMode.Manual || _incubatorMnager.Mode == ActuatorMode.ManualCentered)
                 {
-                    _incubatorMnager.SendActuatorMode(ActuatorMode.Auto);
+                    MessageBoxResult result = MessageBox.Show("Voulez-vous passer en mode inclinaison automatique ?", "Inclinaison", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        _incubatorMnager.SendActuatorMode(ActuatorMode.Auto);
+                    }
                 }
             }
             catch (Exception ex)

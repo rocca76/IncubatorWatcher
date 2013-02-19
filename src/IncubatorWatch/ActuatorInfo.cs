@@ -8,14 +8,8 @@ namespace IncubatorWatch.Info
     public enum ActuatorMode
     {
         Manual,
+        ManualCentered,
         Auto
-    }
-
-    public enum ActuatorCommand
-    {
-        Open,
-        Close,
-        Stop    
     }
 
     public enum ActuatorState
@@ -24,6 +18,7 @@ namespace IncubatorWatch.Info
         Opening,
         Close,
         Closing,
-        Stopped
+        Stopped,
+        Unknown
     }
 }
