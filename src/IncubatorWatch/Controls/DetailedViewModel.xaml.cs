@@ -33,6 +33,20 @@ namespace IncubatorWatch.Controls
           set { _targetTemperature = value; this.OnPropertyChanged("TargetTemperature"); }
         }
 
+        private double _targetRelativeHumidity;
+        public double TargetRelativeHumidity
+        {
+          get { return _targetRelativeHumidity; }
+          set { _targetRelativeHumidity = value; this.OnPropertyChanged("TargetRelativeHumidity"); }
+        }
+
+        private double _targetCO2;
+        public double TargetCO2
+        {
+          get { return _targetCO2; }
+          set { _targetCO2 = value; this.OnPropertyChanged("TargetCO2"); }
+        }
+
         private String _actuatorButtonText;
         public String ActuatorButtonText
         {
@@ -104,6 +118,7 @@ namespace IncubatorWatch.Controls
         private void SetLabelVisibility(Visibility visibilityState)
         {
             labelTilt.Visibility = visibilityState;
+            labelTiltTitle.Visibility = visibilityState;
         }
 
         private void InitializePlotter()
@@ -160,16 +175,16 @@ namespace IncubatorWatch.Controls
         {
             try
             {
-                labelTemprature.Content = temperature.ToString("F2") + " °C";
+                labelTempratureValue.Content = temperature.ToString("F2") + " °C";
                 TargetTemperature = targetTemperature;
 
-                if (targetTemperatureEdit.Text == "??.??")
+                if (TemperatureTargetValue.Text == "??.??")
                 {
-                    targetTemperatureEdit.Text = targetTemperature.ToString("F2");
+                  TemperatureTargetValue.Text = targetTemperature.ToString("F2");
                 }
 
                 labelWatts.Content = heatPower.ToString() + " watts";
-                //labelMinMaxTemperature.Content = "";
+
             }
             catch (Exception ex)
             {
@@ -177,17 +192,64 @@ namespace IncubatorWatch.Controls
             }
         }
 
-        public void OnUpdateData(double relativeHumidity, int co2)
+        public void OnUpdateRelativeHumidityData(double relativeHumidity, double targetRelativeHumidity, int pumpState)
         {
-            try
+          try
+          {
+            labelRelativeHumidityValue.Content = relativeHumidity.ToString("F2") + " %";
+            TargetRelativeHumidity = targetRelativeHumidity;
+
+            if (HumidityRelativeTargetValue.Text == "??.??")
             {
-                labelRelativeHumidity.Content = relativeHumidity.ToString("F2") + " %";
-                labelCO2Value.Content = co2.ToString() + " ppm";
+              HumidityRelativeTargetValue.Text = targetRelativeHumidity.ToString("F2");
             }
-            catch (Exception ex)
+
+            String pumpTxt = "Pompe: ";
+            if (pumpState == 1)
             {
-                MessageBox.Show(ex.ToString());
+              pumpTxt = "ON";
             }
+            else if (pumpState == 0)
+            {
+              pumpTxt = "OFF";
+            }
+
+            pumpOnOff.Content = pumpTxt;
+          }
+          catch (Exception ex)
+          {
+            MessageBox.Show(ex.ToString());
+          }
+        }
+
+        public void OnUpdateCO2Data(int co2, int targetCO2, int fanState)
+        {
+          try
+          {
+            labelCO2Value.Content = co2.ToString("F2") + " ppm";
+            TargetCO2 = targetCO2;
+
+            if (CO2TargetValue.Text == "????")
+            {
+              CO2TargetValue.Text = targetCO2.ToString("F2");
+            }
+
+            String fanTxt = "Ventillation: ";
+            if (fanState == 1)
+            {
+              fanTxt = "ON";
+            }
+            else if (fanState == 0)
+            {
+              fanTxt = "OFF";
+            }
+
+            labelFan.Content = fanTxt;
+          }
+          catch (Exception ex)
+          {
+            MessageBox.Show(ex.ToString());
+          }
         }
 
         public void OnUpdateActuatorData(ActuatorMode mode, ActuatorState state, String actuatorDuration)
@@ -264,7 +326,7 @@ namespace IncubatorWatch.Controls
         {
           try
           {
-            double target = Convert.ToDouble(targetTemperatureEdit.Text);
+            double target = Convert.ToDouble(TemperatureTargetValue.Text);
 
             if (ValideTargetTemperature(target))
             {

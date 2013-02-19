@@ -141,8 +141,14 @@ namespace IncubatorWatch.Manager
             double temperature = GetData(message, "temperature");
             double targetTemperature = GetData(message, "targettemperature");
             int heatPower = (int)GetData(message, "heatpower");
+
             double relativeHumidity = GetData(message, "relativehumidity");
+            double targetRelativeHumidity = GetData(message, "targetrelativehumidity");
+            int pumpState = (int)GetData(message, "pumpState");
+
             int co2 = (int)GetData(message, "co2");
+            int targetCO2 = (int)GetData(message, "targetCO2");
+            int fanState = (int)GetData(message, "fanState");
 
             ActuatorMode actuatorMode = (ActuatorMode)GetData(message, "actuatormode");
             ActuatorState actuatorState = (ActuatorState)GetData(message, "actuatorstate");
@@ -152,7 +158,9 @@ namespace IncubatorWatch.Manager
 
             DetailedViewModel.Instance.OnUpdateTemperatureData(temperature, targetTemperature, heatPower);
 
-            DetailedViewModel.Instance.OnUpdateData(relativeHumidity, co2);
+            DetailedViewModel.Instance.OnUpdateRelativeHumidityData(relativeHumidity, targetRelativeHumidity, pumpState);
+
+            DetailedViewModel.Instance.OnUpdateCO2Data(co2, targetCO2, fanState);
 
             DetailedViewModel.Instance.OnUpdateActuatorData(actuatorMode, actuatorState, actuatorDuration);
           }

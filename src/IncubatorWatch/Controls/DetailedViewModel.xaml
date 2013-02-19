@@ -25,7 +25,7 @@
                         <d3:ChartPlotter.VerticalAxis>
                             <d3:VerticalAxis Name="temperatureAxis" />
                         </d3:ChartPlotter.VerticalAxis>
-                        <d3:HorizontalLine Value="{Binding TargetTemperature}" Stroke="Red" StrokeThickness="1"/>
+                        <d3:HorizontalLine Value="{Binding TargetTemperature}" Stroke="Red" StrokeThickness="2"/>
                     </d3:ChartPlotter>
                     <d3:ChartPlotter Name="plotterRelativeHumidity" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1" Margin="16,10,5,45" BorderBrush="Black">
                         <d3:ChartPlotter.HorizontalAxis>
@@ -34,6 +34,7 @@
                         <d3:ChartPlotter.VerticalAxis>
                             <d3:VerticalAxis Name="relativeHumidityAxis" />
                         </d3:ChartPlotter.VerticalAxis>
+                        <d3:HorizontalLine Value="{Binding TargetRelativeHumidity}" Stroke="Red" StrokeThickness="2"/>
                     </d3:ChartPlotter>
                     <d3:ChartPlotter Name="plotterCO2" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="1" Margin="5,10,5,45" BorderBrush="Black">
                         <d3:ChartPlotter.HorizontalAxis>
@@ -42,20 +43,22 @@
                         <d3:ChartPlotter.VerticalAxis>
                             <d3:VerticalAxis Name="CO2Axis" />
                         </d3:ChartPlotter.VerticalAxis>
+                        <d3:HorizontalLine Value="{Binding TargetCO2}" Stroke="Red" StrokeThickness="2"/>
                     </d3:ChartPlotter>
 
                     <Label Content="???? watts" Name="labelWatts" FontStretch="Normal" FontWeight="Bold" FontSize="20" Grid.ColumnSpan="1" Grid.Column="1" Grid.Row="0" Foreground="Black" HorizontalContentAlignment="Left" HorizontalAlignment="Right" VerticalAlignment="Bottom" VerticalContentAlignment="Top" Panel.ZIndex="1" Margin="0,20,5,45" />                    
                     <Label Content="Température" Grid.Row="0" HorizontalAlignment="Center" Name="label3" VerticalAlignment="Top" FontWeight="Bold" Foreground="Black" Margin="0,10,0,0" />
-                    <Label Content="??.?? °C" FontSize="20" FontStretch="Normal" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Right" HorizontalContentAlignment="Left" Margin="0,10,5,0" Name="labelTemprature" Panel.ZIndex="1" VerticalAlignment="Top" VerticalContentAlignment="Top" />
-
+                    <Label Content="??.?? °C" FontSize="20" FontStretch="Normal" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Right" HorizontalContentAlignment="Left" Margin="0,10,5,0" Name="labelTempratureValue" Panel.ZIndex="1" VerticalAlignment="Top" VerticalContentAlignment="Top" />
+                    
                     <Label Content="15 minutes" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Left" Name="labelTemperatureTime" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" Margin="50,0,0,20" Grid.Row="0"/>
                     <Label Content="Cible :" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Right" Name="label5" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" Margin="0,0,170,10" Grid.Row="0"/>
-                    <TextBox HorizontalAlignment="Right" Name="targetTemperatureEdit" VerticalAlignment="Bottom" Text="??.??" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Foreground="Black" FontWeight="Bold" Margin="0,0,120,10" Width="50" />
+                    <TextBox HorizontalAlignment="Right" Name="TemperatureTargetValue" VerticalAlignment="Bottom" Text="??.??" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Foreground="Black" FontWeight="Bold" Margin="0,0,120,10" Width="50" />
                     <Label Content="°C" HorizontalAlignment="Right" Name="label4" VerticalAlignment="Bottom" Foreground="Black" FontWeight="Bold" Margin="0,0,85,10" Grid.Row="0" Width="35" />
                     <Button Content="Appliquer" Grid.Row="0" HorizontalAlignment="Right" Name="button3" VerticalAlignment="Bottom" Width="80" Margin="0,0,5,11" Foreground="Black" Click="buttonApply_Click" />
+                    
                     <Label Content="Humidité relative" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Center" Margin="0,10,0,0" Name="label1" VerticalAlignment="Top" Grid.Row="1"/>
-                    <Label Content="??? %" FontSize="20" FontStretch="Normal" FontWeight="Bold" HorizontalAlignment="Right" Name="labelRelativeHumidity" Grid.Row="1" Grid.ColumnSpan="1" Grid.Column="1" Foreground="Black" Margin="0,10,5,0" VerticalAlignment="Top" />
-                    <Label Content="Pompe: OFF" Name="humidification" FontStretch="Normal" FontWeight="Bold" FontSize="20" Grid.Row="1" Foreground="Black" HorizontalContentAlignment="Left" HorizontalAlignment="Right" VerticalAlignment="Bottom" VerticalContentAlignment="Top" Panel.ZIndex="1" Margin="0,20,5,45" />
+                    <Label Content="??? %" FontSize="20" FontStretch="Normal" FontWeight="Bold" HorizontalAlignment="Right" Name="labelRelativeHumidityValue" Grid.Row="1" Grid.ColumnSpan="1" Grid.Column="1" Foreground="Black" Margin="0,10,5,0" VerticalAlignment="Top" />
+                    <Label Content="Pompe: OFF" Name="pumpOnOff" FontStretch="Normal" FontWeight="Bold" FontSize="20" Grid.Row="1" Foreground="Black" HorizontalContentAlignment="Left" HorizontalAlignment="Right" VerticalAlignment="Bottom" VerticalContentAlignment="Top" Panel.ZIndex="1" Margin="0,20,5,45" />
 
                     <Label Content="15 minutes" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Left" Name="labelRHTime" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" Margin="50,0,0,20" Grid.Row="1"/>
                     <Label Content="Cible :" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Right" Name="HumidityReliveTarget" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" Margin="0,0,170,10" Grid.Row="1"/>
@@ -65,15 +68,16 @@
                     
                     <Label Content="Dioxyde de carbone ( CO2 )" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Center" Margin="0,10,0,0" Name="labelCO2Title" VerticalAlignment="Top" Grid.Row="2"/>
                     <Label Content="???? ppm" FontSize="20" FontStretch="Normal" FontWeight="Bold" HorizontalAlignment="Right" Name="labelCO2Value" VerticalAlignment="Top" Grid.Row="2" Grid.ColumnSpan="1" Grid.Column="1" Foreground="Black" Margin="0,10,5,0" />
-                    <Label Content="Ventillation: OFF" FontSize="20" FontStretch="Normal" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Right" HorizontalContentAlignment="Left" Margin="0,20,5,45" Name="label2" Panel.ZIndex="1" VerticalAlignment="Bottom" VerticalContentAlignment="Top" Grid.Row="2" />
+                    <Label Content="Ventillation: OFF" FontSize="20" FontStretch="Normal" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Right" HorizontalContentAlignment="Left" Margin="0,20,5,45" Name="labelFan" Panel.ZIndex="1" VerticalAlignment="Bottom" VerticalContentAlignment="Top" Grid.Row="2" />
 
                     <Label Content="15 minutes" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Left" Name="labelCO2Time" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" Margin="50,0,0,20" Grid.Row="2"/>
                     <Label Content="Cible :" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Right" Name="CO2Target" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" Margin="0,0,170,10" Grid.Row="2"/>
                     <TextBox HorizontalAlignment="Right" Name="CO2TargetValue" VerticalAlignment="Bottom" Text="????" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Foreground="Black" FontWeight="Bold" Margin="0,0,120,10" Width="50" Grid.Row="2"/>
                     <Label Content="ppm" HorizontalAlignment="Right" Name="CO2Unit" VerticalAlignment="Bottom" Foreground="Black" FontWeight="Bold" Margin="0,0,85,10" Grid.Row="2" Width="35" />
                     <Button Content="Appliquer" HorizontalAlignment="Right" Name="buttonApplyCO2" VerticalAlignment="Bottom" Width="80" Margin="0,0,5,11" Foreground="Black" Grid.Row="2"/>
-                    <Label Content="Inclinaison: " Grid.Row="3" Height="28" Margin="5,8,0,0" Name="label7" VerticalAlignment="Top" Panel.ZIndex="1" FontWeight="Bold" HorizontalAlignment="Left" Width="77" />
-                    <Label Content="???" Grid.Row="3" Height="28" HorizontalAlignment="Left" Margin="78,8,0,0" Name="labelTilt" VerticalAlignment="Top" Panel.ZIndex="1" FontWeight="Bold" />
+                    
+                    <Label Content="Inclinaison: " Grid.Row="3" Height="28" Margin="5,7,0,0" Name="labelTiltTitle" VerticalAlignment="Top" Panel.ZIndex="1" FontWeight="Bold" HorizontalAlignment="Left" Width="77" />
+                    <Label Content="???" Grid.Row="3" Height="28" HorizontalAlignment="Right" Margin="0,8,686,0" Name="labelTilt" VerticalAlignment="Top" Panel.ZIndex="1" FontWeight="Bold" />
                     <Button Content="{Binding Path=ActuatorButtonText,UpdateSourceTrigger=PropertyChanged}" Grid.Row="3" Height="23" HorizontalAlignment="Right" Margin="0,10,5,0" Name="buttonStartTilt" VerticalAlignment="Top" Panel.ZIndex="1" Width="120" Click="buttonStartStopTilt_Click" />
                     <Rectangle Grid.Row="3" Height="1" HorizontalAlignment="Stretch" Name="rectangle1" Stroke="Black" VerticalAlignment="Top" Margin="0,1,0,0" />
                 </Grid>
