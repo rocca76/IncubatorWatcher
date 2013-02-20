@@ -296,15 +296,16 @@ namespace IncubatorWatch.Controls
                     ActuatorButtonText = "Stop Inclinaison";
                 }
 
-                labelTilt.Content = "Inclinaison: ";
+
+                labelTilt.Content = "[ " + actuatorDuration + " ] ";
 
                 switch (state)
                 {
                     case ActuatorState.Open:
-                        labelTilt.Content += "Ouvert";
+                        labelTilt.Content += "Incliné à gauche";
                     break;
                     case ActuatorState.Close:
-                        labelTilt.Content += "Fermé";
+                    labelTilt.Content += "Incliné à droite";
                     break;
                     case ActuatorState.Opening:
                     {
@@ -313,7 +314,7 @@ namespace IncubatorWatch.Controls
                         bw.RunWorkerAsync();
                       }
 
-                      labelTilt.Content += "Ouvre...";
+                      labelTilt.Content += "Inclinaison vers la gauche...";
                     }
                     break;
                     case ActuatorState.Closing:
@@ -323,18 +324,16 @@ namespace IncubatorWatch.Controls
                         bw.RunWorkerAsync();
                       }
 
-                      labelTilt.Content += "Ferme...";
+                      labelTilt.Content += "Inclinaison vers la droite...";
                     }
                     break;
                     case ActuatorState.Stopped:
-                        labelTilt.Content += "Arrêté";
+                        labelTilt.Content += "Inclinaison arrêté";
                     break;
                     case ActuatorState.Unknown:
-                        labelTilt.Content += "Inconnue";
+                        labelTilt.Content += "Inclinaison inconnue";
                     break;
                 }
-
-                labelTilt.Content += "  [ " + actuatorDuration + " ]";
             }
             catch (Exception ex)
             {

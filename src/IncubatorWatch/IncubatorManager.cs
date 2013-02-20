@@ -147,7 +147,7 @@ namespace IncubatorWatch.Manager
             int pumpState = (int)GetData(message, "pump");
 
             double co2 = GetData(message, "co2");
-            double targetCO2 = GetData(message, "targetCO2");
+            double targetCO2 = GetData(message, "targetco2");
             int fanState = (int)GetData(message, "fan");
 
             ActuatorMode actuatorMode = (ActuatorMode)GetData(message, "actuatormode");
