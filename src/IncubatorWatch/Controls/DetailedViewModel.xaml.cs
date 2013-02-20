@@ -82,6 +82,10 @@ namespace IncubatorWatch.Controls
 
             _instance = this;
 
+            TargetTemperature = 0.0;
+            TargetRelativeHumidity = 0.0;
+            TargetCO2 = 0;
+
             bw.WorkerReportsProgress = true;
             bw.WorkerSupportsCancellation = true;
             bw.DoWork += new DoWorkEventHandler(bw_DoWork);
@@ -118,7 +122,6 @@ namespace IncubatorWatch.Controls
         private void SetLabelVisibility(Visibility visibilityState)
         {
             labelTilt.Visibility = visibilityState;
-            labelTiltTitle.Visibility = visibilityState;
         }
 
         private void InitializePlotter()
@@ -175,15 +178,25 @@ namespace IncubatorWatch.Controls
         {
             try
             {
-                labelTempratureValue.Content = temperature.ToString("F2") + " °C";
-                TargetTemperature = targetTemperature;
-
-                if (TemperatureTargetValue.Text == "??.??")
+                if (temperature != double.MaxValue)
                 {
-                  TemperatureTargetValue.Text = targetTemperature.ToString("F2");
+                    tempratureValue.Content = temperature.ToString("F2") + " °C";
                 }
 
-                labelWatts.Content = heatPower.ToString() + " watts";
+                if (targetTemperature != double.MaxValue)
+                {
+                    TargetTemperature = targetTemperature;
+
+                    if (targetTemperatureValue.Text == "??.??")
+                    {
+                        targetTemperatureValue.Text = targetTemperature.ToString("F2");
+                    }
+                }
+
+                if (heatPower != int.MaxValue)
+                {
+                    heaterWatts.Content = heatPower.ToString() + " watts";
+                }
 
             }
             catch (Exception ex)
@@ -196,22 +209,30 @@ namespace IncubatorWatch.Controls
         {
           try
           {
-            labelRelativeHumidityValue.Content = relativeHumidity.ToString("F2") + " %";
-            TargetRelativeHumidity = targetRelativeHumidity;
-
-            if (HumidityRelativeTargetValue.Text == "??.??")
+            if (relativeHumidity != double.MaxValue)
             {
-              HumidityRelativeTargetValue.Text = targetRelativeHumidity.ToString("F2");
+                relativeHumidityValue.Content = relativeHumidity.ToString("F2") + " %";
             }
 
-            String pumpTxt = "Pompe: ";
+            if (targetRelativeHumidity != double.MaxValue)
+            {
+                TargetRelativeHumidity = targetRelativeHumidity;
+
+                if (targetRelativeHumidityValue.Text == "???.??")
+                {
+                    targetRelativeHumidityValue.Text = targetRelativeHumidity.ToString("F2");
+                }
+            }
+
+
+            String pumpTxt = "Pompe: ???";
             if (pumpState == 1)
             {
-              pumpTxt = "ON";
+                pumpTxt = "Pompe: ON";
             }
             else if (pumpState == 0)
             {
-              pumpTxt = "OFF";
+                pumpTxt = "Pompe: OFF";
             }
 
             pumpOnOff.Content = pumpTxt;
@@ -222,29 +243,36 @@ namespace IncubatorWatch.Controls
           }
         }
 
-        public void OnUpdateCO2Data(int co2, int targetCO2, int fanState)
+        public void OnUpdateCO2Data(double co2, double targetCO2, int fanState)
         {
           try
           {
-            labelCO2Value.Content = co2.ToString("F2") + " ppm";
-            TargetCO2 = targetCO2;
-
-            if (CO2TargetValue.Text == "????")
+            if (co2 != double.MaxValue)
             {
-              CO2TargetValue.Text = targetCO2.ToString("F2");
+                co2Value.Content = co2.ToString() + " ppm";
             }
 
-            String fanTxt = "Ventillation: ";
+            if (targetCO2 != double.MaxValue)
+            {
+                TargetCO2 = targetCO2;
+
+                if (targetCO2Value.Text == "????")
+                {
+                    targetCO2Value.Text = targetCO2.ToString();
+                }
+            }
+
+            String fanTxt = "Ventillation: ???";
             if (fanState == 1)
             {
-              fanTxt = "ON";
+                fanTxt = "Ventillation: ON";
             }
             else if (fanState == 0)
             {
-              fanTxt = "OFF";
+                fanTxt = "Ventillation: OFF";
             }
 
-            labelFan.Content = fanTxt;
+            fanOnOff.Content = fanTxt;
           }
           catch (Exception ex)
           {
@@ -268,7 +296,7 @@ namespace IncubatorWatch.Controls
                     ActuatorButtonText = "Stop Inclinaison";
                 }
 
-                labelTilt.Content = "[ " + actuatorDuration + " ]  ";
+                labelTilt.Content = "Inclinaison: ";
 
                 switch (state)
                 {
@@ -305,6 +333,8 @@ namespace IncubatorWatch.Controls
                         labelTilt.Content += "Inconnue";
                     break;
                 }
+
+                labelTilt.Content += "  [ " + actuatorDuration + " ]";
             }
             catch (Exception ex)
             {
@@ -322,13 +352,13 @@ namespace IncubatorWatch.Controls
             _incubatorMnager.Shutdown();
         }
 
-        private void buttonApply_Click(object sender, RoutedEventArgs e)
+        private void buttonApplyTargetTemperature_Click(object sender, RoutedEventArgs e)
         {
           try
           {
-            double target = Convert.ToDouble(TemperatureTargetValue.Text);
+            double target = Convert.ToDouble(targetTemperatureValue.Text);
 
-            if (ValideTargetTemperature(target))
+            if (ValideTargetLimit(target, 0, 50))
             {
                 _incubatorMnager.SetTargetTemperature(target);
             }
@@ -343,11 +373,53 @@ namespace IncubatorWatch.Controls
           }
         }
 
-        private bool ValideTargetTemperature(double target )
+        private void buttonApplyTargetRelativeHumidity_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                double target = Convert.ToDouble(targetRelativeHumidityValue.Text);
+
+                if (ValideTargetLimit(target, 0, 90))
+                {
+                    _incubatorMnager.SetTargetRelativeHumidity(target);
+                }
+                else
+                {
+                    MessageBox.Show("Valeur invalide");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void buttonApplyTargetCO2_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                double target = Convert.ToDouble(targetCO2Value.Text);
+
+                if (ValideTargetLimit(target, 300, 1500))
+                {
+                    _incubatorMnager.SetTargetCO2(target);
+                }
+                else
+                {
+                    MessageBox.Show("Valeur invalide");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private bool ValideTargetLimit(double target, double limitMin, double limitMax)
         {
             bool result = false;
 
-            if (target > 0 && target < 50)
+            if (target >= limitMin && target <= limitMax)
             {
                 result = true;
             }

@@ -144,17 +144,17 @@ namespace IncubatorWatch.Manager
 
             double relativeHumidity = GetData(message, "relativehumidity");
             double targetRelativeHumidity = GetData(message, "targetrelativehumidity");
-            int pumpState = (int)GetData(message, "pumpState");
+            int pumpState = (int)GetData(message, "pump");
 
-            int co2 = (int)GetData(message, "co2");
-            int targetCO2 = (int)GetData(message, "targetCO2");
-            int fanState = (int)GetData(message, "fanState");
+            double co2 = GetData(message, "co2");
+            double targetCO2 = GetData(message, "targetCO2");
+            int fanState = (int)GetData(message, "fan");
 
             ActuatorMode actuatorMode = (ActuatorMode)GetData(message, "actuatormode");
             ActuatorState actuatorState = (ActuatorState)GetData(message, "actuatorstate");
             String actuatorDuration = GetStringData(message, "actuatorduration");
 
-            this.IncubatorData.Add(new IncubatorData(DateTime.Now, temperature, relativeHumidity, co2));
+            this.IncubatorData.Add(new IncubatorData(DateTime.Now, temperature, relativeHumidity, (int)co2));
 
             DetailedViewModel.Instance.OnUpdateTemperatureData(temperature, targetTemperature, heatPower);
 
@@ -176,11 +176,25 @@ namespace IncubatorWatch.Manager
           _asyncSocketListener.StopListening();
         }
 
-        public void SetTargetTemperature(double targetTemperature)
+        public void SetTargetTemperature(double target)
         {
-            string targetTemperatureTxt = string.Format("TARGET_TEMPERATURE {0}", targetTemperature);
+            string targetTxt = string.Format("TARGET_TEMPERATURE {0}", target);
 
-          _asyncSocketListener.SendMessage(targetTemperatureTxt);
+            _asyncSocketListener.SendMessage(targetTxt);
+        }
+
+        public void SetTargetRelativeHumidity(double target)
+        {
+          string targetTxt = string.Format("TARGET_RELATIVE_HUMIDITY {0}", target);
+
+          _asyncSocketListener.SendMessage(targetTxt);
+        }
+
+        public void SetTargetCO2(double target)
+        {
+            string targetTxt = string.Format("TARGET_CO2 {0}", target);
+
+            _asyncSocketListener.SendMessage(targetTxt);
         }
 
         public void SendActuatorMode(ActuatorMode mode)
