@@ -79,7 +79,7 @@
                     <Label Content="Limite Max :" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Right" Margin="0,0,307,10" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" />
                     <TextBox FontWeight="Bold" Foreground="Black" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Margin="0,0,254,10" Name="limitMaxTemperatureValue" Text="??.??" VerticalAlignment="Bottom" VerticalContentAlignment="Center" Width="50" />
                     <Label Content="°C" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Right" Margin="0,0,219,10" VerticalAlignment="Bottom" Width="35" />
-                    <Label Content="Surchauffe" FontSize="16" FontStretch="Normal" FontWeight="Bold" Foreground="Red" HorizontalAlignment="Center" HorizontalContentAlignment="Left" Name="overHeat" Panel.ZIndex="1" VerticalContentAlignment="Top" Margin="0,0,0,45" VerticalAlignment="Bottom" />
+                    <Label Content="Surchauffe" FontSize="20" FontStretch="Normal" FontWeight="Bold" Foreground="Red" HorizontalAlignment="Center" HorizontalContentAlignment="Left" Name="overHeat" Panel.ZIndex="1" VerticalContentAlignment="Top" Margin="0,0,0,60" VerticalAlignment="Bottom" />
                 </Grid>
             </TabItem>
             <TabItem Header="Éclosoir">

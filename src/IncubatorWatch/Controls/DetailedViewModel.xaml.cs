@@ -182,7 +182,7 @@ namespace IncubatorWatch.Controls
             }
         }
 
-        public void OnUpdateTemperatureData(double temperature, double targetTemperature, double limitMaxTemperature, int heatPower)
+        public void OnUpdateTemperatureData(double temperature, double targetTemperature, double limitMaxTemperature, int maxtemperaturereached, int heatPower)
         {
             try
             {
@@ -209,6 +209,15 @@ namespace IncubatorWatch.Controls
                     {
                         limitMaxTemperatureValue.Text = limitMaxTemperature.ToString("F2");
                     }
+                }
+
+                if (maxtemperaturereached == 0)
+                {
+                    overHeat.Visibility = Visibility.Hidden;
+                }
+                else
+                {
+                    overHeat.Visibility = Visibility.Visible;
                 }
 
                 if (heatPower != int.MaxValue)
@@ -290,16 +299,6 @@ namespace IncubatorWatch.Controls
             }
 
             fanOnOff.Content = fanTxt + " [ " + fanDuration + " ] ";
-
-
-            if (trapState == TrapStateEnum.Opened && fanState == FanStateEnum.Stopped)
-            {
-                overHeat.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                overHeat.Visibility = Visibility.Hidden;
-            }
           }
           catch (Exception ex)
           {

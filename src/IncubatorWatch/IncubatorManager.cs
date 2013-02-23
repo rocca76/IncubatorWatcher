@@ -141,11 +141,12 @@ namespace IncubatorWatch.Manager
             double temperature = GetData(message, "temperature");
             double targetTemperature = GetData(message, "targettemperature");
             double limitMaxTemperature = GetData(message, "limitmaxtemperature");
+            int maxtemperaturereached = (int)GetData(message, "maxtemperaturereached");
             int heatPower = (int)GetData(message, "heatpower");
 
             double relativeHumidity = GetData(message, "relativehumidity");
             double targetRelativeHumidity = GetData(message, "targetrelativehumidity");
-            PumpStateEnum pumpState = (PumpStateEnum)GetData(message, "pumpState");
+            PumpStateEnum pumpState = (PumpStateEnum)GetData(message, "pumpstate");
             String pumpDuration = GetStringData(message, "pumpduration");
 
             double co2 = GetData(message, "co2");
@@ -160,7 +161,7 @@ namespace IncubatorWatch.Manager
 
             this.IncubatorData.Add(new IncubatorData(DateTime.Now, temperature, relativeHumidity, (int)co2));
 
-            DetailedViewModel.Instance.OnUpdateTemperatureData(temperature, targetTemperature, limitMaxTemperature, heatPower);
+            DetailedViewModel.Instance.OnUpdateTemperatureData(temperature, targetTemperature, limitMaxTemperature, maxtemperaturereached, heatPower);
 
             DetailedViewModel.Instance.OnUpdateRelativeHumidityData(relativeHumidity, targetRelativeHumidity, pumpState, pumpDuration);
 
