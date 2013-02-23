@@ -33,6 +33,13 @@ namespace IncubatorWatch.Controls
           set { _targetTemperature = value; this.OnPropertyChanged("TargetTemperature"); }
         }
 
+        private double _limitMaxTemperature;
+        public double LimitMaxTemperature
+        {
+            get { return _limitMaxTemperature; }
+            set { _limitMaxTemperature = value; this.OnPropertyChanged("LimitMaxTemperature"); }
+        }
+
         private double _targetRelativeHumidity;
         public double TargetRelativeHumidity
         {
@@ -83,6 +90,7 @@ namespace IncubatorWatch.Controls
             _instance = this;
 
             TargetTemperature = 0.0;
+            LimitMaxTemperature = 0.0;
             TargetRelativeHumidity = 0.0;
             TargetCO2 = 0;
 
@@ -98,7 +106,7 @@ namespace IncubatorWatch.Controls
 
           while (_incubatorMnager.State == ActuatorState.Opening || _incubatorMnager.State == ActuatorState.Closing)
           {
-              if (visibilityState == Visibility.Visible)
+            if (visibilityState == Visibility.Visible)
             {
                 visibilityState = Visibility.Hidden;
             }
@@ -134,7 +142,7 @@ namespace IncubatorWatch.Controls
                 plotterTemperature.AddLineGraph(receivedGraph, (Color)ColorConverter.ConvertFromString("#FF40B0E0"), 2, "Température");
 
                 ViewportAxesRangeRestriction resT = new ViewportAxesRangeRestriction();
-                resT.YRange = new DisplayRange(13, 27);
+                resT.YRange = new DisplayRange(19.5, 40.5);
                 plotterTemperature.Viewport.Restrictions.Add(resT);
                 plotterTemperature.HorizontalAxis.Remove();
 
@@ -174,7 +182,7 @@ namespace IncubatorWatch.Controls
             }
         }
 
-        public void OnUpdateTemperatureData(double temperature, double  targetTemperature, int heatPower)
+        public void OnUpdateTemperatureData(double temperature, double targetTemperature, double limitMaxTemperature, int heatPower)
         {
             try
             {
@@ -193,11 +201,20 @@ namespace IncubatorWatch.Controls
                     }
                 }
 
+                if (limitMaxTemperature != double.MaxValue)
+                {
+                    LimitMaxTemperature = limitMaxTemperature;
+
+                    if (limitMaxTemperatureValue.Text == "??.??")
+                    {
+                        limitMaxTemperatureValue.Text = limitMaxTemperature.ToString("F2");
+                    }
+                }
+
                 if (heatPower != int.MaxValue)
                 {
                     heaterWatts.Content = heatPower.ToString() + " watts";
                 }
-
             }
             catch (Exception ex)
             {
@@ -205,7 +222,7 @@ namespace IncubatorWatch.Controls
             }
         }
 
-        public void OnUpdateRelativeHumidityData(double relativeHumidity, double targetRelativeHumidity, int pumpState)
+        public void OnUpdateRelativeHumidityData(double relativeHumidity, double targetRelativeHumidity, PumpStateEnum pumpState, String pumpDuration)
         {
           try
           {
@@ -226,16 +243,16 @@ namespace IncubatorWatch.Controls
 
 
             String pumpTxt = "Pompe: ???";
-            if (pumpState == 1)
-            {
-                pumpTxt = "Pompe: ON";
-            }
-            else if (pumpState == 0)
+            if (pumpState == PumpStateEnum.Stopped)
             {
                 pumpTxt = "Pompe: OFF";
             }
+            else if (pumpState == PumpStateEnum.Running)
+            {
+                pumpTxt = "Pompe: ON";
+            }
 
-            pumpOnOff.Content = pumpTxt;
+            pumpOnOff.Content = pumpTxt + " [ " + pumpDuration + " ] ";
           }
           catch (Exception ex)
           {
@@ -243,7 +260,7 @@ namespace IncubatorWatch.Controls
           }
         }
 
-        public void OnUpdateCO2Data(double co2, double targetCO2, int fanState)
+        public void OnUpdateCO2Data(double co2, double targetCO2, FanStateEnum fanState, String fanDuration, TrapStateEnum trapState)
         {
           try
           {
@@ -263,16 +280,26 @@ namespace IncubatorWatch.Controls
             }
 
             String fanTxt = "Ventillation: ???";
-            if (fanState == 1)
-            {
-                fanTxt = "Ventillation: ON";
-            }
-            else if (fanState == 0)
+            if (fanState == FanStateEnum.Stopped)
             {
                 fanTxt = "Ventillation: OFF";
             }
+            else if (fanState == FanStateEnum.Running)
+            {
+                fanTxt = "Ventillation: ON";
+            }
 
-            fanOnOff.Content = fanTxt;
+            fanOnOff.Content = fanTxt + " [ " + fanDuration + " ] ";
+
+
+            if (trapState == TrapStateEnum.Opened && fanState == FanStateEnum.Stopped)
+            {
+                overHeat.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                overHeat.Visibility = Visibility.Hidden;
+            }
           }
           catch (Exception ex)
           {
@@ -355,6 +382,7 @@ namespace IncubatorWatch.Controls
         {
           try
           {
+            String invalidValue = "";
             double target = Convert.ToDouble(targetTemperatureValue.Text);
 
             if (ValideTargetLimit(target, 0, 50))
@@ -363,8 +391,31 @@ namespace IncubatorWatch.Controls
             }
             else
             {
-                MessageBox.Show("Valeur invalide");
+                invalidValue = "cible";
             }
+
+
+            double limitMax = Convert.ToDouble(limitMaxTemperatureValue.Text);
+
+            if (ValideTargetLimit(limitMax, 0, 50))
+            {
+                _incubatorMnager.SetLimitMaxTemperature(limitMax);
+            }
+            else
+            {
+                if (invalidValue.Length == 0)
+                {
+                    invalidValue += ", ";
+                }
+
+                invalidValue += "limite max";
+            }
+
+            if (invalidValue.Length != 0)
+            {
+                MessageBox.Show("Valeur invalide: " + invalidValue);
+            }
+
           }
           catch (Exception ex)
           {
@@ -399,7 +450,7 @@ namespace IncubatorWatch.Controls
             {
                 double target = Convert.ToDouble(targetCO2Value.Text);
 
-                if (ValideTargetLimit(target, 300, 1500))
+                if (ValideTargetLimit(target, 300, 10000))
                 {
                     _incubatorMnager.SetTargetCO2(target);
                 }

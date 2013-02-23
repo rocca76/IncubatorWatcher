@@ -21,4 +21,22 @@ namespace IncubatorWatch.Info
         Stopped,
         Unknown
     }
+
+    public enum PumpStateEnum
+    {
+        Stopped,
+        Running
+    }
+
+    public enum FanStateEnum
+    {
+        Stopped,
+        Running
+    }
+
+    public enum TrapStateEnum
+    {
+        Closed,
+        Opened
+    }
 }

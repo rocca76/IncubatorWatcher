@@ -104,7 +104,7 @@
   <ItemGroup>
     <Compile Include="IPInfo.cs" />
     <Compile Include="SingleInstance.cs" />
-    <Compile Include="ActuatorInfo.cs" />
+    <Compile Include="Enums.cs" />
     <Page Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

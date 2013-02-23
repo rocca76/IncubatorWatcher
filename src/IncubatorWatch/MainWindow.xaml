@@ -3,7 +3,7 @@
                       xmlns:TaskbarNotification="clr-namespace:Hardcodet.Wpf.TaskbarNotification;assembly=Hardcodet.Wpf.TaskbarNotification"
                       xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" xmlns:my="clr-namespace:IncubatorWatch.Controls"
                       Title="Incubateur / Éclosoir" Height="600" Width="895" Icon="/IncubatorWatch;component/Images/logo.png" DataContext="{Binding RelativeSource={RelativeSource Self}}" Closing="WindowClosing"
-                      ShowIconOnTitleBar="False" WindowStartupLocation="CenterScreen" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                      ShowIconOnTitleBar="False" WindowStartupLocation="CenterScreen" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" WindowState="Maximized">
     <Window.TaskbarItemInfo>
         <TaskbarItemInfo Description="IncubatorWatch" />
     </Window.TaskbarItemInfo>
@@ -32,9 +32,9 @@
                                          TrayMouseDoubleClick="TaskbarIconTrayMouseDoubleClick" Grid.RowSpan="2" OpacityMask="#FF6F6F6F">
             <TaskbarNotification:TaskbarIcon.ContextMenu>
                 <ContextMenu AllowDrop="False">
-                    <MenuItem Header="Show Incubator Watcher" Click="MnuItemShowIncubatorWatcherClick" />
+                    <MenuItem Header="Afficher Incubateur" Click="MnuItemShowIncubatorWatcherClick" />
                     <Separator />
-                    <MenuItem Header="Exit" Click="MnuItemExitClick" />
+                    <MenuItem Header="Quitter" Click="MnuItemExitClick" />
                 </ContextMenu>
             </TaskbarNotification:TaskbarIcon.ContextMenu>
         </TaskbarNotification:TaskbarIcon>

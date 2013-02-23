@@ -140,15 +140,19 @@ namespace IncubatorWatch.Manager
           {
             double temperature = GetData(message, "temperature");
             double targetTemperature = GetData(message, "targettemperature");
+            double limitMaxTemperature = GetData(message, "limitmaxtemperature");
             int heatPower = (int)GetData(message, "heatpower");
 
             double relativeHumidity = GetData(message, "relativehumidity");
             double targetRelativeHumidity = GetData(message, "targetrelativehumidity");
-            int pumpState = (int)GetData(message, "pump");
+            PumpStateEnum pumpState = (PumpStateEnum)GetData(message, "pumpState");
+            String pumpDuration = GetStringData(message, "pumpduration");
 
             double co2 = GetData(message, "co2");
             double targetCO2 = GetData(message, "targetco2");
-            int fanState = (int)GetData(message, "fan");
+            FanStateEnum fanState = (FanStateEnum)GetData(message, "fanstate");
+            String fanDuration = GetStringData(message, "fanduration");
+            TrapStateEnum trapState = (TrapStateEnum)GetData(message, "trapstate");
 
             ActuatorMode actuatorMode = (ActuatorMode)GetData(message, "actuatormode");
             ActuatorState actuatorState = (ActuatorState)GetData(message, "actuatorstate");
@@ -156,11 +160,11 @@ namespace IncubatorWatch.Manager
 
             this.IncubatorData.Add(new IncubatorData(DateTime.Now, temperature, relativeHumidity, (int)co2));
 
-            DetailedViewModel.Instance.OnUpdateTemperatureData(temperature, targetTemperature, heatPower);
+            DetailedViewModel.Instance.OnUpdateTemperatureData(temperature, targetTemperature, limitMaxTemperature, heatPower);
 
-            DetailedViewModel.Instance.OnUpdateRelativeHumidityData(relativeHumidity, targetRelativeHumidity, pumpState);
+            DetailedViewModel.Instance.OnUpdateRelativeHumidityData(relativeHumidity, targetRelativeHumidity, pumpState, pumpDuration);
 
-            DetailedViewModel.Instance.OnUpdateCO2Data(co2, targetCO2, fanState);
+            DetailedViewModel.Instance.OnUpdateCO2Data(co2, targetCO2, fanState, fanDuration, trapState);
 
             DetailedViewModel.Instance.OnUpdateActuatorData(actuatorMode, actuatorState, actuatorDuration);
           }
@@ -182,6 +186,13 @@ namespace IncubatorWatch.Manager
 
             _asyncSocketListener.SendMessage(targetTxt);
         }
+
+        public void SetLimitMaxTemperature(double limitMax)
+        {
+            string limitMaxTxt = string.Format("LIMIT_MAX_TEMPERATURE {0}", limitMax);
+
+            _asyncSocketListener.SendMessage(limitMaxTxt);
+        }        
 
         public void SetTargetRelativeHumidity(double target)
         {
