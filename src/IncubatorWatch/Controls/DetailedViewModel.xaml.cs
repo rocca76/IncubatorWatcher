@@ -508,5 +508,25 @@ namespace IncubatorWatch.Controls
                 MessageBox.Show(ex.ToString());
             }
         }
+
+        private void buttonCloseActuator_PreviewMouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            _incubatorMnager.SendActuatorClose(1);
+        }
+
+        private void buttonCloseActuator_PreviewMouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            _incubatorMnager.SendActuatorClose(0);
+        }
+
+        private void buttonOpenActuator_PreviewMouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            _incubatorMnager.SendActuatorOpen(1);
+        }
+
+        private void buttonOpenActuator_PreviewMouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            _incubatorMnager.SendActuatorOpen(0);
+        }
     }
 }

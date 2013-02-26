@@ -181,15 +181,15 @@ namespace IncubatorWatch.Communication
             // Connect to a remote device.
             try
             {
-                IPInfo ipinfo = IPInfo.GetIPInfo("5C-86-4A-00-18-1E");
+                //IPInfo ipinfo = IPInfo.GetIPInfo("5C-86-4A-00-18-1E");
 
-                if (ipinfo != null)
+                //if (ipinfo != null)
                 {
                     //var hostname = ipinfo.HostName;
 
                     // Establish the remote endpoint for the socket.
                     // This example uses port 251 on the local computer.
-                    IPEndPoint remoteEP = new IPEndPoint(IPAddress.Parse(ipinfo.IPAddress), 250);
+                    IPEndPoint remoteEP = new IPEndPoint(IPAddress.Parse("192.168.0.200"), 250);
 
                     // Create a TCP/IP  socket.
                     Socket sender = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);

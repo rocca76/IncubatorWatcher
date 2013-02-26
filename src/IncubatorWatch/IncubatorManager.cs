@@ -224,7 +224,18 @@ namespace IncubatorWatch.Manager
                     break;
             }            
         }
-        
+
+        public void SendActuatorClose(int close)
+        {
+            string actuatorTxt = string.Format("ACTUATOR_CLOSE {0}", close);
+            _asyncSocketListener.SendMessage(actuatorTxt);
+        }
+
+        public void SendActuatorOpen(int open)
+        {
+            string actuatorTxt = string.Format("ACTUATOR_OPEN {0}", open);
+            _asyncSocketListener.SendMessage(actuatorTxt);
+        }
         #endregion
     }
 }
