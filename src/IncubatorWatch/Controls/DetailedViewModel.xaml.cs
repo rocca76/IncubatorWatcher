@@ -288,14 +288,14 @@ namespace IncubatorWatch.Controls
                 }
             }
 
-            String fanTxt = "Ventillation: ???";
+            String fanTxt = "Ventilation: ???";
             if (fanState == FanStateEnum.Stopped)
             {
-                fanTxt = "Ventillation: OFF";
+                fanTxt = "Ventilation: OFF";
             }
             else if (fanState == FanStateEnum.Running)
             {
-                fanTxt = "Ventillation: ON";
+                fanTxt = "Ventilation: ON";
             }
 
             fanOnOff.Content = fanTxt + " [ " + fanDuration + " ] ";
