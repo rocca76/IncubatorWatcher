@@ -269,36 +269,75 @@ namespace IncubatorWatch.Controls
           }
         }
 
-        public void OnUpdateCO2Data(double co2, double targetCO2, FanStateEnum fanState, String fanDuration, TrapStateEnum trapState)
+        public void OnUpdateCO2Data(double co2, double targetCO2)
+        {
+            try
+            {
+                if (co2 != double.MaxValue)
+                {
+                    co2Value.Content = co2.ToString() + " ppm";
+                }
+
+                if (targetCO2 != double.MaxValue)
+                {
+                    TargetCO2 = targetCO2;
+
+                    if (targetCO2Value.Text == "????")
+                    {
+                        targetCO2Value.Text = targetCO2.ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        public void OnUpdateVentilationData(FanStateEnum fanState, TrapStateEnum trapState, String ventilationDuration,
+                                            int fanEnabled, double ventilationIntervalTarget, double ventilationDurationTarget, 
+                                            VentilationState ventilationState)
         {
           try
           {
-            if (co2 != double.MaxValue)
+            String ventilationTxt = "";
+
+            if (trapState == TrapStateEnum.Closed)
             {
-                co2Value.Content = co2.ToString() + " ppm";
+                ventilationTxt = "Trappe: OFF + ";
+            }
+            else if (trapState == TrapStateEnum.Opened)
+            {
+                ventilationTxt = "Trappe: ON + ";
             }
 
-            if (targetCO2 != double.MaxValue)
-            {
-                TargetCO2 = targetCO2;
-
-                if (targetCO2Value.Text == "????")
-                {
-                    targetCO2Value.Text = targetCO2.ToString();
-                }
-            }
-
-            String fanTxt = "Ventilation: ???";
             if (fanState == FanStateEnum.Stopped)
             {
-                fanTxt = "Ventilation: OFF";
+                ventilationTxt += "Fan: OFF";
             }
             else if (fanState == FanStateEnum.Running)
             {
-                fanTxt = "Ventilation: ON";
+                ventilationTxt += "Fan: ON";
             }
 
-            fanOnOff.Content = fanTxt + " [ " + fanDuration + " ] ";
+            ventilationOnOff.Content = ventilationTxt + " [ " + ventilationDuration + " ] ";
+
+
+            if (ventilationIntervalTarget != double.MaxValue)
+            {
+                if (ventilationIntervalTxtBox.Text == "????")
+                {
+                    ventilationIntervalTxtBox.Text = ventilationIntervalTarget.ToString();
+                }
+            }
+
+            if (ventilationDurationTarget != double.MaxValue)
+            {
+                if (ventilationDurationTxtBox.Text == "????")
+                {
+                    ventilationDurationTxtBox.Text = ventilationDurationTarget.ToString();
+                }
+            }
           }
           catch (Exception ex)
           {
@@ -443,20 +482,29 @@ namespace IncubatorWatch.Controls
             }
         }
 
-        private void buttonApplyTargetCO2_Click(object sender, RoutedEventArgs e)
+        private void buttonApplyVentilation_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                double target = Convert.ToDouble(targetCO2Value.Text);
+                int co2Target = Convert.ToInt32(targetCO2Value.Text);
 
-                if (ValideTargetLimit(target, 300, 10000))
-                {
-                    _incubatorMnager.SetTargetCO2(target);
-                }
-                else
+                if (ValideTargetLimit(co2Target, 300, 10000) == false)
                 {
                     MessageBox.Show("Valeur invalide");
+                    return;
                 }
+
+                int fanEnabled = 0;
+                if (checkBoxFanActif.IsChecked == true)
+                {
+                    fanEnabled = 1;
+                }
+
+                int intervalTarget = Convert.ToInt32(ventilationIntervalTxtBox.Text);
+                int durationTarget = Convert.ToInt32(ventilationDurationTxtBox.Text);
+
+                _incubatorMnager.SetTargetVentilation(fanEnabled, intervalTarget, durationTarget, co2Target);
+                
             }
             catch (Exception ex)
             {

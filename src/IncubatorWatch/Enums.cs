@@ -39,4 +39,10 @@ namespace IncubatorWatch.Info
         Closed,
         Opened
     }
+
+    public enum VentilationState
+    {
+        Stopped,
+        Started
+    }
 }

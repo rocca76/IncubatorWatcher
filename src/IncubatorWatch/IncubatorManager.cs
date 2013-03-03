@@ -151,9 +151,16 @@ namespace IncubatorWatch.Manager
 
             double co2 = GetData(message, "co2");
             double targetCO2 = GetData(message, "targetco2");
+
             FanStateEnum fanState = (FanStateEnum)GetData(message, "fanstate");
-            String fanDuration = GetStringData(message, "fanduration");
             TrapStateEnum trapState = (TrapStateEnum)GetData(message, "trapstate");
+            String ventilationDuration = GetStringData(message, "ventilationduration");
+
+            int fanEnabled = (int)GetData(message, "ventilationfanenabled");
+            double ventilationIntervalTarget = GetData(message, "ventilationIntervaltarget");
+            double ventilationDurationTarget = GetData(message, "ventilationdurationtarget");
+            VentilationState ventilationState = (VentilationState)GetData(message, "ventilationdstate");
+            
 
             ActuatorMode actuatorMode = (ActuatorMode)GetData(message, "actuatormode");
             ActuatorState actuatorState = (ActuatorState)GetData(message, "actuatorstate");
@@ -165,7 +172,10 @@ namespace IncubatorWatch.Manager
 
             DetailedViewModel.Instance.OnUpdateRelativeHumidityData(relativeHumidity, targetRelativeHumidity, pumpState, pumpDuration);
 
-            DetailedViewModel.Instance.OnUpdateCO2Data(co2, targetCO2, fanState, fanDuration, trapState);
+            DetailedViewModel.Instance.OnUpdateCO2Data(co2, targetCO2);
+
+            DetailedViewModel.Instance.OnUpdateVentilationData(fanState, trapState, ventilationDuration, fanEnabled, 
+                                                               ventilationIntervalTarget, ventilationDurationTarget, ventilationState);
 
             DetailedViewModel.Instance.OnUpdateActuatorData(actuatorMode, actuatorState, actuatorDuration);
           }
@@ -202,9 +212,9 @@ namespace IncubatorWatch.Manager
           _asyncSocketListener.SendMessage(targetTxt);
         }
 
-        public void SetTargetCO2(double target)
+        public void SetTargetVentilation( int fanEnabled, int intervalTarget, int durationTarget, int co2Target)
         {
-            string targetTxt = string.Format("TARGET_CO2 {0}", target);
+            string targetTxt = string.Format("TARGET_VENTILATION {0} {1} {2} {3}", fanEnabled, intervalTarget, durationTarget, co2Target);
 
             _asyncSocketListener.SendMessage(targetTxt);
         }
