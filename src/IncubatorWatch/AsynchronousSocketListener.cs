@@ -57,7 +57,7 @@ namespace IncubatorWatch.Communication
             // Bind the socket to the local endpoint and listen for incoming connections.
             try
             {
-                listener.Bind(new IPEndPoint(IPAddress.Any, 250));
+                listener.Bind(new IPEndPoint(IPAddress.Any, 11000));
                 listener.Listen(100);
 
                 while (true)
@@ -189,7 +189,7 @@ namespace IncubatorWatch.Communication
 
                     // Establish the remote endpoint for the socket.
                     // This example uses port 251 on the local computer.
-                    IPEndPoint remoteEP = new IPEndPoint(IPAddress.Parse("192.168.0.200"), 250);
+                    IPEndPoint remoteEP = new IPEndPoint(IPAddress.Parse("192.168.10.202"), 11000);
 
                     // Create a TCP/IP  socket.
                     Socket sender = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);

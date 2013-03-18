@@ -14,7 +14,6 @@ namespace IncubatorWatch.Manager
     {
         #region Private Variables
         private readonly IncubatorDataCollection _incubatorDataCollection = new IncubatorDataCollection();
-        private static AsynchronousSocketListener _asyncSocketListener = new AsynchronousSocketListener();
         ActuatorMode _actuatorMode = ActuatorMode.Manual;
         ActuatorState _actuatorState = ActuatorState.Unknown;
         #endregion
@@ -28,9 +27,8 @@ namespace IncubatorWatch.Manager
         #region Constructors
         public IncubatorManager()
         {
-            AsynchronousSocketListener.EventHandlerMessageReceived += new MessageEventHandler(OnMessageReceived);
-
-            Init();
+            CommunicationNetwork.EventHandlerMessageReceived += new MessageEventHandler(OnMessageReceived);
+            CommunicationNetwork.Instance.Init();
         }
         #endregion
 
@@ -90,6 +88,33 @@ namespace IncubatorWatch.Manager
             return value;
         }
 
+        private bool GetBooleanData(String message, String variable)
+        {
+            bool value = false;
+
+            try
+            {
+                using (XmlReader xmlReader = XmlReader.Create(new StringReader(message)))
+                {
+                    while (xmlReader.Read())
+                    {
+                        if (xmlReader.IsStartElement(variable))
+                        {
+                            xmlReader.Read();
+                            value = Convert.ToBoolean(xmlReader.Value);
+                        }
+                    }
+                    xmlReader.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.ToString());
+            }
+
+            return value;
+        }
+
         private String GetStringData(String message, String variable)
         {
             String value = "";
@@ -116,20 +141,6 @@ namespace IncubatorWatch.Manager
 
             return value;
         }
-
-        private void Init()
-        {
-          string presentTime = string.Format("TIME {0} {1} {2} {3} {4} {5} {6}",
-                                    DateTime.Now.Year,
-                                    DateTime.Now.Month,
-                                    DateTime.Now.Day,
-                                    DateTime.Now.Hour,
-                                    DateTime.Now.Minute,
-                                    DateTime.Now.Second,
-                                    DateTime.Now.Millisecond);
-
-          _asyncSocketListener.SendMessage(presentTime);
-        }
         #endregion
 
 
@@ -141,7 +152,7 @@ namespace IncubatorWatch.Manager
             double temperature = GetData(message, "temperature");
             double targetTemperature = GetData(message, "targettemperature");
             double limitMaxTemperature = GetData(message, "limitmaxtemperature");
-            int maxtemperaturereached = (int)GetData(message, "maxtemperaturereached");
+            bool maxtemperaturereached = GetBooleanData(message, "maxtemperaturereached");
             int heatPower = (int)GetData(message, "heatpower");
 
             double relativeHumidity = GetData(message, "relativehumidity");
@@ -187,36 +198,35 @@ namespace IncubatorWatch.Manager
 
         public void Shutdown()
         {
-          _asyncSocketListener.SendMessage("EXIT");
-          _asyncSocketListener.StopListening();
+            CommunicationNetwork.Instance.Disconnect();
         }
 
         public void SetTargetTemperature(double target)
         {
             string targetTxt = string.Format("TARGET_TEMPERATURE {0}", target);
 
-            _asyncSocketListener.SendMessage(targetTxt);
+            CommunicationNetwork.Instance.Send(targetTxt);
         }
 
         public void SetLimitMaxTemperature(double limitMax)
         {
             string limitMaxTxt = string.Format("LIMIT_MAX_TEMPERATURE {0}", limitMax);
 
-            _asyncSocketListener.SendMessage(limitMaxTxt);
+            CommunicationNetwork.Instance.Send(limitMaxTxt);
         }        
 
         public void SetTargetRelativeHumidity(double target)
         {
           string targetTxt = string.Format("TARGET_RELATIVE_HUMIDITY {0}", target);
 
-          _asyncSocketListener.SendMessage(targetTxt);
+          CommunicationNetwork.Instance.Send(targetTxt);
         }
 
         public void SetTargetVentilation( int fanEnabled, int intervalTarget, int durationTarget, int co2Target)
         {
             string targetTxt = string.Format("TARGET_VENTILATION {0} {1} {2} {3}", fanEnabled, intervalTarget, durationTarget, co2Target);
 
-            _asyncSocketListener.SendMessage(targetTxt);
+            CommunicationNetwork.Instance.Send(targetTxt);
         }
 
         public void SendActuatorMode(ActuatorMode mode)
@@ -224,13 +234,13 @@ namespace IncubatorWatch.Manager
             switch (mode)
             {
                 case ActuatorMode.Manual:
-                    _asyncSocketListener.SendMessage("ACTUATOR_MODE MANUAL");
+                    CommunicationNetwork.Instance.Send("ACTUATOR_MODE MANUAL");
                     break;
                 case ActuatorMode.ManualCentered:
-                    _asyncSocketListener.SendMessage("ACTUATOR_MODE MANUAL_CENTERED");
+                    CommunicationNetwork.Instance.Send("ACTUATOR_MODE MANUAL_CENTERED");
                     break;
                 case ActuatorMode.Auto:
-                    _asyncSocketListener.SendMessage("ACTUATOR_MODE AUTO");
+                    CommunicationNetwork.Instance.Send("ACTUATOR_MODE AUTO");
                     break;
             }            
         }
@@ -238,13 +248,13 @@ namespace IncubatorWatch.Manager
         public void SendActuatorClose(int close)
         {
             string actuatorTxt = string.Format("ACTUATOR_CLOSE {0}", close);
-            _asyncSocketListener.SendMessage(actuatorTxt);
+            CommunicationNetwork.Instance.Send(actuatorTxt);
         }
 
         public void SendActuatorOpen(int open)
         {
             string actuatorTxt = string.Format("ACTUATOR_OPEN {0}", open);
-            _asyncSocketListener.SendMessage(actuatorTxt);
+            CommunicationNetwork.Instance.Send(actuatorTxt);
         }
         #endregion
     }

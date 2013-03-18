@@ -182,7 +182,7 @@ namespace IncubatorWatch.Controls
             }
         }
 
-        public void OnUpdateTemperatureData(double temperature, double targetTemperature, double limitMaxTemperature, int maxtemperaturereached, int heatPower)
+        public void OnUpdateTemperatureData(double temperature, double targetTemperature, double limitMaxTemperature, bool maxtemperaturereached, int heatPower)
         {
             try
             {
@@ -211,7 +211,7 @@ namespace IncubatorWatch.Controls
                     }
                 }
 
-                if (maxtemperaturereached == 0)
+                if (maxtemperaturereached == false)
                 {
                     overHeat.Visibility = Visibility.Hidden;
                 }
