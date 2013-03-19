@@ -201,19 +201,12 @@ namespace IncubatorWatch.Manager
             CommunicationNetwork.Instance.Disconnect();
         }
 
-        public void SetTargetTemperature(double target)
+        public void SetTargetTemperature(double target, double limitMax)
         {
-            string targetTxt = string.Format("TARGET_TEMPERATURE {0}", target);
+            string targetTxt = string.Format("TARGET_TEMPERATURE {0} {1}", target, limitMax);
 
             CommunicationNetwork.Instance.Send(targetTxt);
-        }
-
-        public void SetLimitMaxTemperature(double limitMax)
-        {
-            string limitMaxTxt = string.Format("LIMIT_MAX_TEMPERATURE {0}", limitMax);
-
-            CommunicationNetwork.Instance.Send(limitMaxTxt);
-        }        
+        }    
 
         public void SetTargetRelativeHumidity(double target)
         {
