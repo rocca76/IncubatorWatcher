@@ -304,11 +304,11 @@ namespace IncubatorWatch.Controls
 
             if (trapState == TrapStateEnum.Closed)
             {
-                ventilationTxt = "Trappe: OFF + ";
+                ventilationTxt = "Trappe: Fermé + ";
             }
             else if (trapState == TrapStateEnum.Opened)
             {
-                ventilationTxt = "Trappe: ON + ";
+                ventilationTxt = "Trappe: Ouverte + ";
             }
 
             if (fanState == FanStateEnum.Stopped)
@@ -323,7 +323,7 @@ namespace IncubatorWatch.Controls
             ventilationOnOff.Content = ventilationTxt + " [ " + ventilationDuration + " ] ";
 
 
-            if (ventilationIntervalTarget != double.MaxValue)
+            /*if (ventilationIntervalTarget != double.MaxValue)
             {
                 if (ventilationIntervalTxtBox.Text == "????")
                 {
@@ -337,7 +337,7 @@ namespace IncubatorWatch.Controls
                 {
                     ventilationDurationTxtBox.Text = ventilationDurationTarget.ToString();
                 }
-            }
+            }*/
           }
           catch (Exception ex)
           {
@@ -408,7 +408,7 @@ namespace IncubatorWatch.Controls
 
         private void OnMessageReceived(String message)
         {
-            this.Dispatcher.Invoke((Action)(() => { _incubatorMnager.OnNewData(message); }));
+            this.Dispatcher.BeginInvoke((Action)(() => { _incubatorMnager.OnNewData(message); }));
         }
 
         private void Dispatcher_ShutdownStarted(object sender, EventArgs e)
@@ -422,31 +422,15 @@ namespace IncubatorWatch.Controls
           {
             String invalidValue = "";
             double target = Convert.ToDouble(targetTemperatureValue.Text);
+            double limitMax = Convert.ToDouble(limitMaxTemperatureValue.Text);
 
-            if (ValideTargetLimit(target, 0, 50))
+            if (ValideTargetLimit(target, 0, 50) && ValideTargetLimit(limitMax, 0, 50))
             {
-                _incubatorMnager.SetTargetTemperature(target);
+                _incubatorMnager.SetTargetTemperature(target, limitMax);
             }
             else
             {
                 invalidValue = "cible";
-            }
-
-
-            double limitMax = Convert.ToDouble(limitMaxTemperatureValue.Text);
-
-            if (ValideTargetLimit(limitMax, 0, 50))
-            {
-                _incubatorMnager.SetLimitMaxTemperature(limitMax);
-            }
-            else
-            {
-                if (invalidValue.Length == 0)
-                {
-                    invalidValue += ", ";
-                }
-
-                invalidValue += "limite max";
             }
 
             if (invalidValue.Length != 0)
@@ -494,16 +478,16 @@ namespace IncubatorWatch.Controls
                     return;
                 }
 
-                int fanEnabled = 0;
+                /*int fanEnabled = 0;
                 if (checkBoxFanActif.IsChecked == true)
                 {
                     fanEnabled = 1;
                 }
 
                 int intervalTarget = Convert.ToInt32(ventilationIntervalTxtBox.Text);
-                int durationTarget = Convert.ToInt32(ventilationDurationTxtBox.Text);
+                int durationTarget = Convert.ToInt32(ventilationDurationTxtBox.Text);*/
 
-                _incubatorMnager.SetTargetVentilation(fanEnabled, intervalTarget, durationTarget, co2Target);
+                _incubatorMnager.SetTargetVentilation(0, 0, 0, co2Target);
                 
             }
             catch (Exception ex)
