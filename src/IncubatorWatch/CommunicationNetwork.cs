@@ -58,7 +58,7 @@ namespace IncubatorWatch
                             throw new ApplicationException("Failed to connect to controller.");
                         }
 
-                        String dateTime = string.Format("TIME {0} {1} {2} {3} {4} {5} {6}",
+                        String dateTime = string.Format("INIT {0} {1} {2} {3} {4} {5} {6}",
                                              DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day,
                                              DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second, DateTime.Now.Millisecond);
 

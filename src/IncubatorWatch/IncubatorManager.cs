@@ -203,21 +203,23 @@ namespace IncubatorWatch.Manager
 
         public void SetTargetTemperature(double target, double limitMax)
         {
-            string targetTxt = string.Format("TARGET_TEMPERATURE {0} {1}", target, limitMax);
+            string targetTxt = string.Format("TEMPERATURE_PARAMETERS {0} {1}", target, limitMax);
 
             CommunicationNetwork.Instance.Send(targetTxt);
-        }    
+        }
 
-        public void SetTargetRelativeHumidity(double target)
+        public void SetTargetRelativeHumidity(double target, int intervalTarget, int durationTarget)
         {
-          string targetTxt = string.Format("TARGET_RELATIVE_HUMIDITY {0}", target);
+          string targetTxt = string.Format("RELATIVE_HUMIDITY_PARAMETERS {0} {1} {2}", target, intervalTarget, durationTarget);
 
+          CommunicationNetwork.Instance.Send(targetTxt);
+          CommunicationNetwork.Instance.Send(targetTxt);
           CommunicationNetwork.Instance.Send(targetTxt);
         }
 
         public void SetTargetVentilation( int fanEnabled, int intervalTarget, int durationTarget, int co2Target)
         {
-            string targetTxt = string.Format("TARGET_VENTILATION {0} {1} {2} {3}", fanEnabled, intervalTarget, durationTarget, co2Target);
+            string targetTxt = string.Format("VENTILATION_PARAMETERS {0} {1} {2} {3}", co2Target, fanEnabled, intervalTarget, durationTarget);
 
             CommunicationNetwork.Instance.Send(targetTxt);
         }

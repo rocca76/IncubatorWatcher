@@ -453,7 +453,7 @@ namespace IncubatorWatch.Controls
 
                 if (ValideTargetLimit(target, 0, 90))
                 {
-                    _incubatorMnager.SetTargetRelativeHumidity(target);
+                    _incubatorMnager.SetTargetRelativeHumidity(target, 0, 0);
                 }
                 else
                 {
