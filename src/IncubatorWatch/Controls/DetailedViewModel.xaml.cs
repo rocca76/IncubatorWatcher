@@ -251,6 +251,22 @@ namespace IncubatorWatch.Controls
                 }
             }
 
+            if (pumpIntervalTarget != double.MaxValue)
+            {
+              if (pumpIntervalTxtBox.Text == "????")
+              {
+                pumpIntervalTxtBox.Text = pumpIntervalTarget.ToString();
+              }
+            }
+
+            if (pumpDurationTarget != double.MaxValue)
+            {
+              if (pumpDurationTxtBox.Text == "????")
+              {
+                pumpDurationTxtBox.Text = pumpDurationTarget.ToString();
+              }
+            }
+
 
             String pumpTxt = "Pompe: ???";
             if (pumpState == PumpStateEnum.Stopped)
@@ -320,23 +336,6 @@ namespace IncubatorWatch.Controls
             }*/
 
             ventilationOnOff.Content = ventilationTxt;
-
-
-            /*if (ventilationIntervalTarget != double.MaxValue)
-            {
-                if (ventilationIntervalTxtBox.Text == "????")
-                {
-                    ventilationIntervalTxtBox.Text = ventilationIntervalTarget.ToString();
-                }
-            }
-
-            if (ventilationDurationTarget != double.MaxValue)
-            {
-                if (ventilationDurationTxtBox.Text == "????")
-                {
-                    ventilationDurationTxtBox.Text = ventilationDurationTarget.ToString();
-                }
-            }*/
           }
           catch (Exception ex)
           {
