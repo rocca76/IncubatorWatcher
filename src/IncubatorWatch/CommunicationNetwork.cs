@@ -48,7 +48,7 @@ namespace IncubatorWatch
 
                     using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp))
                     {
-                        IAsyncResult result = socket.BeginConnect(IPAddress.Parse("192.168.10.200"), 11000, null, null);
+                        IAsyncResult result = socket.BeginConnect(IPAddress.Parse("192.168.250.200"), 11000, null, null);
 
                         bool success = result.AsyncWaitHandle.WaitOne(5000, true);
 
@@ -90,7 +90,7 @@ namespace IncubatorWatch
             {
                 using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp))
                 {
-                    IAsyncResult result = socket.BeginConnect(IPAddress.Parse("192.168.10.200"), 11000, null, null);
+                    IAsyncResult result = socket.BeginConnect(IPAddress.Parse("192.168.250.200"), 11000, null, null);
 
                     bool success = result.AsyncWaitHandle.WaitOne(5000, true);
 

@@ -20,7 +20,7 @@ namespace IncubatorWatch.Controls
     public partial class DetailedViewModel : INotifyPropertyChanged
     {
         #region Private Variables
-        private IncubatorManager _incubatorMnager = new IncubatorManager();
+        private IncubatorManager _incubatorManager = new IncubatorManager();
         private BackgroundWorker bw = new BackgroundWorker();
         #endregion
 
@@ -85,7 +85,7 @@ namespace IncubatorWatch.Controls
             InitializePlotter();
 
             Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
-            _incubatorMnager.EventHandlerMessageReceived += new ReceivedEventHandler(OnMessageReceived);
+            _incubatorManager.EventHandlerMessageReceived += new ReceivedEventHandler(OnMessageReceived);
 
             _instance = this;
 
@@ -104,7 +104,7 @@ namespace IncubatorWatch.Controls
           Visibility visibilityState = labelTilt.Visibility;
           BackgroundWorker worker = sender as BackgroundWorker;
 
-          while (_incubatorMnager.State == ActuatorState.Opening || _incubatorMnager.State == ActuatorState.Closing)
+          while (_incubatorManager.State == ActuatorState.Opening || _incubatorManager.State == ActuatorState.Closing)
           {
             if (visibilityState == Visibility.Visible)
             {
@@ -136,7 +136,7 @@ namespace IncubatorWatch.Controls
         {
             try
             {
-                EnumerableDataSource<IncubatorData> receivedGraph = new EnumerableDataSource<IncubatorData>(_incubatorMnager.IncubatorData);
+                EnumerableDataSource<IncubatorData> receivedGraph = new EnumerableDataSource<IncubatorData>(_incubatorManager.IncubatorData);
                 receivedGraph.SetXMapping(x => temperatureTimeAxis.ConvertToDouble(x.Time));
                 receivedGraph.SetYMapping(y => y.Temperature);
                 plotterTemperature.AddLineGraph(receivedGraph, (Color)ColorConverter.ConvertFromString("#FF40B0E0"), 2, "Température");
@@ -150,7 +150,7 @@ namespace IncubatorWatch.Controls
 
                 ///////////////////////////
 
-                receivedGraph = new EnumerableDataSource<IncubatorData>(_incubatorMnager.IncubatorData);
+                receivedGraph = new EnumerableDataSource<IncubatorData>(_incubatorManager.IncubatorData);
                 receivedGraph.SetXMapping(x => relativeHumidityTimeAxis.ConvertToDouble(x.Time));
                 receivedGraph.SetYMapping(y => y.RelativeHumidity);
                 plotterRelativeHumidity.AddLineGraph(receivedGraph, (Color)ColorConverter.ConvertFromString("#FF40B0E0"), 2, "Humitidé Relative");
@@ -164,7 +164,7 @@ namespace IncubatorWatch.Controls
 
                 ///////////////////////////
 
-                receivedGraph = new EnumerableDataSource<IncubatorData>(_incubatorMnager.IncubatorData);
+                receivedGraph = new EnumerableDataSource<IncubatorData>(_incubatorManager.IncubatorData);
                 receivedGraph.SetXMapping(x => CO2TimeAxis.ConvertToDouble(x.Time));
                 receivedGraph.SetYMapping(y => y.CO2);
                 plotterCO2.AddLineGraph(receivedGraph, (Color)ColorConverter.ConvertFromString("#FF40B0E0"), 2, "CO2");
@@ -231,7 +231,8 @@ namespace IncubatorWatch.Controls
             }
         }
 
-        public void OnUpdateRelativeHumidityData(double relativeHumidity, double targetRelativeHumidity, PumpStateEnum pumpState, String pumpDuration)
+        public void OnUpdateRelativeHumidityData(double relativeHumidity, double targetRelativeHumidity, PumpStateEnum pumpState,
+                                                 String pumpDuration, int pumpIntervalTarget, int pumpDurationTarget)
         {
           try
           {
@@ -294,15 +295,13 @@ namespace IncubatorWatch.Controls
             }
         }
 
-        public void OnUpdateVentilationData(FanStateEnum fanState, TrapStateEnum trapState, String ventilationDuration,
-                                            int fanEnabled, double ventilationIntervalTarget, double ventilationDurationTarget, 
-                                            VentilationState ventilationState)
+        public void OnUpdateVentilationData(FanStateEnum fanState, TrapStateEnum trapState, VentilationState ventilationState)
         {
           try
           {
-            String ventilationTxt = "";
+            String ventilationTxt = "Ventilation OFF";
 
-            if (trapState == TrapStateEnum.Closed)
+            /*if (trapState == TrapStateEnum.Closed)
             {
                 ventilationTxt = "Trappe: Fermé + ";
             }
@@ -318,9 +317,9 @@ namespace IncubatorWatch.Controls
             else if (fanState == FanStateEnum.Running)
             {
                 ventilationTxt += "Fan: ON";
-            }
+            }*/
 
-            ventilationOnOff.Content = ventilationTxt + " [ " + ventilationDuration + " ] ";
+            ventilationOnOff.Content = ventilationTxt;
 
 
             /*if (ventilationIntervalTarget != double.MaxValue)
@@ -349,8 +348,8 @@ namespace IncubatorWatch.Controls
         {
             try
             {
-                _incubatorMnager.Mode = mode;
-                _incubatorMnager.State = state;
+                _incubatorManager.Mode = mode;
+                _incubatorManager.State = state;
 
                 if (mode == ActuatorMode.Manual || mode == ActuatorMode.ManualCentered)
                 {
@@ -408,36 +407,33 @@ namespace IncubatorWatch.Controls
 
         private void OnMessageReceived(String message)
         {
-            this.Dispatcher.BeginInvoke((Action)(() => { _incubatorMnager.OnNewData(message); }));
+            this.Dispatcher.BeginInvoke((Action)(() => { _incubatorManager.OnNewData(message); }));
         }
 
         private void Dispatcher_ShutdownStarted(object sender, EventArgs e)
         {
-            _incubatorMnager.Shutdown();
+            _incubatorManager.Shutdown();
         }
 
         private void buttonApplyTargetTemperature_Click(object sender, RoutedEventArgs e)
         {
           try
           {
-            String invalidValue = "";
             double target = Convert.ToDouble(targetTemperatureValue.Text);
             double limitMax = Convert.ToDouble(limitMaxTemperatureValue.Text);
 
-            if (ValideTargetLimit(target, 0, 50) && ValideTargetLimit(limitMax, 0, 50))
+            if (ValideTargetLimit(target, 0, 50) == false)
             {
-                _incubatorMnager.SetTargetTemperature(target, limitMax);
+                MessageBox.Show("La cible doit être entre 0 et 50 degrés celcius");
+            }
+            else if (ValideTargetLimit(limitMax, 0, 50) == false)
+            {
+                MessageBox.Show("La limit max doit être entre 0 et 50 degrés celcius");
             }
             else
             {
-                invalidValue = "cible";
+                _incubatorManager.SetTargetTemperature(target, limitMax);
             }
-
-            if (invalidValue.Length != 0)
-            {
-                MessageBox.Show("Valeur invalide: " + invalidValue);
-            }
-
           }
           catch (Exception ex)
           {
@@ -451,13 +447,22 @@ namespace IncubatorWatch.Controls
             {
                 double target = Convert.ToDouble(targetRelativeHumidityValue.Text);
 
-                if (ValideTargetLimit(target, 0, 90))
+                if (ValideTargetLimit(target, 0, 90) == false)
                 {
-                    _incubatorMnager.SetTargetRelativeHumidity(target, 0, 0);
+                    MessageBox.Show("La cible doit être entre 0% et 90%");
+                    return;
+                }
+
+                int intervalTarget = Convert.ToInt32(pumpIntervalTxtBox.Text);
+                int durationTarget = Convert.ToInt32(pumpDurationTxtBox.Text);
+
+                if (intervalTarget > 0 && durationTarget > 0)
+                {
+                    _incubatorManager.SetTargetRelativeHumidity(target, intervalTarget, durationTarget);
                 }
                 else
                 {
-                    MessageBox.Show("Valeur invalide");
+                    MessageBox.Show("L'interval et la durée doivent être plus grand que 0");
                 }
             }
             catch (Exception ex)
@@ -478,16 +483,7 @@ namespace IncubatorWatch.Controls
                     return;
                 }
 
-                /*int fanEnabled = 0;
-                if (checkBoxFanActif.IsChecked == true)
-                {
-                    fanEnabled = 1;
-                }
-
-                int intervalTarget = Convert.ToInt32(ventilationIntervalTxtBox.Text);
-                int durationTarget = Convert.ToInt32(ventilationDurationTxtBox.Text);*/
-
-                _incubatorMnager.SetTargetVentilation(0, 0, 0, co2Target);
+                _incubatorManager.SetTargetVentilation(co2Target);
                 
             }
             catch (Exception ex)
@@ -512,26 +508,26 @@ namespace IncubatorWatch.Controls
         {
             try
             {
-                if (_incubatorMnager.Mode == ActuatorMode.Auto)
+                if (_incubatorManager.Mode == ActuatorMode.Auto)
                 {
                     MessageBoxResult result = MessageBox.Show("Voulez-vous centrer les plateaux en allant en mode manuel ?", "Inclinaison", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
 
                     if (result  == MessageBoxResult.Yes)
                     {
-                        _incubatorMnager.SendActuatorMode(ActuatorMode.ManualCentered);
+                        _incubatorManager.SendActuatorMode(ActuatorMode.ManualCentered);
                     }
                     else if (result == MessageBoxResult.No)
                     {
-                        _incubatorMnager.SendActuatorMode(ActuatorMode.Manual);
+                        _incubatorManager.SendActuatorMode(ActuatorMode.Manual);
                     }
                 }
-                else if (_incubatorMnager.Mode == ActuatorMode.Manual || _incubatorMnager.Mode == ActuatorMode.ManualCentered)
+                else if (_incubatorManager.Mode == ActuatorMode.Manual || _incubatorManager.Mode == ActuatorMode.ManualCentered)
                 {
                     MessageBoxResult result = MessageBox.Show("Voulez-vous passer en mode inclinaison automatique ?", "Inclinaison", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
                     if (result == MessageBoxResult.Yes)
                     {
-                        _incubatorMnager.SendActuatorMode(ActuatorMode.Auto);
+                        _incubatorManager.SendActuatorMode(ActuatorMode.Auto);
                     }
                 }
             }
@@ -543,22 +539,32 @@ namespace IncubatorWatch.Controls
 
         private void buttonCloseActuator_PreviewMouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            _incubatorMnager.SendActuatorClose(1);
+            _incubatorManager.SendActuatorClose(1);
         }
 
         private void buttonCloseActuator_PreviewMouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            _incubatorMnager.SendActuatorClose(0);
+            _incubatorManager.SendActuatorClose(0);
         }
 
         private void buttonOpenActuator_PreviewMouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            _incubatorMnager.SendActuatorOpen(1);
+            _incubatorManager.SendActuatorOpen(1);
         }
 
         private void buttonOpenActuator_PreviewMouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            _incubatorMnager.SendActuatorOpen(0);
+            _incubatorManager.SendActuatorOpen(0);
+        }
+
+        private void buttonActivatePump_PreviewMouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            _incubatorManager.SendPumpActivate(1);
+        }
+
+        private void buttonActivatePump_PreviewMouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            _incubatorManager.SendPumpActivate(0);
         }
     }
 }

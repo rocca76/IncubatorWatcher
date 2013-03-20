@@ -159,19 +159,14 @@ namespace IncubatorWatch.Manager
             double targetRelativeHumidity = GetData(message, "targetrelativehumidity");
             PumpStateEnum pumpState = (PumpStateEnum)GetData(message, "pumpstate");
             String pumpDuration = GetStringData(message, "pumpduration");
+            int pumpIntervalTarget = (int)GetData(message, "pumpintervaltarget");
+            int pumpDurationTarget = (int)GetData(message, "pumpdurationtarget");
 
             double co2 = GetData(message, "co2");
             double targetCO2 = GetData(message, "targetco2");
-
             FanStateEnum fanState = (FanStateEnum)GetData(message, "fanstate");
             TrapStateEnum trapState = (TrapStateEnum)GetData(message, "trapstate");
-            String ventilationDuration = GetStringData(message, "ventilationduration");
-
-            int fanEnabled = (int)GetData(message, "ventilationfanenabled");
-            double ventilationIntervalTarget = GetData(message, "ventilationIntervaltarget");
-            double ventilationDurationTarget = GetData(message, "ventilationdurationtarget");
             VentilationState ventilationState = (VentilationState)GetData(message, "ventilationdstate");
-            
 
             ActuatorMode actuatorMode = (ActuatorMode)GetData(message, "actuatormode");
             ActuatorState actuatorState = (ActuatorState)GetData(message, "actuatorstate");
@@ -181,12 +176,11 @@ namespace IncubatorWatch.Manager
 
             DetailedViewModel.Instance.OnUpdateTemperatureData(temperature, targetTemperature, limitMaxTemperature, maxtemperaturereached, heatPower);
 
-            DetailedViewModel.Instance.OnUpdateRelativeHumidityData(relativeHumidity, targetRelativeHumidity, pumpState, pumpDuration);
+            DetailedViewModel.Instance.OnUpdateRelativeHumidityData(relativeHumidity, targetRelativeHumidity, pumpState, pumpDuration, pumpIntervalTarget, pumpDurationTarget);
 
             DetailedViewModel.Instance.OnUpdateCO2Data(co2, targetCO2);
 
-            DetailedViewModel.Instance.OnUpdateVentilationData(fanState, trapState, ventilationDuration, fanEnabled, 
-                                                               ventilationIntervalTarget, ventilationDurationTarget, ventilationState);
+            DetailedViewModel.Instance.OnUpdateVentilationData(fanState, trapState, ventilationState);
 
             DetailedViewModel.Instance.OnUpdateActuatorData(actuatorMode, actuatorState, actuatorDuration);
           }
@@ -217,9 +211,9 @@ namespace IncubatorWatch.Manager
           CommunicationNetwork.Instance.Send(targetTxt);
         }
 
-        public void SetTargetVentilation( int fanEnabled, int intervalTarget, int durationTarget, int co2Target)
+        public void SetTargetVentilation( int co2Target)
         {
-            string targetTxt = string.Format("VENTILATION_PARAMETERS {0} {1} {2} {3}", co2Target, fanEnabled, intervalTarget, durationTarget);
+            string targetTxt = string.Format("VENTILATION_PARAMETERS {0} ", co2Target);
 
             CommunicationNetwork.Instance.Send(targetTxt);
         }
@@ -251,6 +245,12 @@ namespace IncubatorWatch.Manager
             string actuatorTxt = string.Format("ACTUATOR_OPEN {0}", open);
             CommunicationNetwork.Instance.Send(actuatorTxt);
         }
+
+        public void SendPumpActivate(int activate)
+        {
+            string activateTxt = string.Format("PUMP_ACTIVATE {0}", activate);
+            CommunicationNetwork.Instance.Send(activateTxt);
+        }        
         #endregion
     }
 }
