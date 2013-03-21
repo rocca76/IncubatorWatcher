@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Research.DynamicDataDisplay.Common;
 
-namespace IncubatorWatch
+namespace HatchWatch
 {
     public class IncubatorDataCollection : RingArray<IncubatorData>
     {

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Windows;
 using Microsoft.Shell;
 
-namespace IncubatorWatch
+namespace HatchWatch
 {
     /// <summary>
     /// Interaction logic for App.xaml
@@ -16,7 +16,7 @@ namespace IncubatorWatch
         [STAThread]
         public static void Main()
         {
-            if (SingleInstance<App>.InitializeAsFirstInstance("IncubatorWatch"))
+            if (SingleInstance<App>.InitializeAsFirstInstance("HatchWatch"))
             {
                 var application = new App();
 

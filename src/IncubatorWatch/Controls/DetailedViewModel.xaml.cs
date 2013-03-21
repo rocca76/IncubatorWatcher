@@ -4,13 +4,13 @@ using Microsoft.Research.DynamicDataDisplay.DataSources;
 using System.Windows.Media;
 using Microsoft.Research.DynamicDataDisplay.ViewportRestrictions;
 using Microsoft.Research.DynamicDataDisplay;
-using IncubatorWatch.Manager;
+using HatchWatch.Manager;
 using System.ComponentModel;
-using IncubatorWatch.Info;
+using HatchWatch.Info;
 using System.Threading;
 
 
-namespace IncubatorWatch.Controls
+namespace HatchWatch.Controls
 {
     delegate void SetMessageCallback(String message);
 

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System;
 
 
-namespace IncubatorWatch
+namespace HatchWatch
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -64,7 +64,7 @@ namespace IncubatorWatch
             Application.Current.Shutdown(0);
         }
 
-        private void MnuItemShowIncubatorWatcherClick(object sender, RoutedEventArgs e)
+        private void MnuItemShowHatchWatcherClick(object sender, RoutedEventArgs e)
         {
             ShowHideApplication();
         }

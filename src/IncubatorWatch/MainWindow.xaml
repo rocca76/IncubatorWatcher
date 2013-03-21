@@ -1,11 +1,11 @@
-﻿<Window x:Class="IncubatorWatch.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<Window x:Class="HatchWatch.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:TaskbarNotification="clr-namespace:Hardcodet.Wpf.TaskbarNotification;assembly=Hardcodet.Wpf.TaskbarNotification"
-                      xmlns:my="clr-namespace:IncubatorWatch.Controls"
-                      Title="Incubateur / Éclosoir" Height="600" Width="895" Icon="/IncubatorWatch;component/Images/logo.png" DataContext="{Binding RelativeSource={RelativeSource Self}}" Closing="WindowClosing"
+                      xmlns:my="clr-namespace:HatchWatch.Controls"
+                      Title="Éclosoir" Height="600" Width="895" Icon="/HatchWatch;component/Images/logo.png" DataContext="{Binding RelativeSource={RelativeSource Self}}" Closing="WindowClosing"
                       WindowStartupLocation="CenterScreen" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" WindowState="Maximized">
     <Window.TaskbarItemInfo>
-        <TaskbarItemInfo Description="IncubatorWatch" />
+        <TaskbarItemInfo Description="HatchWatch" />
     </Window.TaskbarItemInfo>
     <Grid>
         <Grid.RowDefinitions>
@@ -13,11 +13,11 @@
             <RowDefinition Height="Auto
                            " />
         </Grid.RowDefinitions>
-        <TaskbarNotification:TaskbarIcon Name="taskbarIcon" IconSource="/IncubatorWatch;component/logo.ico"
+        <TaskbarNotification:TaskbarIcon Name="taskbarIcon" IconSource="/HatchWatch;component/logo.ico"
                                          TrayMouseDoubleClick="TaskbarIconTrayMouseDoubleClick" Grid.RowSpan="2" OpacityMask="#FF6F6F6F">
             <TaskbarNotification:TaskbarIcon.ContextMenu>
                 <ContextMenu AllowDrop="False">
-                    <MenuItem Header="Afficher Incubateur" Click="MnuItemShowIncubatorWatcherClick" />
+                    <MenuItem Header="Afficher Éclosoir" Click="MnuItemShowHatchWatcherClick" />
                     <Separator />
                     <MenuItem Header="Quitter" Click="MnuItemExitClick" />
                 </ContextMenu>

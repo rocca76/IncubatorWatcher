@@ -2,10 +2,10 @@
 using System.Xml;
 using System.IO;
 using System.Windows;
-using IncubatorWatch.Controls;
-using IncubatorWatch.Info;
+using HatchWatch.Controls;
+using HatchWatch.Info;
 
-namespace IncubatorWatch.Manager
+namespace HatchWatch.Manager
 {
     public delegate void ReceivedEventHandler(String message);
 

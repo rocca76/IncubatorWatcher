@@ -7,11 +7,11 @@ using System.Windows;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("IncubatorWatch")]
-[assembly: AssemblyDescription("Incubator Activity Watcher")]
+[assembly: AssemblyTitle("HatchWatch")]
+[assembly: AssemblyDescription("Hatch Activity Watcher")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("EATech")]
-[assembly: AssemblyProduct("IncubatorWatch")]
+[assembly: AssemblyProduct("HatchWatch")]
 [assembly: AssemblyCopyright("Copyright ©  2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

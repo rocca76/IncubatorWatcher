@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IncubatorWatch", "src\IncubatorWatch\IncubatorWatch.csproj", "{8F841444-5CAC-4C57-B89D-F366710196DA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HatchWatch", "src\IncubatorWatch\HatchWatch.csproj", "{8F841444-5CAC-4C57-B89D-F366710196DA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

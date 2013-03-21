@@ -5,7 +5,7 @@ using System.Threading;
 using System.Diagnostics;
 using System.Net;
 
-namespace IncubatorWatch
+namespace HatchWatch
 {
     public delegate void MessageEventHandler(String data);
 

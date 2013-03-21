@@ -5,7 +5,7 @@ using System.Text;
 using System.Net;
 using System.Diagnostics;
 
-namespace IncubatorWatch
+namespace HatchWatch
 {
     class IPInfo
     {
