@@ -378,21 +378,22 @@ namespace IncubatorWatch.Controls
           }
         }
 
-        public void OnUpdateActuatorData(ActuatorMode mode, ActuatorState state, String actuatorDuration)
+        public void OnUpdateActuatorData(ActuatorState state, String actuatorDuration)
         {
             try
             {
-                _incubatorManager.Mode = mode;
+                labelTilt.IsEnabled = true;
+
                 _incubatorManager.State = state;
 
-                if (mode == ActuatorMode.Manual || mode == ActuatorMode.ManualCentered)
+                /*if (mode == ActuatorMode.Manual || mode == ActuatorMode.ManualCentered)
                 {
                     ActuatorButtonText = "Start inclinaison";
                 }
                 else if (mode == ActuatorMode.Auto)
                 {
                     ActuatorButtonText = "Stop Inclinaison";
-                }
+                }*/
 
 
                 labelTilt.Content = "[ " + actuatorDuration + " ] ";
@@ -430,6 +431,9 @@ namespace IncubatorWatch.Controls
                     break;
                     case ActuatorState.Unknown:
                         labelTilt.Content += "Inclinaison inconnue";
+                    break;
+                    case ActuatorState.Paused:
+                        labelTilt.Content += "Inclinaison pausé";
                     break;
                 }
             }
@@ -542,7 +546,34 @@ namespace IncubatorWatch.Controls
         {
             try
             {
-                if (_incubatorManager.Mode == ActuatorMode.Auto)
+                labelTilt.IsEnabled = false;
+
+                if (_incubatorManager.State != ActuatorState.Stopped && _incubatorManager.State != ActuatorState.Paused)
+                {
+                    MessageBoxResult result = MessageBox.Show("Voulez-vous Stopper ou Pauser ?", "Inclinaison", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        _incubatorManager.SendActuatorCommand(ActuatorCommand.Stop);
+                    }
+                    else if (result == MessageBoxResult.No)
+                    {
+                        _incubatorManager.SendActuatorCommand(ActuatorCommand.Pause);
+                    }
+                }
+                else 
+                {
+                    if (_incubatorManager.State == ActuatorState.Stopped)
+                    {
+
+                    }
+                    else if (_incubatorManager.State == ActuatorState.Paused)
+                    {
+
+                    }
+                }
+                
+                /*if (_incubatorManager.Mode == ActuatorMode.Auto)
                 {
                     MessageBoxResult result = MessageBox.Show("Voulez-vous centrer les plateaux en allant en mode manuel ?", "Inclinaison", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
 
@@ -563,7 +594,7 @@ namespace IncubatorWatch.Controls
                     {
                         _incubatorManager.SendActuatorMode(ActuatorMode.Auto);
                     }
-                }
+                }*/
             }
             catch (Exception ex)
             {
@@ -599,6 +630,11 @@ namespace IncubatorWatch.Controls
         private void buttonActivatePump_PreviewMouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             _incubatorManager.SendPumpActivate(0);
+        }
+
+        private void buttonPauseTilt_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

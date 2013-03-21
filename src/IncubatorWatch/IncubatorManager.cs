@@ -14,7 +14,6 @@ namespace IncubatorWatch.Manager
     {
         #region Private Variables
         private readonly IncubatorDataCollection _incubatorDataCollection = new IncubatorDataCollection();
-        ActuatorMode _actuatorMode = ActuatorMode.Manual;
         ActuatorState _actuatorState = ActuatorState.Unknown;
         #endregion
 
@@ -37,12 +36,6 @@ namespace IncubatorWatch.Manager
         public IncubatorDataCollection IncubatorData
         {
             get { return _incubatorDataCollection; }
-        }
-
-        public ActuatorMode Mode
-        {
-            get { return _actuatorMode; }
-            set { _actuatorMode = value; }
         }
 
         public ActuatorState State
@@ -168,7 +161,6 @@ namespace IncubatorWatch.Manager
             TrapStateEnum trapState = (TrapStateEnum)GetData(message, "trapstate");
             VentilationState ventilationState = (VentilationState)GetData(message, "ventilationdstate");
 
-            ActuatorMode actuatorMode = (ActuatorMode)GetData(message, "actuatormode");
             ActuatorState actuatorState = (ActuatorState)GetData(message, "actuatorstate");
             String actuatorDuration = GetStringData(message, "actuatorduration");
 
@@ -182,7 +174,7 @@ namespace IncubatorWatch.Manager
 
             DetailedViewModel.Instance.OnUpdateVentilationData(fanState, trapState, ventilationState);
 
-            DetailedViewModel.Instance.OnUpdateActuatorData(actuatorMode, actuatorState, actuatorDuration);
+            DetailedViewModel.Instance.OnUpdateActuatorData(actuatorState, actuatorDuration);
           }
           catch (Exception ex)
           {
@@ -216,20 +208,11 @@ namespace IncubatorWatch.Manager
             CommunicationNetwork.Instance.Send(targetTxt);
         }
 
-        public void SendActuatorMode(ActuatorMode mode)
+        public void SendActuatorCommand(ActuatorCommand command)
         {
-            switch (mode)
-            {
-                case ActuatorMode.Manual:
-                    CommunicationNetwork.Instance.Send("ACTUATOR_MODE MANUAL");
-                    break;
-                case ActuatorMode.ManualCentered:
-                    CommunicationNetwork.Instance.Send("ACTUATOR_MODE MANUAL_CENTERED");
-                    break;
-                case ActuatorMode.Auto:
-                    CommunicationNetwork.Instance.Send("ACTUATOR_MODE AUTO");
-                    break;
-            }            
+            string commandTxt = string.Format("ACTUATOR_COMMAND {0} ", command);
+
+            CommunicationNetwork.Instance.Send(commandTxt);           
         }
 
         public void SendActuatorClose(int close)

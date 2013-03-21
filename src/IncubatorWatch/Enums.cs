@@ -5,11 +5,12 @@ using System.Text;
 
 namespace IncubatorWatch.Info
 {
-    public enum ActuatorMode
+    public enum ActuatorCommand
     {
-        Manual,
-        ManualCentered,
-        Auto
+        Start,
+        Stop,
+        Pause,
+        Unknown
     }
 
     public enum ActuatorState
@@ -19,6 +20,7 @@ namespace IncubatorWatch.Info
         Close,
         Closing,
         Stopped,
+        Paused,
         Unknown
     }
 
