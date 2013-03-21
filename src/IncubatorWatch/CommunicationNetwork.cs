@@ -165,7 +165,7 @@ namespace IncubatorWatch
                     {
                         dataReceived += Encoding.UTF8.GetString(data, 0, readCount);
 
-                        if (dataReceived.IndexOf("</netduino>") > -1)
+                        if (dataReceived.IndexOf("</hatcher>") > -1)
                         {
                             RaiseMessageReceivedEvent(dataReceived);
                             dataReceived = String.Empty;

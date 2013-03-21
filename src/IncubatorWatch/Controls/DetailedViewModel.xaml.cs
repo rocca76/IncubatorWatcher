@@ -231,8 +231,9 @@ namespace IncubatorWatch.Controls
             }
         }
 
-        public void OnUpdateRelativeHumidityData(double relativeHumidity, double targetRelativeHumidity, PumpStateEnum pumpState,
-                                                 String pumpDuration, int pumpIntervalTarget, int pumpDurationTarget)
+        public void OnUpdateRelativeHumidityData(double relativeHumidity, double targetRelativeHumidity, FanStateEnum fanState,
+                                                 TrapStateEnum trapState, PumpStateEnum pumpState, String pumpDuration, 
+                                                 int pumpIntervalTarget, int pumpDurationTarget)
         {
           try
           {
@@ -268,17 +269,40 @@ namespace IncubatorWatch.Controls
             }
 
 
-            String pumpTxt = "Pompe: ???";
+            if (trapState == TrapStateEnum.Closed)
+            {
+                trapOnOff.Foreground = new SolidColorBrush(Colors.Green);
+                trapOnOff.Content = "Cheminée: Fermé";
+            }
+            else if (trapState == TrapStateEnum.Opened)
+            {
+                trapOnOff.Foreground = new SolidColorBrush(Colors.Red);
+                trapOnOff.Content = "Cheminée: Ouverte";
+            }
+
+            if (fanState == FanStateEnum.Stopped)
+            {
+                fanOnOff.Content = "Fan: OFF";
+                trapOnOff.Foreground = Brushes.Black;
+            }   
+            else if (fanState == FanStateEnum.Running)
+            {
+                fanOnOff.Content = "Fan: ON";
+                trapOnOff.Foreground = Brushes.Red;
+            }
+
             if (pumpState == PumpStateEnum.Stopped)
             {
-                pumpTxt = "Pompe: OFF";
+                pumpOnOff.Content = "Pompe: OFF";
+                trapOnOff.Foreground = Brushes.Black;
             }
             else if (pumpState == PumpStateEnum.Running)
             {
-                pumpTxt = "Pompe: ON";
+                pumpOnOff.Content = "Pompe: ON";
+                trapOnOff.Foreground = Brushes.Red;
             }
 
-            pumpOnOff.Content = pumpTxt + " [ " + pumpDuration + " ] ";
+            pumpOnOff.Content += " [ " + pumpDuration + " ] ";
           }
           catch (Exception ex)
           {
@@ -292,7 +316,8 @@ namespace IncubatorWatch.Controls
             {
                 if (co2 != double.MaxValue)
                 {
-                    co2Value.Content = co2.ToString() + " ppm";
+                    double co2Percent = co2 / 10000;
+                    co2Value.Content = co2.ToString() + " ppm" + " | " + co2Percent.ToString("F4") + " %";
                 }
 
                 if (targetCO2 != double.MaxValue)
@@ -315,25 +340,16 @@ namespace IncubatorWatch.Controls
         {
           try
           {
-            String ventilationTxt = "Ventilation OFF";
+            String ventilationTxt = "Ventilation: ??";
 
-            /*if (trapState == TrapStateEnum.Closed)
+            if (ventilationState == VentilationState.Stopped)
             {
-                ventilationTxt = "Trappe: Fermé + ";
+                ventilationTxt = "Ventilation: OFF";
             }
-            else if (trapState == TrapStateEnum.Opened)
+            else if (ventilationState == VentilationState.Started)
             {
-                ventilationTxt = "Trappe: Ouverte + ";
+                ventilationTxt = "Ventilation: ON";
             }
-
-            if (fanState == FanStateEnum.Stopped)
-            {
-                ventilationTxt += "Fan: OFF";
-            }
-            else if (fanState == FanStateEnum.Running)
-            {
-                ventilationTxt += "Fan: ON";
-            }*/
 
             ventilationOnOff.Content = ventilationTxt;
           }
@@ -397,6 +413,8 @@ namespace IncubatorWatch.Controls
                         labelTilt.Content += "Inclinaison inconnue";
                     break;
                 }
+
+                labelTilt.Foreground = Brushes.Red;
             }
             catch (Exception ex)
             {

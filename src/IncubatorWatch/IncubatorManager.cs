@@ -176,7 +176,7 @@ namespace IncubatorWatch.Manager
 
             DetailedViewModel.Instance.OnUpdateTemperatureData(temperature, targetTemperature, limitMaxTemperature, maxtemperaturereached, heatPower);
 
-            DetailedViewModel.Instance.OnUpdateRelativeHumidityData(relativeHumidity, targetRelativeHumidity, pumpState, pumpDuration, pumpIntervalTarget, pumpDurationTarget);
+            DetailedViewModel.Instance.OnUpdateRelativeHumidityData(relativeHumidity, targetRelativeHumidity, fanState, trapState, pumpState, pumpDuration, pumpIntervalTarget, pumpDurationTarget);
 
             DetailedViewModel.Instance.OnUpdateCO2Data(co2, targetCO2);
 
@@ -206,8 +206,6 @@ namespace IncubatorWatch.Manager
         {
           string targetTxt = string.Format("RELATIVE_HUMIDITY_PARAMETERS {0} {1} {2}", target, intervalTarget, durationTarget);
 
-          CommunicationNetwork.Instance.Send(targetTxt);
-          CommunicationNetwork.Instance.Send(targetTxt);
           CommunicationNetwork.Instance.Send(targetTxt);
         }
 
