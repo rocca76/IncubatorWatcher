@@ -347,13 +347,13 @@ namespace IncubatorWatch.Controls
             {
                 _incubatorManager.State = state;
 
-                if (state == ActuatorState.Unknown || state == ActuatorState.Stopped || state == ActuatorState.Paused)
+                if (state == ActuatorState.Unknown || state == ActuatorState.Stopped)
                 {
                     ActuatorButtonText = "Démarrer l'inclinaison";
                 }
                 else if (state == ActuatorState.Paused)
                 {
-                    ActuatorButtonText = "Continue l'inclinaison";
+                    ActuatorButtonText = "Continuer l'inclinaison";
                 }
                 else
                 {
@@ -362,25 +362,37 @@ namespace IncubatorWatch.Controls
 
                 labelTilt.Content = "[ " + actuatorDuration + " ] ";
                 labelTilt.Foreground = Brushes.Black;
+                buttonOpenActuator.IsEnabled = true;
+                buttonCloseActuator.IsEnabled = true;
 
                 switch (state)
                 {
                     case ActuatorState.Open:
+                    {
+                        labelTilt.Foreground = Brushes.OrangeRed;
                         labelTilt.Content += "Incliné à gauche";
+                    }
                     break;
                     case ActuatorState.Close:
+                    {
+                        labelTilt.Foreground = Brushes.OrangeRed;
                         labelTilt.Content += "Incliné à droite";
+                    }
                     break;
                     case ActuatorState.Opening:
                     {
                       labelTilt.Foreground = Brushes.Green;
                       labelTilt.Content += "Inclinaison vers la gauche...";
+                      buttonOpenActuator.IsEnabled = false;
+                      buttonCloseActuator.IsEnabled = false;
                     }
                     break;
                     case ActuatorState.Closing:
                     {
                       labelTilt.Foreground = Brushes.Green;
                       labelTilt.Content += "Inclinaison vers la droite...";
+                      buttonOpenActuator.IsEnabled = false;
+                      buttonCloseActuator.IsEnabled = false;
                     }
                     break;
                     case ActuatorState.Stopped:
@@ -503,15 +515,26 @@ namespace IncubatorWatch.Controls
         {
             try
             {
-                if (_incubatorManager.State == ActuatorState.Unknown ||
-                    _incubatorManager.State == ActuatorState.Stopped ||
-                    _incubatorManager.State == ActuatorState.Paused)
+                if (_incubatorManager.State == ActuatorState.Unknown || _incubatorManager.State == ActuatorState.Stopped)
                 {
                     MessageBoxResult result = MessageBox.Show("Voulez-vous démarrer l'inclinaison automatique ?", "Inclinaison", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
                     if (result == MessageBoxResult.Yes)
                     {
                         _incubatorManager.SendActuatorCommand(ActuatorCommand.Start);
+                    }
+                }
+                else if (_incubatorManager.State == ActuatorState.Paused)
+                {
+                    MessageBoxResult result = MessageBox.Show("Voulez-vous continuer l'inclinaison automatique ?", "Inclinaison", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        _incubatorManager.SendActuatorCommand(ActuatorCommand.Start);
+                    }
+                    else if (result == MessageBoxResult.No)
+                    {
+                        _incubatorManager.SendActuatorCommand(ActuatorCommand.Stop);
                     }
                 }
                 else
@@ -527,45 +550,6 @@ namespace IncubatorWatch.Controls
                         _incubatorManager.SendActuatorCommand(ActuatorCommand.Pause);
                     }
                 }
-
-                if (_incubatorManager.State != ActuatorState.Stopped && _incubatorManager.State != ActuatorState.Paused)
-                {
-                    
-                }
-                else 
-                {
-                    if (_incubatorManager.State == ActuatorState.Stopped)
-                    {
-
-                    }
-                    else if (_incubatorManager.State == ActuatorState.Paused)
-                    {
-
-                    }
-                }
-                
-                /*if (_incubatorManager.Mode == ActuatorMode.Auto)
-                {
-                    MessageBoxResult result = MessageBox.Show("Voulez-vous centrer les plateaux en allant en mode manuel ?", "Inclinaison", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
-
-                    if (result  == MessageBoxResult.Yes)
-                    {
-                        _incubatorManager.SendActuatorMode(ActuatorMode.ManualCentered);
-                    }
-                    else if (result == MessageBoxResult.No)
-                    {
-                        _incubatorManager.SendActuatorMode(ActuatorMode.Manual);
-                    }
-                }
-                else if (_incubatorManager.Mode == ActuatorMode.Manual || _incubatorManager.Mode == ActuatorMode.ManualCentered)
-                {
-                    MessageBoxResult result = MessageBox.Show("Voulez-vous passer en mode inclinaison automatique ?", "Inclinaison", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-                    if (result == MessageBoxResult.Yes)
-                    {
-                        _incubatorManager.SendActuatorMode(ActuatorMode.Auto);
-                    }
-                }*/
             }
             catch (Exception ex)
             {
@@ -601,11 +585,6 @@ namespace IncubatorWatch.Controls
         private void buttonActivatePump_PreviewMouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             _incubatorManager.SendPumpActivate(0);
-        }
-
-        private void buttonPauseTilt_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

@@ -13,7 +13,7 @@ namespace IncubatorWatch
     {
         #region Private Variables
         private static readonly CommunicationNetwork _instance = new CommunicationNetwork();
-        private readonly IPAddress _controllerIPAddress = IPAddress.Parse("192.168.10.200");
+        private readonly IPAddress _controllerIPAddress = IPAddress.Parse("192.168.250.200");
         private TcpListener _tcpListener = null;
         private TcpClient _tcpClient = null;
         private Thread _listenerThread = null;
@@ -47,28 +47,11 @@ namespace IncubatorWatch
                     _listenerThread = new Thread(RunListener);
                     _listenerThread.Start();
 
-                    using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp))
-                    {
-                        IAsyncResult result = socket.BeginConnect(_controllerIPAddress, 11000, null, null);
+                    String dateTime = string.Format("INIT {0} {1} {2} {3} {4} {5} {6}",
+                    DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day,
+                    DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second, DateTime.Now.Millisecond);
 
-                        bool success = result.AsyncWaitHandle.WaitOne(5000, true);
-
-                        if (!success)
-                        {
-                            socket.Close();
-                            throw new ApplicationException("Failed to connect to controller.");
-                        }
-
-                        String dateTime = string.Format("INIT {0} {1} {2} {3} {4} {5} {6}",
-                                             DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day,
-                                             DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second, DateTime.Now.Millisecond);
-
-                        byte[] data = Encoding.ASCII.GetBytes(dateTime);
-                        socket.Send(data);
-
-                        socket.Shutdown(SocketShutdown.Both);
-                        socket.Close();
-                    }
+                    Send(dateTime);
                 }
             }
             catch (SocketException sex)
