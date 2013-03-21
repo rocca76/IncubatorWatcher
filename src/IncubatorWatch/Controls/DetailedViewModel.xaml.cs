@@ -316,7 +316,8 @@ namespace IncubatorWatch.Controls
             }
         }
 
-        public void OnUpdateVentilationData(FanStateEnum fanState, TrapStateEnum trapState, VentilationState ventilationState)
+        public void OnUpdateVentilationData(FanStateEnum fanState, TrapStateEnum trapState, VentilationState ventilationState,
+                                            int ventilationIntervalTarget, int ventilationDurationTarget)
         {
           try
           {
@@ -334,6 +335,23 @@ namespace IncubatorWatch.Controls
             }
 
             ventilationOnOff.Content = ventilationTxt;
+
+
+            if (ventilationIntervalTarget != double.MaxValue)
+            {
+                if (ventilationIntervalTxtBox.Text == "????")
+                {
+                    ventilationIntervalTxtBox.Text = ventilationIntervalTarget.ToString();
+                }
+            }
+
+            if (ventilationDurationTarget != double.MaxValue)
+            {
+                if (ventilationDurationTxtBox.Text == "????")
+                {
+                    ventilationDurationTxtBox.Text = ventilationDurationTarget.ToString();
+                }
+            }
           }
           catch (Exception ex)
           {
@@ -490,8 +508,17 @@ namespace IncubatorWatch.Controls
                     return;
                 }
 
-                _incubatorManager.SetTargetVentilation(co2Target);
-                
+                int intervalTarget = Convert.ToInt32(ventilationIntervalTxtBox.Text);
+                int durationTarget = Convert.ToInt32(ventilationDurationTxtBox.Text);
+
+                if (intervalTarget > 0 && durationTarget > 0)
+                {
+                    _incubatorManager.SetTargetVentilation(co2Target, intervalTarget, durationTarget);
+                }
+                else
+                {
+                    MessageBox.Show("L'interval et la durée doivent être plus grand que 0");
+                }                
             }
             catch (Exception ex)
             {

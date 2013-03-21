@@ -160,6 +160,8 @@ namespace IncubatorWatch.Manager
             FanStateEnum fanState = (FanStateEnum)GetData(message, "fanstate");
             TrapStateEnum trapState = (TrapStateEnum)GetData(message, "trapstate");
             VentilationState ventilationState = (VentilationState)GetData(message, "ventilationdstate");
+            int ventilationIntervalTarget = (int)GetData(message, "ventilationintervaltarget");
+            int ventilationDurationTarget = (int)GetData(message, "ventilationdurationtarget");
 
             ActuatorState actuatorState = (ActuatorState)GetData(message, "actuatorstate");
             String actuatorDuration = GetStringData(message, "actuatorduration");
@@ -172,7 +174,7 @@ namespace IncubatorWatch.Manager
 
             DetailedViewModel.Instance.OnUpdateCO2Data(co2, targetCO2);
 
-            DetailedViewModel.Instance.OnUpdateVentilationData(fanState, trapState, ventilationState);
+            DetailedViewModel.Instance.OnUpdateVentilationData(fanState, trapState, ventilationState, ventilationIntervalTarget, ventilationDurationTarget);
 
             DetailedViewModel.Instance.OnUpdateActuatorData(actuatorState, actuatorDuration);
           }
@@ -201,9 +203,9 @@ namespace IncubatorWatch.Manager
           CommunicationNetwork.Instance.Send(targetTxt);
         }
 
-        public void SetTargetVentilation(int co2Target)
+        public void SetTargetVentilation(int co2Target, int intervalTarget, int durationTarget)
         {
-            string targetTxt = string.Format("VENTILATION_PARAMETERS {0}", co2Target);
+            string targetTxt = string.Format("VENTILATION_PARAMETERS {0} {1} {2}", co2Target, intervalTarget, durationTarget);
 
             CommunicationNetwork.Instance.Send(targetTxt);
         }
