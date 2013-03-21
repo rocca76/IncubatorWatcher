@@ -93,43 +93,6 @@ namespace IncubatorWatch.Controls
             LimitMaxTemperature = 0.0;
             TargetRelativeHumidity = 0.0;
             TargetCO2 = 0;
-
-            bw.WorkerReportsProgress = true;
-            bw.WorkerSupportsCancellation = true;
-            bw.DoWork += new DoWorkEventHandler(bw_DoWork);
-        }
-
-        private void bw_DoWork(object sender, DoWorkEventArgs e)
-        {
-          Visibility visibilityState = labelTilt.Visibility;
-          BackgroundWorker worker = sender as BackgroundWorker;
-
-          while (_incubatorManager.State == ActuatorState.Opening || _incubatorManager.State == ActuatorState.Closing)
-          {
-            if (visibilityState == Visibility.Visible)
-            {
-                visibilityState = Visibility.Hidden;
-            }
-            else if (visibilityState == Visibility.Hidden)
-            {
-                visibilityState = Visibility.Visible;
-            }
-
-            this.Dispatcher.Invoke((Action)(() => { SetLabelVisibility(visibilityState); }));
-
-            Thread.Sleep(500);
-          }
-
-          if (bw.WorkerSupportsCancellation == true)
-          {
-            bw.CancelAsync();
-            this.Dispatcher.Invoke((Action)(() => { SetLabelVisibility(Visibility.Visible); }));
-          }
-        }
-
-        private void SetLabelVisibility(Visibility visibilityState)
-        {
-            labelTilt.Visibility = visibilityState;
         }
 
         private void InitializePlotter()
@@ -382,21 +345,23 @@ namespace IncubatorWatch.Controls
         {
             try
             {
-                labelTilt.IsEnabled = true;
-
                 _incubatorManager.State = state;
 
-                /*if (mode == ActuatorMode.Manual || mode == ActuatorMode.ManualCentered)
+                if (state == ActuatorState.Unknown || state == ActuatorState.Stopped || state == ActuatorState.Paused)
                 {
-                    ActuatorButtonText = "Start inclinaison";
+                    ActuatorButtonText = "Démarrer l'inclinaison";
                 }
-                else if (mode == ActuatorMode.Auto)
+                else if (state == ActuatorState.Paused)
                 {
-                    ActuatorButtonText = "Stop Inclinaison";
-                }*/
-
+                    ActuatorButtonText = "Continue l'inclinaison";
+                }
+                else
+                {
+                    ActuatorButtonText = "Arrêter l'inclinaison";
+                }
 
                 labelTilt.Content = "[ " + actuatorDuration + " ] ";
+                labelTilt.Foreground = Brushes.Black;
 
                 switch (state)
                 {
@@ -404,25 +369,17 @@ namespace IncubatorWatch.Controls
                         labelTilt.Content += "Incliné à gauche";
                     break;
                     case ActuatorState.Close:
-                    labelTilt.Content += "Incliné à droite";
+                        labelTilt.Content += "Incliné à droite";
                     break;
                     case ActuatorState.Opening:
                     {
-                      if (bw.IsBusy != true)
-                      {
-                        bw.RunWorkerAsync();
-                      }
-
+                      labelTilt.Foreground = Brushes.Green;
                       labelTilt.Content += "Inclinaison vers la gauche...";
                     }
                     break;
                     case ActuatorState.Closing:
                     {
-                      if (bw.IsBusy != true)
-                      {
-                        bw.RunWorkerAsync();
-                      }
-
+                      labelTilt.Foreground = Brushes.Green;
                       labelTilt.Content += "Inclinaison vers la droite...";
                     }
                     break;
@@ -546,11 +503,20 @@ namespace IncubatorWatch.Controls
         {
             try
             {
-                labelTilt.IsEnabled = false;
-
-                if (_incubatorManager.State != ActuatorState.Stopped && _incubatorManager.State != ActuatorState.Paused)
+                if (_incubatorManager.State == ActuatorState.Unknown ||
+                    _incubatorManager.State == ActuatorState.Stopped ||
+                    _incubatorManager.State == ActuatorState.Paused)
                 {
-                    MessageBoxResult result = MessageBox.Show("Voulez-vous Stopper ou Pauser ?", "Inclinaison", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+                    MessageBoxResult result = MessageBox.Show("Voulez-vous démarrer l'inclinaison automatique ?", "Inclinaison", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        _incubatorManager.SendActuatorCommand(ActuatorCommand.Start);
+                    }
+                }
+                else
+                {
+                    MessageBoxResult result = MessageBox.Show("Voulez-vous arrêter ?\nNon mettera l'inclinaison en pause", "Inclinaison", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
 
                     if (result == MessageBoxResult.Yes)
                     {
@@ -560,6 +526,11 @@ namespace IncubatorWatch.Controls
                     {
                         _incubatorManager.SendActuatorCommand(ActuatorCommand.Pause);
                     }
+                }
+
+                if (_incubatorManager.State != ActuatorState.Stopped && _incubatorManager.State != ActuatorState.Paused)
+                {
+                    
                 }
                 else 
                 {

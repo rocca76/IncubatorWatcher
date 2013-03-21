@@ -44,6 +44,7 @@ namespace IncubatorWatch.Manager
         }
         #endregion
 
+
         #region Private Methods
         private void OnMessageReceived(String message)
         {
@@ -200,16 +201,16 @@ namespace IncubatorWatch.Manager
           CommunicationNetwork.Instance.Send(targetTxt);
         }
 
-        public void SetTargetVentilation( int co2Target)
+        public void SetTargetVentilation(int co2Target)
         {
-            string targetTxt = string.Format("VENTILATION_PARAMETERS {0} ", co2Target);
+            string targetTxt = string.Format("VENTILATION_PARAMETERS {0}", co2Target);
 
             CommunicationNetwork.Instance.Send(targetTxt);
         }
 
         public void SendActuatorCommand(ActuatorCommand command)
         {
-            string commandTxt = string.Format("ACTUATOR_COMMAND {0} ", command);
+            string commandTxt = string.Format("ACTUATOR_COMMAND {0}", Convert.ToInt32(command));
 
             CommunicationNetwork.Instance.Send(commandTxt);           
         }

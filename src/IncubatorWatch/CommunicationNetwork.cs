@@ -13,6 +13,7 @@ namespace IncubatorWatch
     {
         #region Private Variables
         private static readonly CommunicationNetwork _instance = new CommunicationNetwork();
+        private readonly IPAddress _controllerIPAddress = IPAddress.Parse("192.168.10.200");
         private TcpListener _tcpListener = null;
         private TcpClient _tcpClient = null;
         private Thread _listenerThread = null;
@@ -48,7 +49,7 @@ namespace IncubatorWatch
 
                     using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp))
                     {
-                        IAsyncResult result = socket.BeginConnect(IPAddress.Parse("192.168.250.200"), 11000, null, null);
+                        IAsyncResult result = socket.BeginConnect(_controllerIPAddress, 11000, null, null);
 
                         bool success = result.AsyncWaitHandle.WaitOne(5000, true);
 
@@ -90,7 +91,7 @@ namespace IncubatorWatch
             {
                 using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp))
                 {
-                    IAsyncResult result = socket.BeginConnect(IPAddress.Parse("192.168.250.200"), 11000, null, null);
+                    IAsyncResult result = socket.BeginConnect(_controllerIPAddress, 11000, null, null);
 
                     bool success = result.AsyncWaitHandle.WaitOne(5000, true);
 

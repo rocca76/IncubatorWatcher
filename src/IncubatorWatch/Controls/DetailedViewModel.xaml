@@ -76,8 +76,8 @@
                     <TextBox FontWeight="Bold" Foreground="Black" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Margin="0,0,393,10" Name="pumpDurationTxtBox" Text="????" VerticalAlignment="Bottom" VerticalContentAlignment="Center" Width="50" Grid.Row="1" />
                     <Label Content="minutes" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Right" Margin="0,0,492,10" VerticalAlignment="Bottom" Width="61" Grid.Row="1" />
 
-                    <Label Content="Inclinaison: ???" Grid.Row="3" Margin="133,7,0,0" Name="labelTilt" VerticalAlignment="Top" Panel.ZIndex="1" FontWeight="Bold" HorizontalAlignment="Left" FontSize="15" VerticalContentAlignment="Center" />
-                    <Button Content="{Binding Path=ActuatorButtonText,UpdateSourceTrigger=PropertyChanged}" Grid.Row="3" Height="23" HorizontalAlignment="Left" Margin="5,10,0,0" Name="buttonStartTilt" VerticalAlignment="Top" Panel.ZIndex="1" Width="120" Click="buttonStartStopTilt_Click" />
+                    <Label Content="Inclinaison: ???" Grid.Row="3" Margin="145,7,0,0" Name="labelTilt" VerticalAlignment="Top" Panel.ZIndex="1" FontWeight="Bold" HorizontalAlignment="Left" FontSize="15" VerticalContentAlignment="Center" />
+                    <Button Content="{Binding Path=ActuatorButtonText,UpdateSourceTrigger=PropertyChanged}" Grid.Row="3" Height="23" HorizontalAlignment="Left" Margin="5,10,0,0" Name="buttonStartTilt" VerticalAlignment="Top" Panel.ZIndex="1" Width="134" Click="buttonStartStopTilt_Click" />
                     <Rectangle Grid.Row="3" Height="1" HorizontalAlignment="Stretch" Name="rectangle1" Stroke="Black" VerticalAlignment="Top" Margin="5,1,5,0" />
                     <Label Content="Limite Max :" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Right" Margin="0,0,307,10" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" />
                     <TextBox FontWeight="Bold" Foreground="Black" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Margin="0,0,254,10" Name="limitMaxTemperatureValue" Text="??.??" VerticalAlignment="Bottom" VerticalContentAlignment="Center" Width="50" />
