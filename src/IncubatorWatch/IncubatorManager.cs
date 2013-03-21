@@ -162,6 +162,8 @@ namespace IncubatorWatch.Manager
             VentilationState ventilationState = (VentilationState)GetData(message, "ventilationdstate");
             int ventilationIntervalTarget = (int)GetData(message, "ventilationintervaltarget");
             int ventilationDurationTarget = (int)GetData(message, "ventilationdurationtarget");
+            String ventilationDuration = GetStringData(message, "ventilationduration");
+            bool ventilationStandby = GetBooleanData(message, "ventilationstandby");
 
             ActuatorState actuatorState = (ActuatorState)GetData(message, "actuatorstate");
             String actuatorDuration = GetStringData(message, "actuatorduration");
@@ -174,7 +176,7 @@ namespace IncubatorWatch.Manager
 
             DetailedViewModel.Instance.OnUpdateCO2Data(co2, targetCO2);
 
-            DetailedViewModel.Instance.OnUpdateVentilationData(fanState, trapState, ventilationState, ventilationIntervalTarget, ventilationDurationTarget);
+            DetailedViewModel.Instance.OnUpdateVentilationData(fanState, trapState, ventilationState, ventilationDuration, ventilationIntervalTarget, ventilationDurationTarget, ventilationStandby);
 
             DetailedViewModel.Instance.OnUpdateActuatorData(actuatorState, actuatorDuration);
           }

@@ -317,7 +317,8 @@ namespace IncubatorWatch.Controls
         }
 
         public void OnUpdateVentilationData(FanStateEnum fanState, TrapStateEnum trapState, VentilationState ventilationState,
-                                            int ventilationIntervalTarget, int ventilationDurationTarget)
+                                            String ventilationDuration, int ventilationIntervalTarget, int ventilationDurationTarget,
+                                            bool ventilationStandby)
         {
           try
           {
@@ -326,12 +327,28 @@ namespace IncubatorWatch.Controls
             if (ventilationState == VentilationState.Stopped)
             {
                 ventilationTxt = "Ventilation: OFF";
-                ventilationOnOff.Foreground = Brushes.Black;
+
+                if (ventilationDuration == "00:00:00")
+                {
+                    ventilationOnOff.Foreground = Brushes.Black;
+                }
+                else
+                {
+                    ventilationOnOff.Foreground = Brushes.OrangeRed;
+                }
             }
             else if (ventilationState == VentilationState.Started)
             {
-                ventilationTxt = "Ventilation: ON";
-                ventilationOnOff.Foreground = Brushes.Green;
+                if (ventilationStandby)
+                {
+                    ventilationTxt = "Ventilation: OFF";
+                    ventilationOnOff.Foreground = Brushes.OrangeRed;
+                }
+                else
+                {
+                    ventilationTxt = "Ventilation: ON";
+                    ventilationOnOff.Foreground = Brushes.Green;
+                }
             }
 
             ventilationOnOff.Content = ventilationTxt;
@@ -352,6 +369,8 @@ namespace IncubatorWatch.Controls
                     ventilationDurationTxtBox.Text = ventilationDurationTarget.ToString();
                 }
             }
+
+            ventilationOnOff.Content += " [ " + ventilationDuration + " ] ";
           }
           catch (Exception ex)
           {
