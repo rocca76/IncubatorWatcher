@@ -1,7 +1,5 @@
 ﻿using System.ComponentModel;
-using System.Linq;
 using System.Windows;
-using MahApps.Metro;
 using System.Collections.Generic;
 using System;
 

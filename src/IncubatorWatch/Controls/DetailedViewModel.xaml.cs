@@ -271,35 +271,35 @@ namespace IncubatorWatch.Controls
 
             if (trapState == TrapStateEnum.Closed)
             {
-                trapOnOff.Foreground = new SolidColorBrush(Colors.Green);
                 trapOnOff.Content = "Cheminée: Fermé";
+                trapOnOff.Foreground = Brushes.Black;
             }
             else if (trapState == TrapStateEnum.Opened)
             {
-                trapOnOff.Foreground = new SolidColorBrush(Colors.Red);
                 trapOnOff.Content = "Cheminée: Ouverte";
+                trapOnOff.Foreground = Brushes.Red;
             }
 
             if (fanState == FanStateEnum.Stopped)
             {
                 fanOnOff.Content = "Fan: OFF";
-                trapOnOff.Foreground = Brushes.Black;
+                fanOnOff.Foreground = Brushes.Black;
             }   
             else if (fanState == FanStateEnum.Running)
             {
                 fanOnOff.Content = "Fan: ON";
-                trapOnOff.Foreground = Brushes.Red;
+                fanOnOff.Foreground = Brushes.Red;
             }
 
             if (pumpState == PumpStateEnum.Stopped)
             {
                 pumpOnOff.Content = "Pompe: OFF";
-                trapOnOff.Foreground = Brushes.Black;
+                pumpOnOff.Foreground = Brushes.Black;
             }
             else if (pumpState == PumpStateEnum.Running)
             {
                 pumpOnOff.Content = "Pompe: ON";
-                trapOnOff.Foreground = Brushes.Red;
+                pumpOnOff.Foreground = Brushes.Red;
             }
 
             pumpOnOff.Content += " [ " + pumpDuration + " ] ";
@@ -413,8 +413,6 @@ namespace IncubatorWatch.Controls
                         labelTilt.Content += "Inclinaison inconnue";
                     break;
                 }
-
-                labelTilt.Foreground = Brushes.Red;
             }
             catch (Exception ex)
             {
