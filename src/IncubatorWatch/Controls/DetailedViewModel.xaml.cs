@@ -213,16 +213,25 @@ namespace IncubatorWatch.Controls
 
                 if (maxtemperaturereached == false)
                 {
-                    overHeat.Visibility = Visibility.Hidden;
+                    tempratureValue.Foreground = Brushes.Black;
                 }
                 else
                 {
-                    overHeat.Visibility = Visibility.Visible;
+                    tempratureValue.Foreground = Brushes.Red;
                 }
 
                 if (heatPower != int.MaxValue)
                 {
-                    heaterWatts.Content = heatPower.ToString() + " watts";
+                    if (heatPower == 0)
+                    {
+                        heaterWatts.Foreground = Brushes.Black;
+                    }
+                    else
+                    {
+                        heaterWatts.Foreground = Brushes.Green;
+                    }
+
+                    heaterWatts.Content = heatPower.ToString() + " Watts";
                 }
             }
             catch (Exception ex)
@@ -277,7 +286,7 @@ namespace IncubatorWatch.Controls
             else if (trapState == TrapStateEnum.Opened)
             {
                 trapOnOff.Content = "Cheminée: Ouverte";
-                trapOnOff.Foreground = Brushes.Red;
+                trapOnOff.Foreground = Brushes.Green;
             }
 
             if (fanState == FanStateEnum.Stopped)
@@ -288,20 +297,28 @@ namespace IncubatorWatch.Controls
             else if (fanState == FanStateEnum.Running)
             {
                 fanOnOff.Content = "Fan: ON";
-                fanOnOff.Foreground = Brushes.Red;
+                fanOnOff.Foreground = Brushes.Green;
             }
 
             if (pumpState == PumpStateEnum.Stopped)
             {
                 pumpOnOff.Content = "Pompe: OFF";
-                pumpOnOff.Foreground = Brushes.Black;
+
+                if (pumpDuration == "00:00:00")
+                {
+                    pumpOnOff.Foreground = Brushes.Black;
+                }
+                else
+                {
+                    pumpOnOff.Foreground = Brushes.OrangeRed;
+                }
             }
             else if (pumpState == PumpStateEnum.Running)
             {
                 pumpOnOff.Content = "Pompe: ON";
-                pumpOnOff.Foreground = Brushes.Red;
+                pumpOnOff.Foreground = Brushes.Green;
             }
-
+            
             pumpOnOff.Content += " [ " + pumpDuration + " ] ";
           }
           catch (Exception ex)
@@ -345,10 +362,12 @@ namespace IncubatorWatch.Controls
             if (ventilationState == VentilationState.Stopped)
             {
                 ventilationTxt = "Ventilation: OFF";
+                ventilationOnOff.Foreground = Brushes.Black;
             }
             else if (ventilationState == VentilationState.Started)
             {
                 ventilationTxt = "Ventilation: ON";
+                ventilationOnOff.Foreground = Brushes.Green;
             }
 
             ventilationOnOff.Content = ventilationTxt;
@@ -492,7 +511,7 @@ namespace IncubatorWatch.Controls
             {
                 int co2Target = Convert.ToInt32(targetCO2Value.Text);
 
-                if (ValideTargetLimit(co2Target, 300, 10000) == false)
+                if (ValideTargetLimit(co2Target, 0, 10000) == false)
                 {
                     MessageBox.Show("Valeur invalide");
                     return;

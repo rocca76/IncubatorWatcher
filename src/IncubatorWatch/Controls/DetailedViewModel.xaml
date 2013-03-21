@@ -8,7 +8,7 @@
              xmlns:my="clr-namespace:IncubatorWatch.Controls"
              d:DesignHeight="600" d:DesignWidth="800"
              DataContext="{Binding RelativeSource={RelativeSource Self}}">
-            <Grid>
+    <Grid>
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="100*" />
@@ -45,8 +45,8 @@
                     </d3:ChartPlotter>
 
                     <Label Content="Température" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="Bold" Foreground="Black" Margin="0,10,0,0" FontSize="14" />
-                    <Label Content="??.?? °C" FontSize="20" FontStretch="Normal" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Right" HorizontalContentAlignment="Left" Margin="0,10,5,0" Name="tempratureValue" Panel.ZIndex="1" VerticalAlignment="Top" VerticalContentAlignment="Top" />
-                    <Label Content="???? watts" Name="heaterWatts" FontStretch="Normal" FontWeight="Bold" FontSize="16" Grid.ColumnSpan="1" Grid.Column="1" Grid.Row="0" Foreground="Black" HorizontalContentAlignment="Left" HorizontalAlignment="Right" VerticalAlignment="Bottom" VerticalContentAlignment="Top" Panel.ZIndex="1" Margin="0,20,5,50" />
+                    <Label Content="??.?? °C" FontSize="20" FontStretch="Normal" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Right" HorizontalContentAlignment="Left" Margin="0,10,10,0" Name="tempratureValue" Panel.ZIndex="1" VerticalAlignment="Top" VerticalContentAlignment="Top" />
+                    <Label Content="???? Watts" Name="heaterWatts" FontStretch="Normal" FontWeight="Bold" FontSize="16" Grid.ColumnSpan="1" Grid.Column="1" Grid.Row="0" Foreground="Black" HorizontalContentAlignment="Left" HorizontalAlignment="Right" VerticalAlignment="Bottom" VerticalContentAlignment="Top" Panel.ZIndex="1" Margin="0,20,10,50" />
                     <Label Content="15 minutes" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" Margin="50,0,0,20" Grid.Row="0"/>
                     <Label Content="Cible :" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Right" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" Margin="0,0,170,10" Grid.Row="0"/>
                     <TextBox HorizontalAlignment="Right" Name="targetTemperatureValue" VerticalAlignment="Bottom" Text="??.??" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Foreground="Black" FontWeight="Bold" Margin="0,0,120,10" Width="50" />
@@ -54,7 +54,7 @@
                     <Button Content="Appliquer" Grid.Row="0" HorizontalAlignment="Right" Name="buttonApplyTemperature" VerticalAlignment="Bottom" Width="80" Margin="0,0,5,11" Foreground="Black" Click="buttonApplyTargetTemperature_Click" />
                     
                     <Label Content="Humidité Relative" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Grid.Row="1" FontSize="14" />
-                    <Label Content="??? %" FontSize="20" FontStretch="Normal" FontWeight="Bold" HorizontalAlignment="Right" Name="relativeHumidityValue" Grid.Row="1" Grid.ColumnSpan="1" Grid.Column="1" Foreground="Black" Margin="0,10,5,0" VerticalAlignment="Top" />
+                    <Label Content="??? %" FontSize="20" FontStretch="Normal" FontWeight="Bold" HorizontalAlignment="Right" Name="relativeHumidityValue" Grid.Row="1" Grid.ColumnSpan="1" Grid.Column="1" Foreground="Black" Margin="0,10,10,0" VerticalAlignment="Top" />
                     <Label Content="15 minutes" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" Margin="40,0,0,20" Grid.Row="1"/>
                     <Label Content="Cible :" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Right" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" Margin="0,0,170,10" Grid.Row="1"/>
                     <TextBox HorizontalAlignment="Right" Name="targetRelativeHumidityValue" VerticalAlignment="Bottom" Text="???.??" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Foreground="Black" FontWeight="Bold" Margin="0,0,120,10" Width="50" Grid.Row="1"/>
@@ -62,8 +62,8 @@
                     <Button Content="Appliquer" HorizontalAlignment="Right" Name="buttonApplyHumitidyRelative" VerticalAlignment="Bottom" Width="80" Margin="0,0,5,11" Foreground="Black" Grid.Row="1" Click="buttonApplyTargetRelativeHumidity_Click"/>
                     
                     <Label Content="Dioxyde de Carbone ( CO2 )" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Grid.Row="2" FontSize="14" />
-                    <Label Content="???? ppm" FontSize="20" FontStretch="Normal" FontWeight="Bold" HorizontalAlignment="Right" Name="co2Value" VerticalAlignment="Top" Grid.Row="2" Grid.ColumnSpan="1" Grid.Column="1" Foreground="Black" Margin="0,10,5,0" />
-                    <Label Content="Ventilation: ???" Name="ventilationOnOff" FontSize="16" FontStretch="Normal" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Right" HorizontalContentAlignment="Left" Margin="0,20,5,50" Panel.ZIndex="1" VerticalAlignment="Bottom" VerticalContentAlignment="Top" Grid.Row="2" />
+                    <Label Content="???? ppm" FontSize="20" FontStretch="Normal" FontWeight="Bold" HorizontalAlignment="Right" Name="co2Value" VerticalAlignment="Top" Grid.Row="2" Grid.ColumnSpan="1" Grid.Column="1" Foreground="Black" Margin="0,10,10,0" />
+                    <Label Content="Ventilation: ???" Name="ventilationOnOff" FontSize="16" FontStretch="Normal" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Right" HorizontalContentAlignment="Left" Margin="0,20,10,50" Panel.ZIndex="1" VerticalAlignment="Bottom" VerticalContentAlignment="Top" Grid.Row="2" />
                     <Label Content="15 minutes" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" Margin="40,0,0,20" Grid.Row="2"/>
                     <Label Content="Cible :" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Right" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" Margin="0,0,179,10" Grid.Row="2"/>
                     <TextBox HorizontalAlignment="Right" Name="targetCO2Value" VerticalAlignment="Bottom" Text="????" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Foreground="Black" FontWeight="Bold" Margin="0,0,125,10" Width="50" Grid.Row="2"/>
@@ -82,12 +82,11 @@
                     <Label Content="Limite Max :" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Right" Margin="0,0,307,10" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" />
                     <TextBox FontWeight="Bold" Foreground="Black" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Margin="0,0,254,10" Name="limitMaxTemperatureValue" Text="??.??" VerticalAlignment="Bottom" VerticalContentAlignment="Center" Width="50" />
                     <Label Content="°C" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Right" Margin="0,0,219,10" VerticalAlignment="Bottom" Width="35" />
-                    <Label Content="Surchauffe" FontSize="20" FontStretch="Normal" FontWeight="Bold" Foreground="Red" HorizontalAlignment="Center" HorizontalContentAlignment="Left" Name="overHeat" Panel.ZIndex="1" VerticalContentAlignment="Top" Margin="0,0,0,60" VerticalAlignment="Bottom" />
-                    <Button Content="Droite" Grid.Row="3" Height="23" HorizontalAlignment="Right" Margin="0,10,6,0" Name="buttonCloseActuator" VerticalAlignment="Top" Width="80" PreviewMouseLeftButtonDown="buttonCloseActuator_PreviewMouseLeftButtonDown" PreviewMouseLeftButtonUp="buttonCloseActuator_PreviewMouseLeftButtonUp" />
+            <Button Content="Droite" Grid.Row="3" Height="23" HorizontalAlignment="Right" Margin="0,10,6,0" Name="buttonCloseActuator" VerticalAlignment="Top" Width="80" PreviewMouseLeftButtonDown="buttonCloseActuator_PreviewMouseLeftButtonDown" PreviewMouseLeftButtonUp="buttonCloseActuator_PreviewMouseLeftButtonUp" />
                     <Button Content="Gauche" Height="23" HorizontalAlignment="Right" Margin="0,10,93,0" Name="buttonOpenActuator" VerticalAlignment="Top" Width="80" Grid.Row="3" PreviewMouseLeftButtonDown="buttonOpenActuator_PreviewMouseLeftButtonDown" PreviewMouseLeftButtonUp="buttonOpenActuator_PreviewMouseLeftButtonUp" />
                     <Button Content="Activate" Foreground="Black" HorizontalAlignment="Right" Margin="0,0,224,11" Name="buttonActivatePump" VerticalAlignment="Bottom" Width="80" Grid.Row="1" PreviewMouseLeftButtonDown="buttonActivatePump_PreviewMouseLeftButtonDown" PreviewMouseLeftButtonUp="buttonActivatePump_PreviewMouseLeftButtonUp" />
-                    <Button Height="23" HorizontalAlignment="Left" Margin="133,10,0,0" Name="buttonPauseTilt" Panel.ZIndex="1" VerticalAlignment="Top" Width="120" Grid.Row="3" Content="Pause Inclinaison" />
-                    <StackPanel Grid.Row="1" HorizontalAlignment="Right" Margin="0,0,5,50" Name="stackPanel1" VerticalAlignment="Bottom" Orientation="Horizontal">
+                    <Button Height="23" HorizontalAlignment="Left" Margin="133,10,0,0" Name="buttonPauseTilt" VerticalAlignment="Top" Width="120" Grid.Row="3" Content="Pause Inclinaison" />
+                    <StackPanel Grid.Row="1" HorizontalAlignment="Right" Margin="0,0,10,50" Name="stackPanel1" VerticalAlignment="Bottom" Orientation="Horizontal">
                         <Label Content="Cheminée: ???" FontSize="16" FontStretch="Normal" FontWeight="Bold" HorizontalContentAlignment="Right" Name="trapOnOff" Panel.ZIndex="1" VerticalContentAlignment="Top" />
                         <Label Content="|" FontSize="16" FontStretch="Normal" FontWeight="Bold" Foreground="Black" HorizontalContentAlignment="Right" Name="label1" Panel.ZIndex="1" VerticalContentAlignment="Top" />
                         <Label Content="Fan: ???" FontSize="16" FontStretch="Normal" FontWeight="Bold" Foreground="Black" HorizontalContentAlignment="Right" Name="fanOnOff" Panel.ZIndex="1" VerticalContentAlignment="Top" />
@@ -96,18 +95,7 @@
                     </StackPanel>
                 </Grid>
             
-
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="10" />
-                        <ColumnDefinition Width="100*" />
-                        <ColumnDefinition Width="10" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="10" />
-                        <RowDefinition Height="100*" />
-                        <RowDefinition Height="10" />
-                    </Grid.RowDefinitions>
-                </Grid>
+            
+               
     </Grid>
 </UserControl>
