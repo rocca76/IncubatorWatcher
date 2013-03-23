@@ -13,7 +13,7 @@ namespace HatchWatch
     {
         #region Private Variables
         private static readonly CommunicationNetwork _instance = new CommunicationNetwork();
-        private readonly IPAddress _controllerIPAddress = IPAddress.Parse("192.168.250.200");
+        private readonly IPAddress _controllerIPAddress = IPAddress.Parse("192.168.250.201");
         private TcpListener _tcpListener = null;
         private TcpClient _tcpClient = null;
         private Thread _listenerThread = null;
