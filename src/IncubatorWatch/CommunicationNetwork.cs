@@ -110,14 +110,18 @@ namespace HatchWatch
         {
             try
             {
-                _tcpClient.GetStream().Close();
-
-                while (_listenerThread.IsAlive)
+                if (_tcpClient != null)
                 {
-                    Thread.Sleep(100);
+                    _tcpClient.GetStream().Close();
+                    _tcpClient.Close();
+                    _tcpClient = null;
                 }
 
-                _listenerThread = null;
+                if (_tcpListener != null)
+                {
+                    _tcpListener.Stop();
+                    _tcpListener = null;
+                }
             }
             catch (Exception ex)
             {
@@ -167,8 +171,17 @@ namespace HatchWatch
             }
             finally
             {
-                _tcpClient.Close();
-                _tcpListener.Stop();
+                if (_tcpClient != null)
+                {
+                    _tcpClient.Close();
+                    _tcpClient = null;
+                }
+
+                if (_tcpListener != null)
+                {
+                    _tcpListener.Stop();
+                    _tcpListener = null;
+                }
             }
         }
 
