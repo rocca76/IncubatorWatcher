@@ -13,7 +13,7 @@ namespace HatchWatch
     {
         #region Private Variables
         private static readonly CommunicationNetwork _instance = new CommunicationNetwork();
-        private readonly IPAddress _controllerIPAddress = IPAddress.Parse("192.168.250.201");
+        private readonly IPAddress _controllerIPAddress = IPAddress.Parse("192.168.0.201");
         private TcpListener _tcpListener = null;
         private TcpClient _tcpClient = null;
         private Thread _listenerThread = null;
@@ -74,7 +74,7 @@ namespace HatchWatch
             {
                 using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp))
                 {
-                    IAsyncResult result = socket.BeginConnect(_controllerIPAddress, 11000, null, null);
+                    IAsyncResult result = socket.BeginConnect(_controllerIPAddress, 11001, null, null);
 
                     bool success = result.AsyncWaitHandle.WaitOne(5000, true);
 
@@ -136,7 +136,7 @@ namespace HatchWatch
         {
             try
             {
-                _tcpListener = new TcpListener(IPAddress.Any, 11000);
+                _tcpListener = new TcpListener(IPAddress.Any, 11001);
                 _tcpListener.Start();
 
                 _tcpClient = _tcpListener.AcceptTcpClient();
