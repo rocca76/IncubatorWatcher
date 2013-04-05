@@ -22,6 +22,7 @@ namespace HatchWatch.Controls
         #region Private Variables
         private IncubatorManager _incubatorManager = new IncubatorManager();
         private BackgroundWorker bw = new BackgroundWorker();
+        private int _controlActivated = 1;
         #endregion
 
         public static DetailedViewModel _instance;
@@ -61,7 +62,12 @@ namespace HatchWatch.Controls
             set { _actuatorButtonText = value; this.OnPropertyChanged("ActuatorButtonText"); }
         }
 
-        
+        private String _controlActivatedButtonText;
+        public String ControlActivatedButtonText
+        {
+            get { return _controlActivatedButtonText; }
+            set { _controlActivatedButtonText = value; this.OnPropertyChanged("ControlActivatedButtonText"); }
+        }        
 
         #region INotifyPropertyChanged members
 
@@ -384,63 +390,80 @@ namespace HatchWatch.Controls
             {
                 _incubatorManager.State = state;
 
-                if (state == ActuatorState.Unknown || state == ActuatorState.Stopped)
+                buttonStartTilt.IsEnabled = !(state == ActuatorState.Paused);
+
+                if (state != ActuatorState.Paused)
                 {
-                    ActuatorButtonText = "Démarrer l'inclinaison";
+                    if (state == ActuatorState.Unknown || state == ActuatorState.Stopped)
+                    {
+                        ActuatorButtonText = "Démarrer l'inclinaison";
+                    }
+                    else
+                    {
+                        ActuatorButtonText = "Arrêter l'inclinaison";
+                    }
+
+                    labelTilt.Content = "[ " + actuatorDuration + " ] ";
+                    labelTilt.Foreground = Brushes.Black;
+                    buttonOpenActuator.IsEnabled = true;
+                    buttonCloseActuator.IsEnabled = true;
+
+                    switch (state)
+                    {
+                        case ActuatorState.Open:
+                            {
+                                labelTilt.Foreground = Brushes.OrangeRed;
+                                labelTilt.Content += "Incliné à gauche";
+                            }
+                            break;
+                        case ActuatorState.Close:
+                            {
+                                labelTilt.Foreground = Brushes.OrangeRed;
+                                labelTilt.Content += "Incliné à droite";
+                            }
+                            break;
+                        case ActuatorState.Opening:
+                            {
+                                labelTilt.Foreground = Brushes.Green;
+                                labelTilt.Content += "Inclinaison vers la gauche...";
+                                buttonOpenActuator.IsEnabled = false;
+                                buttonCloseActuator.IsEnabled = false;
+                            }
+                            break;
+                        case ActuatorState.Closing:
+                            {
+                                labelTilt.Foreground = Brushes.Green;
+                                labelTilt.Content += "Inclinaison vers la droite...";
+                                buttonOpenActuator.IsEnabled = false;
+                                buttonCloseActuator.IsEnabled = false;
+                            }
+                            break;
+                        case ActuatorState.Stopped:
+                            labelTilt.Content += "Inclinaison arrêté";
+                            break;
+                        case ActuatorState.Unknown:
+                            labelTilt.Content += "Inclinaison inconnue";
+                            break;
+                    }
                 }
-                else if (state == ActuatorState.Paused)
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        public void OnUpdateGeneral(bool controlActivated)
+        {
+            try
+            {
+                if (controlActivated == true)
                 {
-                    ActuatorButtonText = "Continuer l'inclinaison";
+                    ControlActivatedButtonText = "Pause";
                 }
                 else
                 {
-                    ActuatorButtonText = "Arrêter l'inclinaison";
-                }
-
-                labelTilt.Content = "[ " + actuatorDuration + " ] ";
-                labelTilt.Foreground = Brushes.Black;
-                buttonOpenActuator.IsEnabled = true;
-                buttonCloseActuator.IsEnabled = true;
-
-                switch (state)
-                {
-                    case ActuatorState.Open:
-                    {
-                        labelTilt.Foreground = Brushes.OrangeRed;
-                        labelTilt.Content += "Incliné à gauche";
-                    }
-                    break;
-                    case ActuatorState.Close:
-                    {
-                        labelTilt.Foreground = Brushes.OrangeRed;
-                        labelTilt.Content += "Incliné à droite";
-                    }
-                    break;
-                    case ActuatorState.Opening:
-                    {
-                      labelTilt.Foreground = Brushes.Green;
-                      labelTilt.Content += "Inclinaison vers la gauche...";
-                      buttonOpenActuator.IsEnabled = false;
-                      buttonCloseActuator.IsEnabled = false;
-                    }
-                    break;
-                    case ActuatorState.Closing:
-                    {
-                      labelTilt.Foreground = Brushes.Green;
-                      labelTilt.Content += "Inclinaison vers la droite...";
-                      buttonOpenActuator.IsEnabled = false;
-                      buttonCloseActuator.IsEnabled = false;
-                    }
-                    break;
-                    case ActuatorState.Stopped:
-                        labelTilt.Content += "Inclinaison arrêté";
-                    break;
-                    case ActuatorState.Unknown:
-                        labelTilt.Content += "Inclinaison inconnue";
-                    break;
-                    case ActuatorState.Paused:
-                        labelTilt.Content += "Inclinaison pausé";
-                    break;
+                    ControlActivatedButtonText = "Continue";
                 }
             }
             catch (Exception ex)
@@ -570,30 +593,13 @@ namespace HatchWatch.Controls
                         _incubatorManager.SendActuatorCommand(ActuatorCommand.Start);
                     }
                 }
-                else if (_incubatorManager.State == ActuatorState.Paused)
-                {
-                    MessageBoxResult result = MessageBox.Show("Voulez-vous continuer l'inclinaison automatique ?", "Inclinaison", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
-
-                    if (result == MessageBoxResult.Yes)
-                    {
-                        _incubatorManager.SendActuatorCommand(ActuatorCommand.Start);
-                    }
-                    else if (result == MessageBoxResult.No)
-                    {
-                        _incubatorManager.SendActuatorCommand(ActuatorCommand.Stop);
-                    }
-                }
                 else
                 {
-                    MessageBoxResult result = MessageBox.Show("Voulez-vous arrêter ?\nNon mettera l'inclinaison en pause", "Inclinaison", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+                    MessageBoxResult result = MessageBox.Show("Voulez-vous arrêter l'inclinaison automatique ?", "Inclinaison", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
 
                     if (result == MessageBoxResult.Yes)
                     {
                         _incubatorManager.SendActuatorCommand(ActuatorCommand.Stop);
-                    }
-                    else if (result == MessageBoxResult.No)
-                    {
-                        _incubatorManager.SendActuatorCommand(ActuatorCommand.Pause);
                     }
                 }
             }
@@ -631,6 +637,30 @@ namespace HatchWatch.Controls
         private void buttonActivatePump_PreviewMouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             _incubatorManager.SendPumpActivate(0);
+        }
+
+        private void buttonPause_Click(object sender, RoutedEventArgs e)
+        {
+            if (_controlActivated == 0)
+            {
+                MessageBoxResult result = MessageBox.Show("Voulez-vous continuer le contrôle ?", "Contrôle Automatique", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    _controlActivated = 1;
+                    _incubatorManager.SendControlActivated(_controlActivated);
+                }
+            }
+            else
+            {
+                MessageBoxResult result = MessageBox.Show("Voulez-vous mettre en pause le contrôle ?", "Contrôle Automatique", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    _controlActivated = 0;
+                    _incubatorManager.SendControlActivated(_controlActivated);
+                }
+            }
         }
     }
 }
