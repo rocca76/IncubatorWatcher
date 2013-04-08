@@ -168,6 +168,7 @@ namespace HatchWatch.Manager
             ActuatorState actuatorState = (ActuatorState)GetData(message, "actuatorstate");
             String actuatorDuration = GetStringData(message, "actuatorduration");
 
+            double motorCurrent = GetData(message, "motorcurrent");
             bool controlActivated = GetBooleanData(message, "controlactivated");
 
             this.IncubatorData.Add(new IncubatorData(DateTime.Now, temperature, relativeHumidity, (int)co2));
@@ -182,7 +183,7 @@ namespace HatchWatch.Manager
 
             DetailedViewModel.Instance.OnUpdateActuatorData(actuatorState, actuatorDuration);
 
-            DetailedViewModel.Instance.OnUpdateGeneral(controlActivated);
+            DetailedViewModel.Instance.OnUpdateGeneral(controlActivated, motorCurrent);
           }
           catch (Exception ex)
           {

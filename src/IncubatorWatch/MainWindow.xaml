@@ -24,7 +24,7 @@
             </TaskbarNotification:TaskbarIcon.ContextMenu>
         </TaskbarNotification:TaskbarIcon>
 
-        <my:DetailedViewModel x:Name="detailedViewModelGadget" Grid.Column="0" Grid.Row="0" Margin="10,10,10,10"/>
+        <my:DetailedViewModel x:Name="detailedViewModelGadget" Grid.Column="0" Grid.Row="0" Margin="5,5,5,0"/>
         
         <StatusBar Grid.Row="1" Background="#FF40B0E0" Visibility="Collapsed">
             <StatusBarItem Grid.Column="0">

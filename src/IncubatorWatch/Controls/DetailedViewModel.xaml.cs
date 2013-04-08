@@ -303,7 +303,7 @@ namespace HatchWatch.Controls
                 if (co2 != double.MaxValue)
                 {
                     double co2Percent = co2 / 10000;
-                    co2Value.Content = co2.ToString() + " ppm" + " | " + co2Percent.ToString("F4") + " %";
+                    co2Value.Content = co2.ToString() + " ppm" + " | " + co2Percent.ToString("F2") + " %";
                 }
 
                 if (targetCO2 != double.MaxValue)
@@ -453,7 +453,7 @@ namespace HatchWatch.Controls
             }
         }
 
-        public void OnUpdateGeneral(bool controlActivated)
+        public void OnUpdateGeneral(bool controlActivated, double motorCurrent)
         {
             try
             {
@@ -465,6 +465,8 @@ namespace HatchWatch.Controls
                 {
                     ControlActivatedButtonText = "Continue";
                 }
+
+                labelCurrentMotor.Content = "Courant du ventilateur: " + motorCurrent.ToString("F2") + " A";
             }
             catch (Exception ex)
             {
